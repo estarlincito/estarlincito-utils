@@ -8,4 +8,4 @@ export { removeKeys } from './remove-keys.js';
 export { formZed } from './form-zed.js';
 export { toSlug } from './to-slug.js';
 export { toURL } from './to-url.js';
-export type { BaseMeta, Meta, Returns } from './metadata.js';
+export type { Website, Article, Book } from './metadata.js';
