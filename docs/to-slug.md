@@ -57,6 +57,6 @@ toSlug('123 456'); // "123-456" (valid but should be reviewed for numeric slugs)
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
 
 **Author:** Estarlin R ([estarlincito.com](https://estarlincito.com))

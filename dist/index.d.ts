@@ -6,3 +6,4 @@ export { pagination } from './pagination.js';
 export { generateMetadata } from './metadata.js';
 export { removeKeys } from './remove-keys.js';
 export { formZed } from './form-zed.js';
+export { toSlug } from './to-slug.js';

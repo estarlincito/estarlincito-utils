@@ -13,14 +13,14 @@
  *    - `public/assets/favicons/shortcut-icon.png`
  */
 export const generateMetadata = (meta) => {
-  return {
-    title: meta.title,
-    description: meta.description,
-    metadataBase: new URL(meta.url.origin),
-    openGraph: meta,
-    icons: {
-      icon: '/assets/favicons/favicon.ico',
-      shortcut: '/assets/favicons/shortcut-icon.png',
-    },
-  };
+    return {
+        title: meta.title,
+        description: meta.description,
+        metadataBase: new URL(meta.url.origin),
+        openGraph: meta,
+        icons: {
+            icon: '/assets/favicons/favicon.ico',
+            shortcut: '/assets/favicons/shortcut-icon.png',
+        },
+    };
 };
