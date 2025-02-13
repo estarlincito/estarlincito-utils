@@ -14,5 +14,4 @@
  *   console.error(error.code); // 'ERR001'
  * }
  */
-declare const handleError: (message: string, code?: string) => never;
-export default handleError;
+export declare const handleError: (message: string, code?: string) => never;

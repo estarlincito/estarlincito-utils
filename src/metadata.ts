@@ -133,7 +133,7 @@ type Meta = WebsiteMeta | BookMeta | ArticleMeta;
  *    - `public/assets/favicons/favicon.ico`
  *    - `public/assets/favicons/shortcut-icon.png`
  */
-const generateMetadata = (meta: Meta) => {
+export const generateMetadata = (meta: Meta) => {
   return {
     title: meta.title,
     description: meta.description,
@@ -145,5 +145,3 @@ const generateMetadata = (meta: Meta) => {
     },
   };
 };
-
-export default generateMetadata;

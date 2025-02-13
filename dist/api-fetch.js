@@ -1,4 +1,4 @@
-import handleError from './handle-error.js';
+import { handleError } from './handle-error.js';
 /**
  * Encodes an object as a URL-encoded query string.
  *
@@ -38,7 +38,7 @@ const urlencoded = (obj) => {
  * const response = await apiFetch(config);
  * console.log(await response.json());
  */
-const apiFetch = async ({ url, body, method, }) => {
+export const apiFetch = async ({ url, body, method, }) => {
     const urlString = url instanceof URL ? url.toString() : url;
     const init = {
         method,
@@ -55,4 +55,3 @@ const apiFetch = async ({ url, body, method, }) => {
     }
     return res;
 };
-export default apiFetch;

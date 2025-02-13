@@ -10,5 +10,4 @@
  * await clipMaster(text);
  * console.log('Text copied to clipboard');
  */
-declare const clipMaster: (text: string) => Promise<void>;
-export default clipMaster;
+export declare const clipMaster: (text: string) => Promise<void>;

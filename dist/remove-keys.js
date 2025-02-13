@@ -16,8 +16,7 @@
  * console.log(filteredObj); // { c: 'foo' }
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const removeKeys = (obj, keys) => {
+export const removeKeys = (obj, keys) => {
     const keysToRemove = Array.isArray(keys) ? keys : [keys];
     return Object.fromEntries(Object.entries(obj).filter(([key]) => !keysToRemove.includes(key)));
 };
-export default removeKeys;

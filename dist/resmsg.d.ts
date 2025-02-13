@@ -7,5 +7,5 @@ type Resmsg = {
     message: string;
     code: 400 | 401 | 404 | 500;
 };
-declare const resmsg: ({ success, message, code }: Resmsg) => Response;
-export default resmsg;
+export declare const resmsg: ({ success, message, code }: Resmsg) => Response;
+export {};

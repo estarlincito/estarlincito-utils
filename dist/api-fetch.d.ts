@@ -32,5 +32,4 @@ export interface RequestConfig {
  * const response = await apiFetch(config);
  * console.log(await response.json());
  */
-declare const apiFetch: ({ url, body, method, }: RequestConfig) => Promise<Response>;
-export default apiFetch;
+export declare const apiFetch: ({ url, body, method, }: RequestConfig) => Promise<Response>;

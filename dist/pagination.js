@@ -21,7 +21,7 @@
  * console.log(result.data); // ['item7']
  * console.log(result.prev.query); // '?page=1'
  */
-const pagination = (page, data = []) => {
+export const pagination = (page, data = []) => {
     const length = data.length;
     const emptyPaginationResult = {
         data: [],
@@ -64,4 +64,3 @@ const pagination = (page, data = []) => {
         length,
     };
 };
-export default pagination;

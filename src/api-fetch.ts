@@ -1,4 +1,4 @@
-import handleError from './handle-error.js';
+import { handleError } from './handle-error.js';
 /**
  * Represents the configuration options for making a request.
  *
@@ -53,7 +53,7 @@ const urlencoded = (obj: string): string | undefined => {
  * const response = await apiFetch(config);
  * console.log(await response.json());
  */
-const apiFetch = async ({
+export const apiFetch = async ({
   url,
   body,
   method,
@@ -75,5 +75,3 @@ const apiFetch = async ({
   }
   return res;
 };
-
-export default apiFetch;

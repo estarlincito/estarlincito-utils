@@ -1,4 +1,4 @@
-import handleError from './handle-error.js';
+import { handleError } from './handle-error.js';
 
 type Name =
   | 'first-name'
@@ -138,7 +138,7 @@ const fiels: Record<Name, Zed> = {
  * console.log(fieldConfig);
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
-const formZed = (name: Name): Zed | undefined => {
+export const formZed = (name: Name): Zed | undefined => {
   const indexOne: string = name[0] as string;
   const title = name
     .replace(indexOne, indexOne.toLocaleUpperCase())
@@ -153,4 +153,4 @@ const formZed = (name: Name): Zed | undefined => {
   return { ...fiel, title };
 };
 
-export default formZed;
+export type mm = typeof formZed;

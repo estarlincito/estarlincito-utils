@@ -17,7 +17,7 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const removeKeys = <T extends Record<string, any>, K extends keyof T>(
+export const removeKeys = <T extends Record<string, any>, K extends keyof T>(
   obj: T,
   keys: K | K[],
 ): Omit<T, K> => {
@@ -27,5 +27,3 @@ const removeKeys = <T extends Record<string, any>, K extends keyof T>(
     Object.entries(obj).filter(([key]) => !keysToRemove.includes(key as K)),
   ) as Omit<T, K>;
 };
-
-export default removeKeys;

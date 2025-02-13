@@ -15,5 +15,4 @@
  * const filteredObj = removeKeys(obj, ['a', 'b']);
  * console.log(filteredObj); // { c: 'foo' }
  */
-declare const removeKeys: <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K | K[]) => Omit<T, K>;
-export default removeKeys;
+export declare const removeKeys: <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K | K[]) => Omit<T, K>;

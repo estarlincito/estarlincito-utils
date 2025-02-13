@@ -68,5 +68,4 @@ export interface PaginationResult<T> {
  * console.log(result.data); // ['item7']
  * console.log(result.prev.query); // '?page=1'
  */
-declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult<T>;
-export default pagination;
+export declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult<T>;

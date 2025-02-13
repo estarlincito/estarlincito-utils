@@ -32,7 +32,6 @@ class AppError extends Error {
  *   console.error(error.code); // 'ERR001'
  * }
  */
-const handleError = (message, code) => {
+export const handleError = (message, code) => {
     throw new AppError(message, code);
 };
-export default handleError;

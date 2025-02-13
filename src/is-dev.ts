@@ -14,7 +14,6 @@
  * const result = isDev(environment);
  * console.log(result); // false
  */
-const isDev = (NODE_ENV: string) => {
+export const isDev = (NODE_ENV: string) => {
   return NODE_ENV === 'development';
 };
-export default isDev;

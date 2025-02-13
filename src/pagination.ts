@@ -67,7 +67,10 @@ export interface PaginationResult<T> {
  * console.log(result.data); // ['item7']
  * console.log(result.prev.query); // '?page=1'
  */
-const pagination = <T>(page: PageType, data: T[] = []): PaginationResult<T> => {
+export const pagination = <T>(
+  page: PageType,
+  data: T[] = [],
+): PaginationResult<T> => {
   const length = data.length;
 
   const emptyPaginationResult: PaginationResult<T> = {
@@ -115,5 +118,3 @@ const pagination = <T>(page: PageType, data: T[] = []): PaginationResult<T> => {
     length,
   };
 };
-
-export default pagination;

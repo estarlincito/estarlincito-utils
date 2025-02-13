@@ -33,8 +33,6 @@ class AppError extends Error {
  *   console.error(error.code); // 'ERR001'
  * }
  */
-const handleError = (message: string, code?: string): never => {
+export const handleError = (message: string, code?: string): never => {
   throw new AppError(message, code);
 };
-
-export default handleError;

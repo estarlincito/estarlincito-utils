@@ -10,8 +10,6 @@
  * await clipMaster(text);
  * console.log('Text copied to clipboard');
  */
-const clipMaster = async (text: string) => {
+export const clipMaster = async (text: string) => {
   await navigator.clipboard.writeText(text);
 };
-
-export default clipMaster;

@@ -1,4 +1,4 @@
-import handleError from './handle-error.js';
+import { handleError } from './handle-error.js';
 /**
  * Represents the field names for the form.
  * @typedef {('first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username')} Name
@@ -92,7 +92,7 @@ const fiels = {
  * console.log(fieldConfig);
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
-const formZed = (name) => {
+export const formZed = (name) => {
     const indexOne = name[0];
     const title = name
         .replace(indexOne, indexOne.toLocaleUpperCase())
@@ -104,4 +104,3 @@ const formZed = (name) => {
     }
     return { ...fiel, title };
 };
-export default formZed;
