@@ -27,21 +27,21 @@ yarn add @estarlincito/utils
 
 ## 🛠 Available Utilities
 
-### 🔹 [apiFetch](/docs/api-fetch)
+### 🔹 [apiFetch](/docs/api-fetch.md)
 
-### 🔹 [clipMaster](/docs/clip-master)
+### 🔹 [clipMaster](/docs/clip-master.md)
 
-### 🔹 [formZed](/docs/form-zed)
+### 🔹 [formZed](/docs/form-zed.md)
 
-### 🔹 [generateMetadata](/docs/metadata)
+### 🔹 [generateMetadata](/docs/metadata.md)
 
-### 🔹 [handleError](/docs/handle-error)
+### 🔹 [handleError](/docs/handle-error.md)
 
-### 🔹 [pagination](/docs/pagination)
+### 🔹 [pagination](/docs/pagination.md)
 
-### 🔹 [isDev](/docs/is-dev)
+### 🔹 [isDev](/docs/is-dev.md)
 
-### 🔹 [removeKeys](/docs/remove-keys)
+### 🔹 [removeKeys](/docs/remove-keys.md)
 
 ## 📝 License
 
