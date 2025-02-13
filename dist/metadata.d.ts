@@ -1,45 +1,45 @@
 export interface Images {
-  url: string;
-  alt: string;
-  width: number | 800;
-  height: number | 600;
+    url: string;
+    alt: string;
+    width: number | 800;
+    height: number | 600;
 }
 export interface BaseMeta {
-  title: string;
-  description: string;
-  url: URL;
-  siteName: string;
-  locale: 'en-US' | string;
-  images: [Images, ...Images[]];
+    title: string;
+    description: string;
+    url: URL;
+    siteName: string;
+    locale: 'en-US' | string;
+    images: [Images, ...Images[]];
 }
 export interface Website extends BaseMeta {
-  type: 'website';
+    type: 'website';
 }
 export interface Book extends BaseMeta {
-  type: 'book';
-  isbn: string;
-  releaseDate: string;
-  tags: [string, ...string[]];
-  authors: [string, ...string[]];
+    type: 'book';
+    isbn: string;
+    releaseDate: string;
+    tags: [string, ...string[]];
+    authors: [string, ...string[]];
 }
 export interface Article extends BaseMeta {
-  section: string;
-  publishedTime: string;
-  modifiedTime: string;
-  audio?: URL;
-  tags: [string, ...string[]];
-  authors: [string, ...string[]];
+    section: string;
+    publishedTime: string;
+    modifiedTime: string;
+    audio?: URL;
+    tags: [string, ...string[]];
+    authors: [string, ...string[]];
 }
 export type Meta = Website | Book | Article;
 export type Returns = {
-  title: string;
-  description: string;
-  metadataBase: URL;
-  openGraph: Meta;
-  icons: {
-    icon: string;
-    shortcut: string;
-  };
+    title: string;
+    description: string;
+    metadataBase: URL;
+    openGraph: Meta;
+    icons: {
+        icon: string;
+        shortcut: string;
+    };
 };
 /**
  * Generates metadata for the given content using the `GenerateMetadata` class.
@@ -119,146 +119,137 @@ export type Returns = {
  * const metadata = GenerateMetadata.article(articleMeta);
  */
 export declare class GenerateMetadata {
-  private static generate;
-  static article(meta: Article): {
-    title: string;
-    description: string;
-    metadataBase: URL;
-    openGraph:
-      | {
-          type: 'website' | 'book' | 'Article';
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          isbn: string;
-          releaseDate: string;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          section: string;
-          publishedTime: string;
-          modifiedTime: string;
-          audio?: URL;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
+    private static generate;
+    static article(meta: Article): {
+        title: string;
+        description: string;
+        metadataBase: URL;
+        openGraph: {
+            type: "website" | "book" | "Article";
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            isbn: string;
+            releaseDate: string;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            section: string;
+            publishedTime: string;
+            modifiedTime: string;
+            audio?: URL;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
         };
-    icons: {
-      icon: string;
-      shortcut: string;
-    };
-  };
-  static website(meta: Website): {
-    title: string;
-    description: string;
-    metadataBase: URL;
-    openGraph:
-      | {
-          type: 'website' | 'book' | 'Article';
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          isbn: string;
-          releaseDate: string;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          section: string;
-          publishedTime: string;
-          modifiedTime: string;
-          audio?: URL;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
+        icons: {
+            icon: string;
+            shortcut: string;
         };
-    icons: {
-      icon: string;
-      shortcut: string;
     };
-  };
-  static book(meta: Book): {
-    title: string;
-    description: string;
-    metadataBase: URL;
-    openGraph:
-      | {
-          type: 'website' | 'book' | 'Article';
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          isbn: string;
-          releaseDate: string;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
-        }
-      | {
-          type: 'website' | 'book' | 'Article';
-          section: string;
-          publishedTime: string;
-          modifiedTime: string;
-          audio?: URL;
-          tags: [string, ...string[]];
-          authors: [string, ...string[]];
-          title: string;
-          description: string;
-          url: URL;
-          siteName: string;
-          locale: 'en-US' | string;
-          images: [Images, ...Images[]];
+    static website(meta: Website): {
+        title: string;
+        description: string;
+        metadataBase: URL;
+        openGraph: {
+            type: "website" | "book" | "Article";
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            isbn: string;
+            releaseDate: string;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            section: string;
+            publishedTime: string;
+            modifiedTime: string;
+            audio?: URL;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
         };
-    icons: {
-      icon: string;
-      shortcut: string;
+        icons: {
+            icon: string;
+            shortcut: string;
+        };
     };
-  };
+    static book(meta: Book): {
+        title: string;
+        description: string;
+        metadataBase: URL;
+        openGraph: {
+            type: "website" | "book" | "Article";
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            isbn: string;
+            releaseDate: string;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        } | {
+            type: "website" | "book" | "Article";
+            section: string;
+            publishedTime: string;
+            modifiedTime: string;
+            audio?: URL;
+            tags: [string, ...string[]];
+            authors: [string, ...string[]];
+            title: string;
+            description: string;
+            url: URL;
+            siteName: string;
+            locale: "en-US" | string;
+            images: [Images, ...Images[]];
+        };
+        icons: {
+            icon: string;
+            shortcut: string;
+        };
+    };
 }
