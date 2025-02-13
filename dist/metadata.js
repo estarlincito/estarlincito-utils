@@ -24,16 +24,3 @@ export const generateMetadata = (meta) => {
     },
   };
 };
-generateMetadata({
-  type: 'book',
-  locale: 'en-US',
-  siteName: 'MyEbook',
-  authors: ['doc.authors'],
-  isbn: 'doc.isbn',
-  releaseDate: 'doc.released',
-  tags: ['doc.tags'],
-  description: 'doc.summary',
-  title: 'doc.title',
-  images: [{ width: 800, height: 600, url: 'doc.cover', alt: 'doc.coverAl' }],
-  url: new URL(`https://myebook.estarlincito.com/ebooks/`),
-});
