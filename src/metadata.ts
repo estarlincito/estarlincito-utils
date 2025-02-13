@@ -137,7 +137,7 @@ export const generateMetadata = (meta: Meta) => {
   return {
     title: meta.title,
     description: meta.description,
-    metadataBase: new URL(meta.url.hostname!),
+    metadataBase: new URL(meta.url.origin),
     openGraph: meta,
     icons: {
       icon: '/assets/favicons/favicon.ico',
@@ -145,3 +145,17 @@ export const generateMetadata = (meta: Meta) => {
     },
   };
 };
+
+generateMetadata({
+  type: 'book',
+  locale: 'en-US',
+  siteName: 'MyEbook',
+  authors: ['doc.authors'],
+  isbn: 'doc.isbn',
+  releaseDate: 'doc.released',
+  tags: ['doc.tags'],
+  description: 'doc.summary',
+  title: 'doc.title',
+  images: [{ width: 800, height: 600, url: 'doc.cover', alt: 'doc.coverAl' }],
+  url: new URL(`https://myebook.estarlincito.com/ebooks/`),
+});
