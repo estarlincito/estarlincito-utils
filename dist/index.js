@@ -8,3 +8,5 @@ export { removeKeys } from './remove-keys.js';
 export { formZed } from './form-zed.js';
 export { toSlug } from './to-slug.js';
 export { toURL } from './to-url.js';
+export { dateFormat } from './date-format.js';
+export { sortByDate } from './sort-date.js';

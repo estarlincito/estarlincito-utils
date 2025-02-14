@@ -152,5 +152,3 @@ export const formZed = (name: Name): Zed | undefined => {
   }
   return { ...fiel, title };
 };
-
-export type mm = typeof formZed;

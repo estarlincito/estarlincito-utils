@@ -98,3 +98,4 @@ export class GenerateMetadata {
         return this.generate(meta, 'book');
     }
 }
+//x and google support and more

@@ -8,4 +8,8 @@ export { removeKeys } from './remove-keys.js';
 export { formZed } from './form-zed.js';
 export { toSlug } from './to-slug.js';
 export { toURL } from './to-url.js';
+export { dateFormat } from './date-format.js';
+export { sortByDate } from './sort-date.js';
+export type { RequestConfig } from './api-fetch.js';
+export type { PageType, LinkType, PaginationResult } from './pagination.js';
 export type { Website, Article, Book } from './metadata.js';

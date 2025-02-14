@@ -31,6 +31,8 @@ yarn add @estarlincito/utils
 
 ### 🔹 [clipMaster](/docs/clip-master.md)
 
+### 🔹 [GenerateMetadata](/docs/metadata.md)
+
 ### 🔹 [formZed](/docs/form-zed.md)
 
 ### 🔹 [generateMetadata](/docs/metadata.md)
@@ -44,6 +46,12 @@ yarn add @estarlincito/utils
 ### 🔹 [removeKeys](/docs/remove-keys.md)
 
 ### 🔹 [toSlug](/docs/to-slug.md)
+
+### 🔹 [sortByDate](/docs/sort-date.md)
+
+### 🔹 [dateFormat](/docs/date-format.md)
+
+### 🔹 [resmsg](/docs/resmsg.md)
 
 ## 📝 License
 

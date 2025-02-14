@@ -4,7 +4,7 @@ export interface Images {
     width: number | 800;
     height: number | 600;
 }
-export interface BaseMeta {
+export interface Website {
     title: string;
     description: string;
     url: URL;
@@ -12,17 +12,13 @@ export interface BaseMeta {
     locale: 'en-US' | string;
     images: [Images, ...Images[]];
 }
-export interface Website extends BaseMeta {
-    type: 'website';
-}
-export interface Book extends BaseMeta {
-    type: 'book';
+export interface Book extends Website {
     isbn: string;
     releaseDate: string;
     tags: [string, ...string[]];
     authors: [string, ...string[]];
 }
-export interface Article extends BaseMeta {
+export interface Article extends Website {
     section: string;
     publishedTime: string;
     modifiedTime: string;
@@ -125,7 +121,7 @@ export declare class GenerateMetadata {
         description: string;
         metadataBase: URL;
         openGraph: {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             title: string;
             description: string;
             url: URL;
@@ -133,7 +129,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             isbn: string;
             releaseDate: string;
             tags: [string, ...string[]];
@@ -145,7 +141,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             section: string;
             publishedTime: string;
             modifiedTime: string;
@@ -169,7 +165,7 @@ export declare class GenerateMetadata {
         description: string;
         metadataBase: URL;
         openGraph: {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             title: string;
             description: string;
             url: URL;
@@ -177,7 +173,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             isbn: string;
             releaseDate: string;
             tags: [string, ...string[]];
@@ -189,7 +185,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             section: string;
             publishedTime: string;
             modifiedTime: string;
@@ -213,7 +209,7 @@ export declare class GenerateMetadata {
         description: string;
         metadataBase: URL;
         openGraph: {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             title: string;
             description: string;
             url: URL;
@@ -221,7 +217,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             isbn: string;
             releaseDate: string;
             tags: [string, ...string[]];
@@ -233,7 +229,7 @@ export declare class GenerateMetadata {
             locale: "en-US" | string;
             images: [Images, ...Images[]];
         } | {
-            type: "website" | "book" | "Article";
+            type: "website" | "Article" | "book";
             section: string;
             publishedTime: string;
             modifiedTime: string;

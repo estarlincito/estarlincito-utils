@@ -14,18 +14,6 @@ export type LinkType = {
  */
 export type PageType = string | undefined;
 /**
- * Represents the ellipsis for pagination, including the previous, current, and next page numbers.
- *
- * @property {number} prev - The previous page number in the pagination sequence.
- * @property {number} curr - The current page number.
- * @property {number} next - The next page number in the pagination sequence.
- */
-export type Ellipsis = {
-    prev: number;
-    curr: number;
-    next: number;
-};
-/**
  * Represents the result of pagination, containing the paginated data and navigation links.
  *
  * @interface PaginationResult
