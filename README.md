@@ -29,6 +29,8 @@ yarn add @estarlincito/utils
 
 ### 🔹 [apiFetch](/docs/api-fetch.md)
 
+### 🔹 [Base64](/docs/base-64.md)
+
 ### 🔹 [clipMaster](/docs/clip-master.md)
 
 ### 🔹 [GenerateMetadata](/docs/metadata.md)

@@ -3,6 +3,7 @@ export { clipMaster } from './clip-master.js';
 export { handleError } from './handle-error.js';
 export { isDev } from './is-dev.js';
 export { pagination } from './pagination.js';
+export { Base64 } from './base-64.js';
 export { GenerateMetadata } from './metadata.js';
 export { removeKeys } from './remove-keys.js';
 export { formZed } from './form-zed.js';

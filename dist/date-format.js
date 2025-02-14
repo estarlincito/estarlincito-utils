@@ -9,12 +9,11 @@
  * console.log(formattedDate); // "Feb 14, 2025"
  */
 export const dateFormat = (publishedAt) => {
-  const date = new Date(publishedAt);
-  const options = {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-  };
-  return date.toLocaleDateString('en-US', options);
+    const date = new Date(publishedAt);
+    const options = {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+    };
+    return date.toLocaleDateString('en-US', options);
 };
-console.log(dateFormat('2025-02-14T10:00:00Z'));

@@ -22,5 +22,4 @@ export interface Zed {
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
 export declare const formZed: (name: Name) => Zed | undefined;
-export type mm = typeof formZed;
 export {};
