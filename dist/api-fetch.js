@@ -38,16 +38,18 @@ const urlencoded = (obj) => {
  * const response = await apiFetch(config);
  * console.log(await response.json());
  */
-export const apiFetch = async ({ url, body, method, }) => {
+export const apiFetch = async ({ url, body, headers, method, }) => {
     const urlString = url instanceof URL ? url.toString() : url;
     const init = {
         method,
         body: body ? urlencoded(body) : undefined,
-        headers: {
-            Accept: '*/*',
-            'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        headers: headers
+            ? headers
+            : {
+                Accept: '*/*',
+                'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
     };
     const res = await fetch(urlString, init);
     if (!res.ok) {

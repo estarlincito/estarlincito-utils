@@ -4,14 +4,14 @@
  * @interface RequestConfig
  * @property {URL | string} url - The URL for the request, which can be a `URL` object or a string.
  * @property {string} [body] - The body of the request, which should be a JSON string (e.g., `JSON.stringify({ 'first-name': 'Estarlin' })`).
- * @property {object} headers - The headers to include in the request.
+ * @property {HeadersInit} headers - The headers to include in the request.
  * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
  */
 export interface RequestConfig {
     url: URL | string;
-    body?: string;
-    headers: object;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    body?: string;
+    headers?: HeadersInit;
 }
 /**
  * Makes an HTTP request using the `fetch` API.
@@ -32,4 +32,4 @@ export interface RequestConfig {
  * const response = await apiFetch(config);
  * console.log(await response.json());
  */
-export declare const apiFetch: ({ url, body, method, }: RequestConfig) => Promise<Response>;
+export declare const apiFetch: ({ url, body, headers, method, }: RequestConfig) => Promise<Response>;

@@ -35,6 +35,8 @@ yarn add @estarlincito/utils
 
 ### 🔹 [GenerateMetadata](/docs/metadata.md)
 
+### 🔹 [Constants](/docs/constants.md)
+
 ### 🔹 [formZed](/docs/form-zed.md)
 
 ### 🔹 [generateMetadata](/docs/metadata.md)

@@ -46,11 +46,11 @@ export type Meta = Website | Book | Article;
 /**
  * Type representing the metadata returned after generation.
  */
-export type Returns = {
+export type Returns<M> = {
   title: string;
   description: string;
   metadataBase: URL;
-  openGraph: Meta;
+  openGraph: M;
   icons: {
     icon: string;
     shortcut: string;
@@ -62,12 +62,12 @@ export type Returns = {
  * Each method generates metadata specific to a content type (website, book, or article).
  */
 export class GenerateMetadata {
-  private static generate(meta: Meta, type: 'website' | 'Article' | 'book') {
+  private static generate<M extends Website, T>(meta: M, type: T): Returns<M> {
     return {
       title: meta.title,
       description: meta.description,
       metadataBase: meta.url,
-      openGraph: { ...meta, type },
+      openGraph: { ...meta, type } as M,
       icons: {
         icon: '/assets/favicons/favicon.ico',
         shortcut: '/assets/favicons/shortcut-icon.png',
@@ -97,7 +97,7 @@ export class GenerateMetadata {
    * const metadata = GenerateMetadata.article(articleMeta);
    */
   static article(meta: Article) {
-    return this.generate(meta, 'Article');
+    return this.generate(meta, 'article' as const);
   }
   /**
    * Generates metadata specifically for a website.
@@ -116,8 +116,9 @@ export class GenerateMetadata {
    * };
    * const metadata = GenerateMetadata.website(websiteMeta);
    */
+
   static website(meta: Website) {
-    return this.generate(meta, 'website');
+    return this.generate(meta, 'website' as const);
   }
 
   /**
@@ -142,7 +143,7 @@ export class GenerateMetadata {
    * const metadata = GenerateMetadata.book(bookMeta);
    */
   static book(meta: Book) {
-    return this.generate(meta, 'book');
+    return this.generate(meta, 'book' as const);
   }
 }
 

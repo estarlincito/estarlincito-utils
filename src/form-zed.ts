@@ -1,6 +1,6 @@
 import { handleError } from './handle-error.js';
 
-type Name =
+export type Name =
   | 'first-name'
   | 'last-name'
   | 'company'
@@ -10,7 +10,7 @@ type Name =
   | 'message'
   | 'username';
 
-type Type =
+export type Type =
   | 'number'
   | 'email'
   | 'password'
