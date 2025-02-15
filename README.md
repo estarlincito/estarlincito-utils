@@ -37,6 +37,8 @@ yarn add @estarlincito/utils
 
 ### 🔹 [Constants](/docs/constants.md)
 
+### 🔹 [ObjectUtils](/docs/object-utils.md)
+
 ### 🔹 [formZed](/docs/form-zed.md)
 
 ### 🔹 [generateMetadata](/docs/metadata.md)
@@ -47,9 +49,9 @@ yarn add @estarlincito/utils
 
 ### 🔹 [isDev](/docs/is-dev.md)
 
-### 🔹 [removeKeys](/docs/remove-keys.md)
-
 ### 🔹 [toSlug](/docs/to-slug.md)
+
+### 🔹 [Copyright](/docs/copyright.md)
 
 ### 🔹 [sortByDate](/docs/sort-date.md)
 

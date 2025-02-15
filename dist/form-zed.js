@@ -20,7 +20,7 @@ import { handleError } from './handle-error.js';
  * The configuration object that contains the details for each field.
  * @type {Record<Name, Zed>}
  */
-const fiels = {
+const fields = {
     'first-name': {
         placeholder: 'Estarlin',
         type: 'text',
@@ -97,10 +97,10 @@ export const formZed = (name) => {
     const title = name
         .replace(indexOne, indexOne.toLocaleUpperCase())
         .replace('-', ' ');
-    const fiel = fiels[name];
-    if (!fiel) {
-        handleError(`${name} was not found in (fiels) /lib/zed.ts`);
+    const field = fields[name];
+    if (!field) {
+        handleError(`${name} was not found in (fields) /lib/zed.ts`);
         return undefined;
     }
-    return { ...fiel, title };
+    return { ...field, title };
 };

@@ -1,18 +1,47 @@
+import { toURL } from './to-url.js';
+
 /**
  * Interface that represents the required metadata for a website or app.
  */
 export interface Data {
-  /** The title of the content */
+  /** The title of the content
+   * @example
+   * 'My Website'
+   */
   title: string;
-  /** The route or URL of the content */
-  route: string | URL;
-  /** A description of the content */
+  /** The route or URL of the content
+   * @example
+   * 'https://example.com/about' or
+   * toURL('https://example.com/about')!
+   */
+  url: string | URL;
+  /** A description of the content
+   * @example
+   * 'Welcome to my website'
+   */
   description: string;
-  /** The locale of the content */
+  /** The locale of the content
+   *  @example
+   * 'en-US'
+   */
   locale: string;
-  /** The site name */
+  /** The site name
+   *  @example
+   * 'ExampleSite'
+   */
   siteName: string;
+  /** The site contents
+   *  @example
+   * ['Look at my blog!', 'I am a person who finds passion in psychology...']
+   */
+  contents?: [string, ...string[]];
 }
+
+export type ConstantsReturn<T extends object> = T & {
+  path: string;
+  url: URL;
+};
+
 /**
  * A utility class for managing constants.
  * The class can be extended with custom data using generics.
@@ -36,7 +65,7 @@ export class Constants<T extends object> {
    * @example
    * const data = Constants.create({
    *   title: 'My Website',
-   *   route: 'https://example.com/home',
+   *   url: 'https://example.com/home',
    *   description: 'Welcome to my website',
    *   locale: 'en-US',
    *   siteName: 'ExampleSite',
@@ -49,7 +78,7 @@ export class Constants<T extends object> {
    *Output:
    *{
    *  title: "My Website",
-   *  route: URL {
+   *  url: URL {
    *    href: "https://example.com/about",
    *    origin: "https://example.com",
    *    protocol: "https:",
@@ -69,15 +98,19 @@ export class Constants<T extends object> {
    *  path: "/about"
    *}
    */
-  static create<T extends object>(
-    data: Data & T,
-  ): Constants<T> & T & { path: string } {
-    if (typeof data.route === 'string') {
-      data.route = new URL(data.route)!;
-    }
+
+  static create<T extends object>(data: Data & T): ConstantsReturn<T> {
+    const urlInstance =
+      typeof data.url === 'string' ? toURL(data.url)! : data.url;
+
     return Object.assign(new Constants<T>(), {
       ...data,
-      path: data.route.pathname,
+      url: urlInstance,
+      path: urlInstance.pathname,
     });
   }
 }
+
+// export const Constants = Object.freeze({
+//   create: _Constants.create,
+// });

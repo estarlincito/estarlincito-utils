@@ -38,7 +38,7 @@ export class GenerateMetadata {
      * const metadata = GenerateMetadata.article(articleMeta);
      */
     static article(meta) {
-        return this.generate(meta, 'Article');
+        return this.generate(meta, 'article');
     }
     /**
      * Generates metadata specifically for a website.

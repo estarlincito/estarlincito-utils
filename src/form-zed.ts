@@ -58,7 +58,7 @@ export interface Zed {
  * The configuration object that contains the details for each field.
  * @type {Record<Name, Zed>}
  */
-const fiels: Record<Name, Zed> = {
+const fields: Record<Name, Zed> = {
   'first-name': {
     placeholder: 'Estarlin',
     type: 'text',
@@ -144,11 +144,11 @@ export const formZed = (name: Name): Zed | undefined => {
     .replace(indexOne, indexOne.toLocaleUpperCase())
     .replace('-', ' ');
 
-  const fiel = fiels[name];
+  const field = fields[name];
 
-  if (!fiel) {
-    handleError(`${name} was not found in (fiels) /lib/zed.ts`);
+  if (!field) {
+    handleError(`${name} was not found in (fields) /lib/zed.ts`);
     return undefined;
   }
-  return { ...fiel, title };
+  return { ...field, title };
 };

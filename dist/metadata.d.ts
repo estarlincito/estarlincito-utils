@@ -45,11 +45,11 @@ export type Meta = Website | Book | Article;
 /**
  * Type representing the metadata returned after generation.
  */
-export type Returns = {
+export type Returns<M> = {
     title: string;
     description: string;
     metadataBase: URL;
-    openGraph: Meta;
+    openGraph: M;
     icons: {
         icon: string;
         shortcut: string;
@@ -83,50 +83,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.article(articleMeta);
      */
-    static article(meta: Article): {
-        title: string;
-        description: string;
-        metadataBase: URL;
-        openGraph: {
-            type: "website" | "Article" | "book";
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            section: string;
-            publishedTime: string;
-            modifiedTime: string;
-            audio?: URL;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        };
-        icons: {
-            icon: string;
-            shortcut: string;
-        };
-    };
+    static article(meta: Article): Returns<Article>;
     /**
      * Generates metadata specifically for a website.
      *
@@ -144,50 +101,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.website(websiteMeta);
      */
-    static website(meta: Website): {
-        title: string;
-        description: string;
-        metadataBase: URL;
-        openGraph: {
-            type: "website" | "Article" | "book";
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            section: string;
-            publishedTime: string;
-            modifiedTime: string;
-            audio?: URL;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        };
-        icons: {
-            icon: string;
-            shortcut: string;
-        };
-    };
+    static website(meta: Website): Returns<Website>;
     /**
      * Generates metadata specifically for a book.
      *
@@ -209,48 +123,5 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.book(bookMeta);
      */
-    static book(meta: Book): {
-        title: string;
-        description: string;
-        metadataBase: URL;
-        openGraph: {
-            type: "website" | "Article" | "book";
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        } | {
-            type: "website" | "Article" | "book";
-            section: string;
-            publishedTime: string;
-            modifiedTime: string;
-            audio?: URL;
-            tags: [string, ...string[]];
-            authors: [string, ...string[]];
-            title: string;
-            description: string;
-            url: URL;
-            siteName: string;
-            locale: "en-US" | string;
-            images: [Images, ...Images[]];
-        };
-        icons: {
-            icon: string;
-            shortcut: string;
-        };
-    };
+    static book(meta: Book): Returns<Book>;
 }

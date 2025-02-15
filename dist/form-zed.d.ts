@@ -1,5 +1,5 @@
-type Name = 'first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username';
-type Type = 'number' | 'email' | 'password' | 'text' | 'tel' | 'hidden' | 'search' | 'time' | 'url' | 'date' | 'datetime-local' | 'month' | 'week' | undefined;
+export type Name = 'first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username';
+export type Type = 'number' | 'email' | 'password' | 'text' | 'tel' | 'hidden' | 'search' | 'time' | 'url' | 'date' | 'datetime-local' | 'month' | 'week' | undefined;
 export interface Zed {
     placeholder: string;
     type: Type;
@@ -22,4 +22,3 @@ export interface Zed {
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
 export declare const formZed: (name: Name) => Zed | undefined;
-export {};

@@ -1,19 +1,12 @@
 /**
  * Checks if the current environment is development.
  *
- * @param NODE_ENV - The environment variable that indicates the current environment (e.g., 'development', 'production').
- * @returns A boolean indicating if the environment is 'development'.
+ * @example
+ * if process.env.NODE_ENV = 'development';
+ * console.log(isDev); // true
  *
  * @example
- * const environment = 'development';
- * const result = isDev(environment);
- * console.log(result); // true
- *
- * @example
- * const environment = 'production';
- * const result = isDev(environment);
- * console.log(result); // false
+ * process.env.NODE_ENV = 'production';
+ * console.log(isDev); // false
  */
-export const isDev = (NODE_ENV) => {
-    return NODE_ENV === 'development';
-};
+export const isDev = process.env.NODE_ENV === 'development';

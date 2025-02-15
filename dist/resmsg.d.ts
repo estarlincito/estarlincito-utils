@@ -16,7 +16,7 @@
  * // Example for error response
  * const errorResponse = resmsg({ success: false, message: 'Not found', code: 404 });
  */
-type Resmsg = {
+export type Resmsg = {
     success: true;
     message: string;
     code: 200;
@@ -26,4 +26,3 @@ type Resmsg = {
     code: 400 | 401 | 404 | 500;
 };
 export declare const resmsg: ({ success, message, code }: Resmsg) => Response;
-export {};
