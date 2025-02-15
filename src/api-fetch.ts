@@ -5,14 +5,15 @@ import { handleError } from './handle-error.js';
  * @interface RequestConfig
  * @property {URL | string} url - The URL for the request, which can be a `URL` object or a string.
  * @property {string} [body] - The body of the request, which should be a JSON string (e.g., `JSON.stringify({ 'first-name': 'Estarlin' })`).
- * @property {object} headers - The headers to include in the request.
+ * @property {HeadersInit} headers - The headers to include in the request.
  * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
  */
 export interface RequestConfig {
   url: URL | string;
-  body?: string;
-  headers: object;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  body?: string;
+  // eslint-disable-next-line no-undef
+  headers?: HeadersInit;
 }
 
 /**
@@ -56,17 +57,21 @@ const urlencoded = (obj: string): string | undefined => {
 export const apiFetch = async ({
   url,
   body,
+  headers,
   method,
 }: RequestConfig): Promise<Response> => {
   const urlString = url instanceof URL ? url.toString() : url;
+
   const init = {
     method,
     body: body ? urlencoded(body) : undefined,
-    headers: {
-      Accept: '*/*',
-      'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    headers: headers
+      ? headers
+      : {
+          Accept: '*/*',
+          'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
   };
 
   const res = await fetch(urlString, init);
