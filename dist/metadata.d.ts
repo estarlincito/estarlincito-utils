@@ -13,7 +13,7 @@ export interface Images {
 export interface Website {
     title: string;
     description: string;
-    url: URL;
+    url: string;
     siteName: string;
     locale: 'en-US' | string;
     images: [Images, ...Images[]];
@@ -71,7 +71,7 @@ export declare class GenerateMetadata {
      * const articleMeta: Article = {
      *   title: 'Example Article Title',
      *   description: 'Description for the article.',
-     *   url: new URL('https://example.com/article'),
+     *   url: 'https://example.com/article',
      *   siteName: 'Example Site',
      *   locale: 'en-US',
      *   images: [{ url: '/assets/image1.jpg', alt: 'Article Image', width: 800, height: 600 }],
@@ -94,7 +94,7 @@ export declare class GenerateMetadata {
      * const websiteMeta: Website = {
      *   title: 'Example Website Title',
      *   description: 'Description for the website.',
-     *   url: new URL('https://example.com/website'),
+     *   url: 'https://example.com/website',
      *   siteName: 'Example Site',
      *   locale: 'en-US',
      *   images: [{ url: '/assets/image1.jpg', alt: 'Website Image', width: 800, height: 600 }],
@@ -112,7 +112,7 @@ export declare class GenerateMetadata {
      * const bookMeta: Book = {
      *   title: 'Example Book Title',
      *   description: 'Description for the book.',
-     *   url: new URL('https://example.com/book'),
+     *   url: 'https://example.com/book',
      *   siteName: 'Example Site',
      *   locale: 'en-US',
      *   images: [{ url: '/assets/image1.jpg', alt: 'Book Cover Image', width: 800, height: 600 }],

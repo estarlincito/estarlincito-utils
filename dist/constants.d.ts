@@ -9,10 +9,9 @@ export interface Data {
     title: string;
     /** The route or URL of the content
      * @example
-     * 'https://example.com/about' or
-     * toURL('https://example.com/about')!
+     * 'https://example.com/about'
      */
-    url: string | URL;
+    url: string;
     /** A description of the content
      * @example
      * 'Welcome to my website'

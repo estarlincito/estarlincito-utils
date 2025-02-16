@@ -55,7 +55,7 @@ export class Constants {
      *}
      */
     static create(data) {
-        const urlInstance = typeof data.url === 'string' ? toURL(data.url) : data.url;
+        const urlInstance = toURL(data.url);
         return Object.assign(new Constants(), {
             ...data,
             url: urlInstance,

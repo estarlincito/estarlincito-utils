@@ -1,17 +1,17 @@
-# ObjectUtils Utility Class
+# ObjectUtils Class
 
-The `ObjectUtils` utility class provides methods for manipulating object keys by allowing retrieval or removal of specified keys.
+The ObjectUtils utility class provides methods for manipulating object keys. You can use it to retrieve or remove specified keys from an object, or freeze an object to make it immutable.
 
 ## 📌 Features
 
-• Allows selective retrieval (`getKeys`) or removal (`removeKeys`) of object properties.  
-• Supports both single key and multiple keys as an array.  
-• Preserves type safety with TypeScript generics.  
-• Returns a new object without modifying the original one.
+• Retrieves or removes specified keys from an object.  
+• Provides methods for freezing an object to make it immutable.  
+• Includes a method to deeply freeze an object to make it read-only.  
+• Ensures immutability by returning frozen objects.
 
 ## 🚀 Installation
 
-To use this utility in your project, you can install it via `pnpm`, `npm`, or `yarn` if packaged as a module.
+To use this utility in your project, you can install it via pnpm, npm, or yarn if packaged as a module.
 
 1. Install the utility:
 
@@ -29,63 +29,53 @@ yarn add @estarlincito/utils
 import { ObjectUtils } from '@estarlincito/utils';
 ```
 
-## ⚡ Usage
+## Usage
 
-The `ObjectUtils` class provides two primary methods:
+The ObjectUtils class provides the following methods:
 
-- `getKeys`: Retrieves the specified keys from an object.
-- `removeKeys`: Removes the specified keys from an object.
+- **getKeys**: Retrieves specified keys from an object.
+- **removeKeys**: Removes specified keys from an object.
+- **create**: Creates a deeply frozen, read-only object.
+- **freeze**: Freezes an object to make it immutable.
 
-### Example 1: Retrieving Specific Keys from an Object
+**Example 1: Retrieving Specific Keys from an Object**
 
 ```ts
-const user = {
-  id: 1,
-  name: 'Estarlin',
-  age: 25,
-  email: 'estarlin@example.com',
-};
-
-const result = ObjectUtils.getKeys(user, ['name', 'email']);
-console.log(result); // Output: { name: 'Estarlin', email: 'estarlin@example.com' }
+const obj = { name: 'Estarlin', age: 25, country: 'USA' };
+const result = ObjectUtils.getKeys(obj, ['name', 'age']);
+console.log(result); // Outputs: { name: "Estarlin", age: 25 }
 ```
 
-### Example 2: Removing Specific Keys from an Object
+**Example 2: Removing Specific Keys from an Object**
 
 ```ts
-const user = {
-  id: 1,
-  name: 'Estarlin',
-  age: 25,
-  email: 'estarlin@example.com',
-};
-
-const result = ObjectUtils.removeKeys(user, ['id', 'age']);
-console.log(result); // Output: { name: 'Estarlin', email: 'estarlin@example.com' }
+const obj = { name: 'Estarlin', age: 25, country: 'USA' };
+const result = ObjectUtils.removeKeys(obj, 'country');
+console.log(result); // Outputs: { name: "Estarlin", age: 25 }
 ```
 
-### Example 3: Handling a Single Key Instead of an Array
+**Example 3: Creating a Deeply Frozen Object**
 
 ```ts
-const user = {
-  id: 1,
-  name: 'Estarlin',
-  age: 25,
-};
-
-const result = ObjectUtils.getKeys(user, 'name');
-console.log(result); // Output: { name: 'Estarlin' }
+const obj = { name: 'Estarlin', age: 25 };
+const frozenObj = ObjectUtils.create(obj);
+console.log(frozenObj.name); // Outputs: "Estarlin"
+frozenObj.name = 'John'; // Error: Cannot assign to 'name' because it is a read-only property
 ```
 
 ## 🛠 How It Works
 
-• The `generate` private method processes the input object and filters its keys based on the provided operation (`get` or `remove`).  
-• The `getKeys` method extracts only the specified keys from an object.  
-• The `removeKeys` method excludes the specified keys from an object.  
-• The class ensures type safety with TypeScript generics, maintaining proper types for the returned objects.
+- The generate method is used to either get or remove keys from an object based on the provided method ('get' or 'remove').
+- The getKeys method retrieves only the specified keys and returns them in a new object.
+- The removeKeys method removes the specified keys from the input object and returns a new object without them.
+- The create method deeply freezes the object, making all of its properties immutable.
+- The freeze method is used to make objects immutable by freezing them.
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+**Author:** Estarlin R ( [estarlincito.com](https://estarlincito.com))
 
-**Author:** Estarlin R ([estarlincito.com](https://estarlincito.com))
+```
+
+```
