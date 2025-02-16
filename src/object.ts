@@ -84,6 +84,6 @@ export class ObjectUtils {
    * frozenObj.name = "John"; // Error: Cannot assign to 'name' because it is a read-only property
    */
   static create = <T extends object>(data: T): Readonly<T> => {
-    return ObjectUtils.freeze(ObjectUtils.freeze(data));
+    return ObjectUtils.freeze(data as T);
   };
 }
