@@ -2,6 +2,7 @@
  * A utility class for encoding and decoding Base64 strings.
  */
 export class Base64 {
+    constructor() { }
     /**
      * Converts a string between different encodings (base64, utf-8).
      *

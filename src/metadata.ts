@@ -6,8 +6,8 @@ import { toURL } from './to-url.js';
 export interface Images {
   url: string;
   alt: string;
-  width: number | 800;
-  height: number | 600;
+  width?: number;
+  height?: number;
 }
 /**
  * Interface for general website metadata.
@@ -64,16 +64,28 @@ export type Returns<M> = {
  * Each method generates metadata specific to a content type (website, book, or article).
  */
 export class GenerateMetadata {
+  private constructor() {}
   private static generate<M extends Website, T>(meta: M, type: T): Returns<M> {
+    const newImages = meta.images.map((image) => {
+      if (!image.height) {
+        image.height = 600;
+      }
+      if (!image.width) {
+        image.width = 800;
+      }
+      return image;
+    }) as typeof meta.images;
+
+    meta.images = newImages;
     return {
-      title: meta.title,
       description: meta.description,
-      metadataBase: toURL(meta.url)!,
-      openGraph: { ...meta, type } as M,
       icons: {
         icon: '/assets/favicons/favicon.ico',
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
+      metadataBase: toURL(meta.url)!,
+      openGraph: { ...meta, type } as M,
+      title: meta.title,
     };
   }
   /**

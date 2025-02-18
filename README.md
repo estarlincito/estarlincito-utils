@@ -37,6 +37,8 @@ yarn add @estarlincito/utils
 
 ### 🔹 [ObjectUtils](/docs/object-utils.md)
 
+### 🔹 [ArrayUtils](/docs/array-utils.md)
+
 ### 🔹 [formZed](/docs/form-zed.md)
 
 ### 🔹 [generateMetadata](/docs/metadata.md)

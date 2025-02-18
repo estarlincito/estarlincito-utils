@@ -4,16 +4,27 @@ import { toURL } from './to-url.js';
  * Each method generates metadata specific to a content type (website, book, or article).
  */
 export class GenerateMetadata {
+    constructor() { }
     static generate(meta, type) {
+        const newImages = meta.images.map((image) => {
+            if (!image.height) {
+                image.height = 600;
+            }
+            if (!image.width) {
+                image.width = 800;
+            }
+            return image;
+        });
+        meta.images = newImages;
         return {
-            title: meta.title,
             description: meta.description,
-            metadataBase: toURL(meta.url),
-            openGraph: { ...meta, type },
             icons: {
                 icon: '/assets/favicons/favicon.ico',
                 shortcut: '/assets/favicons/shortcut-icon.png',
             },
+            metadataBase: toURL(meta.url),
+            openGraph: { ...meta, type },
+            title: meta.title,
         };
     }
     /**

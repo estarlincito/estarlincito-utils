@@ -4,8 +4,8 @@
 export interface Images {
     url: string;
     alt: string;
-    width: number | 800;
-    height: number | 600;
+    width?: number;
+    height?: number;
 }
 /**
  * Interface for general website metadata.
@@ -60,6 +60,7 @@ export type Returns<M> = {
  * Each method generates metadata specific to a content type (website, book, or article).
  */
 export declare class GenerateMetadata {
+    private constructor();
     private static generate;
     /**
      * Generates metadata specifically for an article.

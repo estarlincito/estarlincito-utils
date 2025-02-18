@@ -2,6 +2,7 @@
  * A utility class for manipulating object keys, allowing retrieval or removal of specified keys.
  */
 export class ObjectUtils {
+  private constructor() {}
   /**
    * Generates a new object with either selected or removed keys based on the provided method.
    *

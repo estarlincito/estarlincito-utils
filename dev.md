@@ -15,3 +15,7 @@ git push
 ```bash
 rm -rf dist && pnpm tsc && npm publish --access public
 ```
+
+```bash
+pnpm add /Users/estarlincito/iDev/@estarlincito/packages/utils
+```
