@@ -1,19 +1,19 @@
 # ArrayUtils Class
 
-The `ArrayUtils` utility class provides methods for performing operations on arrays, such as retrieving unique values or grouping objects by a specified key, including support for **nested paths**.
+The `ArrayUtils` utility class provides methods for performing operations on arrays, such as retrieving unique values or grouping objects by a specified key, with support for **nested paths**.
 
 ## 📌 Features
 
-• Retrieves unique objects from an array based on a **specified key**, supporting **nested paths**.  
-• Extracts **unique values** from an array of objects based on a **specified key**.  
-• Maintains **type safety and autocomplete** for both top-level and **nested keys**.  
-• Ensures immutability by returning **new arrays** with unique objects or values.
+✔️ Retrieves **unique objects** from an array based on a **nested key**.  
+✔️ Extracts **distinct values** from an array of objects based on a **specified key**.  
+✔️ Maintains **full TypeScript type safety** and **autocomplete support**.  
+✔️ Ensures **immutability**, returning **new arrays** with unique values.
+
+---
 
 ## 🚀 Installation
 
-To use this utility in your project, you can install it via **pnpm**, **npm**, or **yarn** if packaged as a module.
-
-1. Install the utility:
+You can install this utility using **pnpm**, **npm**, or **yarn**:
 
 ```bash
 pnpm add @estarlincito/utils
@@ -23,39 +23,73 @@ npm install @estarlincito/utils
 yarn add @estarlincito/utils
 ```
 
-2. Import the class in your project:
+Then, import it into your project:
 
 ```ts
 import { ArrayUtils } from '@estarlincito/utils';
 ```
 
-## Usage
+---
 
-The `ArrayUtils` class provides the following methods:
+## 📖 Methods
 
-- **getUniqueByKey**: Returns an array of unique objects based on a specified key (supports **nested paths**).
-- **getUniqueValues**: Extracts unique values from an array of objects based on a specified key.
+### 🔹 `getUniqueByKey<T>(array: T[], groupKey: NestedPaths<T>, ...includeKeys: NestedPaths<T>[])`
 
-### Example 1: Grouping Objects by Key and Including Additional Keys
+Returns an array of **unique objects**, grouped by the specified **nested key**, and includes additional specified keys.
+
+#### ✅ Example: Grouping Objects by a Nested Key
 
 ```ts
 const data = [
-  { id: 1, details: { category: 'Tech' }, url: 'https://example.com/tech' },
-  { id: 2, details: { category: 'Health' }, url: 'https://example.com/health' },
-  { id: 3, details: { category: 'Tech' }, url: 'https://example.com/tech' },
+  {
+    category: 'Tech',
+    url: '/tech',
+    data: { pathnames: { cat: 'alpha', sub: 'beta' } },
+  },
+  {
+    category: 'Health',
+    url: '/health',
+    data: { pathnames: { cat: 'gamma', sub: 'delta' } },
+  },
+  {
+    category: 'Tech',
+    url: '/tech',
+    data: { pathnames: { cat: 'alpha', sub: 'epsilon' } },
+  },
 ];
 
-const result = ArrayUtils.getUniqueByKey(data, 'details:category', 'url');
+// Get unique items by nested category
+const result = ArrayUtils.getUniqueByKey(
+  data,
+  'data:pathnames:cat', // Group by nested category
+  'category', // Include top-level category
+  'url', // Include URL
+);
+
 console.log(result);
 /* Output:
 [
-  { 'details:category': 'Tech', url: 'https://example.com/tech' },
-  { 'details:category': 'Health', url: 'https://example.com/health' }
+  {
+    'data:pathnames:cat': 'alpha',
+    category: 'Tech',
+    url: '/tech'
+  },
+  {
+    'data:pathnames:cat': 'gamma',
+    category: 'Health',
+    url: '/health'
+  }
 ]
 */
 ```
 
-### Example 2: Extracting Unique Values from an Array of Objects
+---
+
+### 🔹 `getUniqueValues<T, K extends keyof T>(array: T[], key: K): T[K][]`
+
+Extracts **unique values** from an array of objects based on a **top-level key**.
+
+#### ✅ Example: Extracting Unique Values
 
 ```ts
 const data = [
@@ -70,13 +104,22 @@ console.log(uniqueCategories);
 // Output: ['Tech', 'Health', 'Education']
 ```
 
+---
+
 ## 🛠 How It Works
 
-- The **`getUniqueByKey`** method **groups objects** by a specified key and includes additional specified keys in the resulting objects.
-  - It supports **nested paths** using **colon (`:`) notation** (e.g., `'details:category'`).
-- The **`getUniqueValues`** method returns an **array of unique values** for a given key, removing duplicates using a `Set`.
+- **`getUniqueByKey`**:
 
-## 📝 License
+  - Groups objects by a **specified key** while **preserving type safety**.
+  - Supports **nested keys** using **colon (`:`) notation** (e.g., `'data:pathnames:cat'`).
+  - Ensures uniqueness by tracking **seen values** and **avoiding duplicates**.
 
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.  
-**Author:** Estarlin R ( [estarlincito.com](https://estarlincito.com))
+- **`getUniqueValues`**:
+  - Extracts unique values for a **single key**, removing duplicates using a `Set`.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](../LICENSE) file for details.  
+👤 **Author:** Estarlin R ( [estarlincito.com](https://estarlincito.com) )

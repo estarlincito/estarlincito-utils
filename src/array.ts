@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type NestedPaths<T> = T extends object
-  ? {
-      [K in keyof T]: K extends string
-        ? `${K}` | (T[K] extends object ? `${K}:${NestedPaths<T[K]>}` : never)
-        : never;
-    }[keyof T]
+type NestedPaths<T, Depth extends any[] = []> = T extends object
+  ? Depth['length'] extends 3
+    ? never
+    : {
+        [K in keyof T]: K extends string
+          ? T[K] extends any[]
+            ? `${K}`
+            : `${K}` | `${K}:${NestedPaths<T[K], [...Depth, any]>}`
+          : never;
+      }[keyof T]
   : never;
 
-type NestedValue<
-  T,
-  P extends NestedPaths<T>,
-> = P extends `${infer K}:${infer Rest}`
+type NestedValue<T, P extends string> = P extends `${infer K}:${infer Rest}`
   ? K extends keyof T
-    ? Rest extends NestedPaths<T[K]>
-      ? NestedValue<T[K], Rest>
-      : never
+    ? NestedValue<T[K], Rest>
     : never
   : P extends keyof T
     ? T[P]
@@ -28,16 +27,49 @@ export class ArrayUtils {
   private constructor() {}
 
   /**
-   * Returns an array of unique objects based on a specified key (supports nested paths).
-   * Maintains type safety and autocomplete for both top-level and nested keys.
+   * Get unique objects by nested keys with full type safety
+   * @example
+   * const data = [
+   *   {
+   *     category: 'Tech',
+   *     url: '/tech',
+   *     data: { pathnames: { cat: 'alpha', sub: 'beta' } }
+   *   },
+   *   {
+   *     category: 'Health',
+   *     url: '/health',
+   *     data: { pathnames: { cat: 'gamma', sub: 'delta' } }
+   *   },
+   *   {
+   *     category: 'Tech',
+   *     url: '/tech',
+   *     data: { pathnames: { cat: 'alpha', sub: 'epsilon' } }
+   *   }
+   * ];
    *
-   * @template T - The type of objects in the array
-   * @template GK - The group key path (supports nested paths using colon syntax)
-   * @template IK - The include key paths (supports nested paths using colon syntax)
-   * @param {T[]} array - The array of objects to process
-   * @param {GK} groupKey - The key path used to determine uniqueness
-   * @param {...IK} includeKeys - Additional key paths to retain in the output
-   * @returns {Array<Record<GK | IK[number], NestedValue<T, GK | IK[number]>>} - Array of unique objects
+   * // Get unique items by nested category
+   * const result = ArrayUtils.getUniqueByKey(
+   *   data,
+   *   'data:pathnames:cat', // Group by nested category
+   *   'category',           // Include top-level category
+   *   'url'                 // Include URL
+   * );
+   *
+   * // Result type: Array<{ 'data:pathnames:cat': string, category: string, url: string }>
+   * console.log(result);
+   * // Output:
+   * // [
+   * //   {
+   * //     'data:pathnames:cat': 'alpha',
+   * //     category: 'Tech',
+   * //     url: '/tech'
+   * //   },
+   * //   {
+   * //     'data:pathnames:cat': 'gamma',
+   * //     category: 'Health',
+   * //     url: '/health'
+   * //   }
+   * // ]
    */
   static getUniqueByKey<
     T extends object,
@@ -48,35 +80,35 @@ export class ArrayUtils {
     groupKey: GK,
     ...includeKeys: IK
   ): Array<Record<GK | IK[number], NestedValue<T, GK | IK[number]>>> {
-    const seen = new Set<PropertyKey>();
+    const seen = new Set<string>();
 
     return array.reduce(
       (acc, obj) => {
-        const getValue = <P extends NestedPaths<T>>(
+        const getNestedValue = <P extends string>(
           path: P,
         ): NestedValue<T, P> => {
           return path.split(':').reduce((acc: any, part) => acc?.[part], obj);
         };
 
-        const groupValue = getValue(groupKey);
-        const compositeKey =
-          typeof groupValue === 'object'
-            ? JSON.stringify(groupValue)
-            : groupValue;
+        const groupValue = getNestedValue(groupKey);
+        const compositeKey = JSON.stringify({
+          [groupKey]: groupValue,
+          ...Object.fromEntries(includeKeys.map((k) => [k, getNestedValue(k)])),
+        });
 
-        if (!seen.has(compositeKey as PropertyKey)) {
-          seen.add(compositeKey as PropertyKey);
-          const newItem = {} as Record<GK | IK[number], any>;
+        if (!seen.has(compositeKey)) {
+          seen.add(compositeKey);
+          const newItem = {} as Record<string, unknown>;
 
-          // Add group key value
+          // Add group key
           newItem[groupKey] = groupValue;
 
           // Add included keys
           includeKeys.forEach((key) => {
-            newItem[key] = getValue(key);
+            newItem[key] = getNestedValue(key);
           });
 
-          acc.push(newItem);
+          acc.push(newItem as (typeof acc)[number]);
         }
 
         return acc;
