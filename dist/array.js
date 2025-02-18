@@ -50,22 +50,20 @@ export class ArrayUtils {
      * @param {T[]} array - The array of objects to process.
      * @param {K} key - The key whose unique values should be returned.
      * @returns {T[K][]} An array of unique values for the specified key.
+     *
+     * @example
+     * const data = [
+     *   { id: 1, category: 'Tech', url: 'https://example.com/tech' },
+     *   { id: 2, category: 'Health', url: 'https://example.com/health' },
+     *   { id: 3, category: 'Tech', url: 'https://example.com/tech' },
+     *   { id: 4, category: 'Education', url: 'https://example.com/education' },
+     * ];
+     *
+     * const uniqueCategories = getUniqueValues(data, 'category');
+     * console.log(uniqueCategories);
+     * // Output: ['Tech', 'Health', 'Education']
      */
     static getUniqueValues = (array, key) => {
         return [...new Set(array.map((item) => item[key]))];
     };
 }
-class MyClass {
-    greet() {
-        return '';
-    }
-    // Static method to simulate object creation without `new`
-    static create(name, value) {
-        const instance = Object.create(MyClass.prototype);
-        instance.name = name;
-        instance.value = value;
-        return instance;
-    }
-}
-Object.freeze(new MyClass());
-Object.freeze(MyClass.prototype);

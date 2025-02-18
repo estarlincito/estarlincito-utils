@@ -13,6 +13,7 @@ export { dateFormat } from './date-format.js';
 export { sortByDate } from './sort-date.js';
 export { resmsg } from './resmsg.js';
 export { copyright } from './copyright.js';
+export { ArrayUtils } from './array.js';
 export type { RequestConfig } from './api-fetch.js';
 export type { PageType, LinkType, PaginationResult } from './pagination.js';
 export type { Website, Article, Book } from './metadata.js';

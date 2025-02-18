@@ -1,16 +1,17 @@
 # ArrayUtils Class
 
-The `ArrayUtils` utility class provides methods for performing operations on arrays, such as retrieving unique values or grouping objects by a specified key.
+The `ArrayUtils` utility class provides methods for performing operations on arrays, such as retrieving unique values or grouping objects by a specified key, including support for **nested paths**.
 
 ## 📌 Features
 
-• Retrieves unique values from an array based on a specified key.  
-• Allows grouping of objects based on a specified key and including additional properties.  
-• Ensures immutability by returning a new array with unique objects or values.
+• Retrieves unique objects from an array based on a **specified key**, supporting **nested paths**.  
+• Extracts **unique values** from an array of objects based on a **specified key**.  
+• Maintains **type safety and autocomplete** for both top-level and **nested keys**.  
+• Ensures immutability by returning **new arrays** with unique objects or values.
 
 ## 🚀 Installation
 
-To use this utility in your project, you can install it via pnpm, npm, or yarn if packaged as a module.
+To use this utility in your project, you can install it via **pnpm**, **npm**, or **yarn** if packaged as a module.
 
 1. Install the utility:
 
@@ -32,25 +33,26 @@ import { ArrayUtils } from '@estarlincito/utils';
 
 The `ArrayUtils` class provides the following methods:
 
-- **getUniqueByKey**: Returns an array of unique objects based on a specified key.
+- **getUniqueByKey**: Returns an array of unique objects based on a specified key (supports **nested paths**).
 - **getUniqueValues**: Extracts unique values from an array of objects based on a specified key.
 
 ### Example 1: Grouping Objects by Key and Including Additional Keys
 
 ```ts
 const data = [
-  { id: 1, category: 'Tech', url: 'https://example.com/tech' },
-  { id: 2, category: 'Health', url: 'https://example.com/health' },
-  { id: 3, category: 'Tech', url: 'https://example.com/tech' },
+  { id: 1, details: { category: 'Tech' }, url: 'https://example.com/tech' },
+  { id: 2, details: { category: 'Health' }, url: 'https://example.com/health' },
+  { id: 3, details: { category: 'Tech' }, url: 'https://example.com/tech' },
 ];
 
-const result = ArrayUtils.getUniqueByKey(data, 'category', 'url');
+const result = ArrayUtils.getUniqueByKey(data, 'details:category', 'url');
 console.log(result);
-// Output:
-// [
-//   { category: 'Tech', url: 'https://example.com/tech' },
-//   { category: 'Health', url: 'https://example.com/health' }
-// ]
+/* Output:
+[
+  { 'details:category': 'Tech', url: 'https://example.com/tech' },
+  { 'details:category': 'Health', url: 'https://example.com/health' }
+]
+*/
 ```
 
 ### Example 2: Extracting Unique Values from an Array of Objects
@@ -70,8 +72,9 @@ console.log(uniqueCategories);
 
 ## 🛠 How It Works
 
-- The **`getUniqueByKey`** method groups objects by a specified key and includes additional specified keys in the resulting objects.
-- The **`getUniqueValues`** method returns an array of unique values for a given key, removing duplicates using a `Set`.
+- The **`getUniqueByKey`** method **groups objects** by a specified key and includes additional specified keys in the resulting objects.
+  - It supports **nested paths** using **colon (`:`) notation** (e.g., `'details:category'`).
+- The **`getUniqueValues`** method returns an **array of unique values** for a given key, removing duplicates using a `Set`.
 
 ## 📝 License
 
