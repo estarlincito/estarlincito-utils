@@ -14,7 +14,6 @@ export { sortByDate } from './sort-date.js';
 export { resmsg } from './resmsg.js';
 export { copyright } from './copyright.js';
 export { ArrayUtils } from './array.js';
-export { YamlUtils } from './yaml.js';
 
 // export { loadDynamic } from './dynamic.js';
 // export { Styled } from './styled.js';

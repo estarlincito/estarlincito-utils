@@ -1,7 +1,7 @@
 {
   "name": "@estarlincito/utils",
   "type": "module",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
