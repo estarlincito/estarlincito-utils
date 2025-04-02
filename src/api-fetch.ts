@@ -12,7 +12,7 @@ export interface RequestConfig {
   url: URL | string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   body?: string;
-  // eslint-disable-next-line no-undef
+
   headers?: HeadersInit;
 }
 
@@ -63,20 +63,17 @@ export const apiFetch = async ({
   const urlString = url instanceof URL ? url.toString() : url;
 
   const init = {
-    method,
     body: body ? urlencoded(body) : undefined,
     headers: headers
       ? headers
       : {
           Accept: '*/*',
-          'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
           'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
         },
+    method,
   };
 
   const res = await fetch(urlString, init);
-  if (!res.ok) {
-    handleError(`HTTP error! status: ${res.status}`);
-  }
   return res;
 };

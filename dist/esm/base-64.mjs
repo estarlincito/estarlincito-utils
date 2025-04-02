@@ -1,10 +1,7 @@
-/**
- * A utility class for encoding and decoding Base64 strings.
- */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class Base64 {
+class a {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  constructor() {
+  }
   /**
    * Converts a string between different encodings (base64, utf-8).
    *
@@ -14,14 +11,9 @@ export class Base64 {
    * @param to - The target encoding type: 'utf-8' or 'base64'.
    * @returns - The encoded or decoded string in the target format.
    */
-  private static generate(
-    value: string,
-    from: 'utf-8' | 'base64',
-    to: 'utf-8' | 'base64',
-  ): string {
-    return Buffer.from(value, from).toString(to);
+  static generate(e, t, r) {
+    return Buffer.from(e, t).toString(r);
   }
-
   /**
    * Encodes a string from UTF-8 to Base64.
    *
@@ -32,10 +24,7 @@ export class Base64 {
    * const encoded = Base64.encode('Hello World');
    * console.log(encoded); // Outputs: "SGVsbG8gV29ybGQ="
    */
-  static encode = (value: string): string => {
-    return this.generate(value, 'utf-8', 'base64');
-  };
-
+  static encode = (e) => this.generate(e, "utf-8", "base64");
   /**
    * Decodes a Base64-encoded string to UTF-8.
    *
@@ -46,7 +35,8 @@ export class Base64 {
    * const decoded = Base64.decode('SGVsbG8gV29ybGQ=');
    * console.log(decoded); // Outputs: "Hello World"
    */
-  static decode = (value: string): string => {
-    return this.generate(value, 'base64', 'utf-8');
-  };
+  static decode = (e) => this.generate(e, "base64", "utf-8");
 }
+export {
+  a as Base64
+};

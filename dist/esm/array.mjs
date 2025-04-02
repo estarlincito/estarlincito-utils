@@ -1,34 +1,7 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-type NestedPaths<T, Depth extends any[] = []> = T extends object
-  ? Depth['length'] extends 3
-    ? never
-    : {
-        [K in keyof T]: K extends string
-          ? T[K] extends any[]
-            ? `${K}`
-            : `${K}` | `${K}:${NestedPaths<T[K], [...Depth, any]>}`
-          : never;
-      }[keyof T]
-  : never;
-
-type NestedValue<T, P extends string> = P extends `${infer K}:${infer Rest}`
-  ? K extends keyof T
-    ? NestedValue<T[K], Rest>
-    : never
-  : P extends keyof T
-  ? T[P]
-  : never;
-
-/**
- * Utility class for array operations.
- * This class cannot be instantiated.
- */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ArrayUtils {
+class d {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
-
+  constructor() {
+  }
   /**
    * Get unique objects by nested keys with full type safety
    * @example
@@ -74,47 +47,23 @@ export class ArrayUtils {
    * //   }
    * // ]
    */
-  static getUniqueByKey<
-    T extends object,
-    GK extends NestedPaths<T>,
-    IK extends NestedPaths<T>[],
-  >(
-    array: T[],
-    groupKey: GK,
-    ...includeKeys: IK
-  ): Record<GK | IK[number], NestedValue<T, GK | IK[number]>>[] {
-    const seen = new Set<string>();
-
-    return array.reduce((acc, obj) => {
-      const getNestedValue = <P extends string>(path: P): NestedValue<T, P> => {
-        return path.split(':').reduce((acc: any, part) => acc?.[part], obj);
-      };
-
-      const groupValue = getNestedValue(groupKey);
-      const compositeKey = JSON.stringify({
-        [groupKey]: groupValue,
-        ...Object.fromEntries(includeKeys.map((k) => [k, getNestedValue(k)])),
+  static getUniqueByKey(n, e, ...s) {
+    const a = /* @__PURE__ */ new Set();
+    return n.reduce((o, l) => {
+      const c = (t) => t.split(":").reduce((r, m) => r?.[m], l), u = c(e), i = JSON.stringify({
+        [e]: u,
+        ...Object.fromEntries(s.map((t) => [t, c(t)]))
       });
-
-      if (!seen.has(compositeKey)) {
-        seen.add(compositeKey);
-        const newItem = {} as Record<string, unknown>;
-
-        // Add group key
-        newItem[groupKey] = groupValue;
-
-        // Add included keys
-        includeKeys.forEach((key) => {
-          newItem[key] = getNestedValue(key);
-        });
-
-        acc.push(newItem as (typeof acc)[number]);
+      if (!a.has(i)) {
+        a.add(i);
+        const t = {};
+        t[e] = u, s.forEach((r) => {
+          t[r] = c(r);
+        }), o.push(t);
       }
-
-      return acc;
-    }, [] as Record<GK | IK[number], any>[]);
+      return o;
+    }, []);
   }
-
   /**
    * Extracts unique values from an array of objects based on a specified key.
    *
@@ -136,10 +85,8 @@ export class ArrayUtils {
    * console.log(uniqueCategories);
    * // Output: ['Tech', 'Health', 'Education']
    */
-  static getUniqueValues = <T, K extends keyof T>(
-    array: T[],
-    key: K,
-  ): T[K][] => {
-    return [...new Set(array.map((item) => item[key]))];
-  };
+  static getUniqueValues = (n, e) => [...new Set(n.map((s) => s[e]))];
 }
+export {
+  d as ArrayUtils
+};

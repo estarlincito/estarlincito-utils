@@ -1,5 +1,3 @@
-import { toURL } from './to-url.js';
-
 /**
  * Interface for image metadata.
  */
@@ -48,7 +46,7 @@ export type Meta = Website | Book | Article;
 /**
  * Type representing the metadata returned after generation.
  */
-export type Returns<M> = {
+export interface Returns<M> {
   title: string;
   description: string;
   metadataBase: URL;
@@ -57,13 +55,15 @@ export type Returns<M> = {
     icon: string;
     shortcut: string;
   };
-};
+}
 
 /**
  * Class for generating metadata for different types of content (website, book, article).
  * Each method generates metadata specific to a content type (website, book, or article).
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class GenerateMetadata {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
   private static generate<M extends Website, T>(meta: M, type: T): Returns<M> {
     const newImages = meta.images.map((image) => {
@@ -83,7 +83,7 @@ export class GenerateMetadata {
         icon: '/assets/favicons/favicon.ico',
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
-      metadataBase: toURL(meta.url)!,
+      metadataBase: new URL(meta.url),
       openGraph: { ...meta, type } as M,
       title: meta.title,
     };

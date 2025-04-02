@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const r=({success:e,message:s,code:t})=>new Response(JSON.stringify({message:s,success:e}),{status:t});exports.resmsg=r;

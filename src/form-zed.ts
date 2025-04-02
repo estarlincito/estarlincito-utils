@@ -59,68 +59,68 @@ export interface Zed {
  * @type {Record<Name, Zed>}
  */
 const fields: Record<Name, Zed> = {
-  'first-name': {
-    placeholder: 'Estarlin',
-    type: 'text',
-    maxLength: 30,
-    minLength: 1,
-    title: '',
-  },
-
-  'last-name': {
-    placeholder: 'R',
-    type: 'text',
-    maxLength: 30,
-    minLength: 1,
-    title: '',
-  },
-
   company: {
-    placeholder: "Estarlincito Support's",
-    type: 'text',
     maxLength: 30,
     minLength: 2,
+    placeholder: "Estarlincito Support's",
     title: '',
-  },
-
-  'phone-number': {
-    placeholder: '123-456-7890',
-    type: 'tel',
-    maxLength: 12,
-    minLength: 10,
-    title: '',
+    type: 'text',
   },
 
   email: {
-    placeholder: 'name@domain.com',
-    type: 'email',
     maxLength: 30,
     minLength: 5,
+    placeholder: 'name@domain.com',
     title: '',
+    type: 'email',
   },
 
-  password: {
-    placeholder: '4ppl3-1Ph0ne',
-    type: 'password',
+  'first-name': {
     maxLength: 30,
-    minLength: 8,
+    minLength: 1,
+    placeholder: 'Estarlin',
     title: '',
+    type: 'text',
+  },
+
+  'last-name': {
+    maxLength: 30,
+    minLength: 1,
+    placeholder: 'R',
+    title: '',
+    type: 'text',
   },
 
   message: {
-    placeholder: 'Enter your message here…',
-    type: 'text',
     maxLength: 1000,
     minLength: 1,
+    placeholder: 'Enter your message here…',
     title: '',
+    type: 'text',
+  },
+
+  password: {
+    maxLength: 30,
+    minLength: 8,
+    placeholder: '4ppl3-1Ph0ne',
+    title: '',
+    type: 'password',
+  },
+
+  'phone-number': {
+    maxLength: 12,
+    minLength: 10,
+    placeholder: '123-456-7890',
+    title: '',
+    type: 'tel',
   },
 
   username: {
-    placeholder: 'estarlincito',
-    type: 'text',
     maxLength: 20,
     minLength: 5,
+    placeholder: 'estarlincito',
     title: '',
+    type: 'text',
   },
 };
 

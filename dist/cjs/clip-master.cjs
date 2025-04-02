@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const t=require("./handle-error.cjs"),e=async r=>{try{await navigator.clipboard.writeText(r)}catch{t.handleError("Failed to copy to clipboard")}};exports.clipMaster=e;

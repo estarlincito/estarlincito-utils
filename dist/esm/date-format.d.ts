@@ -8,12 +8,4 @@
  * const formattedDate = dateFormat('2025-02-14T10:00:00Z');
  * console.log(formattedDate); // "Feb 14, 2025"
  */
-export const dateFormat = (publishedAt: string): string => {
-  const date = new Date(publishedAt);
-  const options: Intl.DateTimeFormatOptions = {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  };
-  return date.toLocaleDateString('en-US', options);
-};
+export declare const dateFormat: (publishedAt: string) => string;

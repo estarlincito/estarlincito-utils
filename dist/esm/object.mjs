@@ -1,10 +1,7 @@
-/**
- * A utility class for manipulating object keys, allowing retrieval or removal of specified keys.
- */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ObjectUtils {
+class t {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  constructor() {
+  }
   /**
    * Generates a new object with either selected or removed keys based on the provided method.
    *
@@ -16,29 +13,17 @@ export class ObjectUtils {
    * @param {'get' | 'remove'} method - The operation to perform, either 'get' to select keys or 'remove' to exclude them.
    * @returns {Pick<T, K> | Omit<T, K>} - A new object with only the specified keys, either selected or removed.
    */
-  private static generate<T extends Record<string, unknown>, K extends keyof T>(
-    obj: T,
-    keys: K | K[],
-    method: 'get' | 'remove',
-  ): Pick<T, K> | Omit<T, K> {
-    const keysArray = Array.isArray(keys) ? keys : [keys];
-
-    if (method === 'get') {
-      return Object.fromEntries(
-        Object.entries(obj).filter(([key]) => keysArray.includes(key as K)),
-      ) as Pick<T, K>;
-    }
-
+  static generate(e, r, c) {
+    const n = Array.isArray(r) ? r : [r];
     return Object.fromEntries(
-      Object.entries(obj).filter(([key]) => !keysArray.includes(key as K)),
-    ) as Omit<T, K>;
+      c === "get" ? Object.entries(e).filter(([s]) => n.includes(s)) : Object.entries(e).filter(([s]) => !n.includes(s))
+    );
   }
   /**
    * Freezes the provided object, making it immutable.
    * @param f - The object to freeze.
    */
   static freeze = Object.freeze;
-
   /**
    * Removes the specified keys from the provided object.
    *
@@ -48,13 +33,9 @@ export class ObjectUtils {
    * @param {K | K[]} keys - The key or array of keys to remove.
    * @returns {Omit<T, K>} - A new object with the specified keys removed.
    */
-  static removeKeys<T extends Record<string, unknown>, K extends keyof T>(
-    obj: T,
-    keys: K | K[],
-  ): Omit<T, K> {
-    return ObjectUtils.freeze(this.generate(obj, keys, 'remove') as Omit<T, K>);
+  static removeKeys(e, r) {
+    return t.freeze(this.generate(e, r, "remove"));
   }
-
   /**
    * Retrieves the specified keys from the provided object.
    *
@@ -65,13 +46,9 @@ export class ObjectUtils {
    * @returns {Pick<T, K>} - A new object with only the specified keys.
    * The returned object is immutable (frozen).
    */
-  static getKeys<T extends Record<string, unknown>, K extends keyof T>(
-    obj: T,
-    keys: K | K[],
-  ): Pick<T, K> {
-    return ObjectUtils.freeze(this.generate(obj, keys, 'get') as Pick<T, K>);
+  static getKeys(e, r) {
+    return t.freeze(this.generate(e, r, "get"));
   }
-
   /**
    * Creates a deeply frozen, read-only object.
    *
@@ -86,7 +63,8 @@ export class ObjectUtils {
    * console.log(frozenObj.name); // "Estarlin"
    * frozenObj.name = "John"; // Error: Cannot assign to 'name' because it is a read-only property
    */
-  static create = <T extends object>(data: T): Readonly<T> => {
-    return ObjectUtils.freeze(data as T);
-  };
+  static create = (e) => t.freeze(e);
 }
+export {
+  t as ObjectUtils
+};
