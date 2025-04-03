@@ -38,7 +38,9 @@ interface Article extends Website {
     tags: [string, ...string[]];
     authors: [string, ...string[]];
 }
-type Type = 'article' | 'website' | 'book';
+interface Type {
+    type: 'article' | 'website' | 'book';
+}
 /**
  * Union type for website, book, and article metadata.
  */
@@ -55,13 +57,19 @@ interface Returns<M> {
         shortcut: string;
     };
 }
-export interface GenerateMetadataTypes<M> {
+type ReturnsWithType<T> = Returns<T & Type>;
+export interface GenerateMetadataTypes {
+    Type: Type;
     Images: Images;
     Website: Website;
     Article: Article;
-    Type: Type;
     Book: Book;
-    Returns: Returns<M>;
+    ReturnsWebsite: ReturnsWithType<Website>;
+    ReturnsArticle: ReturnsWithType<Article>;
+    ReturnsBook: ReturnsWithType<Book>;
+    ReturnsWebsites: ReturnsWithType<Website[]>;
+    ReturnsArticles: ReturnsWithType<Article[]>;
+    ReturnsBooks: ReturnsWithType<Book[]>;
 }
 /**
  * Class for generating metadata for different types of content (website, book, article).
@@ -92,9 +100,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.article(articleMeta);
      */
-    static article(meta: Article): Returns<Article & {
-        type: Type;
-    }>;
+    static article(meta: Article): Returns<Article & Type>;
     /**
      * Generates metadata specifically for a website.
      *
@@ -112,9 +118,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.website(websiteMeta);
      */
-    static website(meta: Website): Returns<Website & {
-        type: Type;
-    }>;
+    static website(meta: Website): Returns<Website & Type>;
     /**
      * Generates metadata specifically for a book.
      *
@@ -136,8 +140,6 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.book(bookMeta);
      */
-    static book(meta: Book): Returns<Book & {
-        type: Type;
-    }>;
+    static book(meta: Book): Returns<Book & Type>;
 }
 export {};

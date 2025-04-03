@@ -38,7 +38,11 @@ interface Article extends Website {
   tags: [string, ...string[]];
   authors: [string, ...string[]];
 }
-type Type = 'article' | 'website' | 'book';
+
+interface Type {
+  type: 'article' | 'website' | 'book';
+}
+
 /**
  * Union type for website, book, and article metadata.
  */
@@ -56,14 +60,20 @@ interface Returns<M> {
     shortcut: string;
   };
 }
+type ReturnsWithType<T> = Returns<T & Type>;
 
-export interface GenerateMetadataTypes<M> {
+export interface GenerateMetadataTypes {
+  Type: Type;
   Images: Images;
   Website: Website;
   Article: Article;
-  Type: Type;
   Book: Book;
-  Returns: Returns<M>;
+  ReturnsWebsite: ReturnsWithType<Website>;
+  ReturnsArticle: ReturnsWithType<Article>;
+  ReturnsBook: ReturnsWithType<Book>;
+  ReturnsWebsites: ReturnsWithType<Website[]>;
+  ReturnsArticles: ReturnsWithType<Article[]>;
+  ReturnsBooks: ReturnsWithType<Book[]>;
 }
 
 /**
@@ -76,8 +86,8 @@ export class GenerateMetadata {
   private constructor() {}
   private static generate<M extends Website>(
     meta: M,
-    type: Type,
-  ): Returns<M & { type: Type }> {
+    type: Type['type'],
+  ): Returns<M & Type> {
     const newImages = meta.images.map((image) => {
       if (!image.height) {
         image.height = 600;
