@@ -1,65 +1,156 @@
+import { z } from 'zod';
 /**
- * Represents a link for pagination, including the query string and a flag indicating whether the pagination should stop.
- *
- * @property {string} query - The query string for the link (e.g., `?page=2`).
- * @property {boolean} stop - A flag indicating whether pagination should stop. If true, no further pages exist.
+ * Represents a pagination link, containing a query string and a stop flag.
  */
-interface LinkType {
+declare const LinkTypeSchema: z.ZodObject<{
+    query: z.ZodString;
+    stop: z.ZodBoolean;
+}, "strip", z.ZodTypeAny, {
     query: string;
     stop: boolean;
-}
+}, {
+    query: string;
+    stop: boolean;
+}>;
+/** Type inferred from `LinkTypeSchema`. */
+type LinkType = z.infer<typeof LinkTypeSchema>;
 /**
  * Represents a page type, which can be either a string (e.g., `'1'`, `'2'`, etc.) or undefined.
  * This is used for pagination to identify the current page.
  */
 type PageType = string | undefined;
 /**
- * Represents the result of pagination, containing the paginated data and navigation links.
- *
- * @interface PaginationResult
- * @template T - The type of the items in the paginated data.
- * @property {T[]} data - The current page's data.
- * @property {LinkType} next - The next page's link and stop flag.
- * @property {LinkType} prev - The previous page's link and stop flag.
- * @property {number} length - The total number of items in the full dataset.
- * @property {number} start - The starting index of the current page's data.
- * @property {number} end - The ending index of the current page's data.
+ * Defines the schema for paginated results.
+ * @template T - The type of items in the paginated data.
  */
-interface PaginationResult<T> {
-    data: T[];
-    next: LinkType;
-    prev: LinkType;
+declare const PaginationResultSchema: <T>() => z.ZodEffects<z.ZodObject<{
+    data: z.ZodArray<z.ZodAny, "many">;
+    end: z.ZodNumber;
+    length: z.ZodNumber;
+    next: z.ZodObject<{
+        query: z.ZodString;
+        stop: z.ZodBoolean;
+    }, "strip", z.ZodTypeAny, {
+        query: string;
+        stop: boolean;
+    }, {
+        query: string;
+        stop: boolean;
+    }>;
+    prev: z.ZodObject<{
+        query: z.ZodString;
+        stop: z.ZodBoolean;
+    }, "strip", z.ZodTypeAny, {
+        query: string;
+        stop: boolean;
+    }, {
+        query: string;
+        stop: boolean;
+    }>;
+    start: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
     length: number;
-    start: number;
+    data: any[];
     end: number;
-}
+    next: {
+        query: string;
+        stop: boolean;
+    };
+    prev: {
+        query: string;
+        stop: boolean;
+    };
+    start: number;
+}, {
+    length: number;
+    data: any[];
+    end: number;
+    next: {
+        query: string;
+        stop: boolean;
+    };
+    prev: {
+        query: string;
+        stop: boolean;
+    };
+    start: number;
+}>, {
+    data: T[];
+    length: number;
+    end: number;
+    next: {
+        query: string;
+        stop: boolean;
+    };
+    prev: {
+        query: string;
+        stop: boolean;
+    };
+    start: number;
+}, {
+    length: number;
+    data: any[];
+    end: number;
+    next: {
+        query: string;
+        stop: boolean;
+    };
+    prev: {
+        query: string;
+        stop: boolean;
+    };
+    start: number;
+}>;
+/**
+ * Type inferred from `PaginationResultSchema`, representing a paginated response.
+ *
+ * @template T - The type of items in the paginated data.
+ */
+type PaginationResult<T> = z.infer<ReturnType<typeof PaginationResultSchema<T>>>;
+/**
+ * Represents pagination-related types.
+ *
+ * @template T - The type of items in the paginated data.
+ */
 export interface PaginationTypes<T> {
+    /** The paginated result containing data and navigation links. */
     PaginationResult: PaginationResult<T>;
+    /** The type representing a page identifier. */
     PageType: PageType;
+    /** The type representing pagination links. */
     LinkType: LinkType;
 }
 /**
- * Paginates an array of data based on the provided page number.
- * It returns a `PaginationResult` object containing the data for the current page and navigation information.
+ * Paginates an array of data based on the given page number.
+ * It returns a `PaginationResult` containing the current page's data and navigation links.
  *
- * @param {PageType} page - The current page number or a string representation of the page.
- * @param {T[]} data - The data to paginate. Defaults to an empty array if no data is provided.
- * @returns {PaginationResult<T>} An object representing the paginated data, including the data for the current page and links to the previous and next pages.
- *
- * @template T - The type of the items in the paginated data.
- *
- * @example
- * const data = ['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7'];
- * const page = 1;
- * const result = pagination(page, data);
- * console.log(result.data); // ['item1', 'item2', 'item3', 'item4', 'item5', 'item6']
- * console.log(result.next.query); // '?page=2'
+ * @template T - The type of items in the paginated data.
+ * @param {PageType} page - The current page number as a string or `undefined` for the first page.
+ * @param {T[]} [data=[]] - The dataset to paginate. Defaults to an empty array.
+ * @returns {PaginationResult<T[]>} A paginated result object containing:
+ *   - `data`: The data for the current page.
+ *   - `next`: The next page's link.
+ *   - `prev`: The previous page's link.
+ *   - `length`: The total number of items.
+ *   - `start`: The starting index of the current page.
+ *   - `end`: The ending index of the current page.
  *
  * @example
- * const page = 2;
+ * ```ts
+ * const data = ["item1", "item2", "item3", "item4", "item5", "item6", "item7"];
+ * const page = "1";
  * const result = pagination(page, data);
- * console.log(result.data); // ['item7']
- * console.log(result.prev.query); // '?page=1'
+ * console.log(result.data); // ["item1", "item2", "item3", "item4", "item5", "item6"]
+ * console.log(result.next.query); // "?page=2"
+ * ```
+ *
+ * @example
+ * ```ts
+ * const page = "2";
+ * const result = pagination(page, data);
+ * console.log(result.data); // ["item7"]
+ * console.log(result.prev.query); // "?page=1"
+ * ```
  */
-export declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult<T>;
+export declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult<T[]>;
 export {};

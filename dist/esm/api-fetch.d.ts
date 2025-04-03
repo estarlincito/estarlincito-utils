@@ -7,12 +7,12 @@
  * @property {HeadersInit} headers - The headers to include in the request.
  * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
  */
-interface RequestConfig {
+type RequestConfig = {
     url: URL | string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: string;
     headers?: HeadersInit;
-}
+};
 export interface ApiFetchTypes {
     RequestConfig: RequestConfig;
 }

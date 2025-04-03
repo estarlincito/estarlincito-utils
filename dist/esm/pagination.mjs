@@ -1,39 +1,53 @@
-const u = (e, n = []) => {
-  const r = n.length, p = {
+import { z as t } from "zod";
+const i = t.object({
+  query: t.string(),
+  stop: t.boolean()
+}), c = () => t.object({
+  data: t.array(t.any()),
+  end: t.number(),
+  length: t.number(),
+  next: i,
+  prev: i,
+  start: t.number()
+}).transform((e) => ({
+  ...e,
+  data: e.data
+})), m = (e, r = []) => {
+  const s = r.length, p = c(), u = p.parse({
     data: [],
     end: 0,
     length: 0,
     next: { query: "#", stop: !0 },
     prev: { query: "#", stop: !0 },
     start: 0
-  };
+  });
   if (!e || isNaN(parseInt(e)))
-    return {
-      data: n.slice(0, 6),
-      end: Math.min(6, n.length),
-      length: r,
-      next: { query: "?page=2", stop: n.length < 6 },
+    return p.parse({
+      data: r.slice(0, 6),
+      end: Math.min(6, r.length),
+      length: s,
+      next: { query: "?page=2", stop: r.length < 6 },
       prev: { query: "#", stop: !0 },
       start: 1
-    };
-  const t = typeof e == "number" ? e : parseInt(e, 10);
-  if (t <= 0) return p;
-  const s = (t - 1) * 6, o = Math.min(s + 6, r);
-  return s >= o ? p : {
-    data: n.slice(s, o),
+    });
+  const n = typeof e == "number" ? e : parseInt(e, 10);
+  if (n <= 0) return u;
+  const a = (n - 1) * 6, o = Math.min(a + 6, s);
+  return a >= o ? u : p.parse({
+    data: r.slice(a, o),
     end: o,
-    length: r,
+    length: s,
     next: {
-      query: `?page=${t + 1}`,
-      stop: o === r
+      query: `?page=${n + 1}`,
+      stop: o === s
     },
     prev: {
-      query: t > 1 ? `?page=${t - 1}` : "#",
-      stop: t <= 1
+      query: n > 1 ? `?page=${n - 1}` : "#",
+      stop: n <= 1
     },
-    start: s + 1
-  };
+    start: a + 1
+  });
 };
 export {
-  u as pagination
+  m as pagination
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { handleError } from './handle-error.js';
 /**
  * Represents the configuration options for making a request.
@@ -8,13 +9,23 @@ import { handleError } from './handle-error.js';
  * @property {HeadersInit} headers - The headers to include in the request.
  * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
  */
-interface RequestConfig {
+type RequestConfig = {
   url: URL | string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   body?: string;
 
   headers?: HeadersInit;
-}
+};
+
+// const RequestSchema = z.object({
+//   body: z.string().optional(),
+//   headers: z
+//     .record(z.string())
+//     .or(z.array(z.tuple([z.string(), z.string()])))
+//     .optional(),
+//   method: z.enum(['GET', 'POST', 'PUT', 'DELETE']),
+//   url: z.string().or(z.instanceof(URL)),
+// });
 
 export interface ApiFetchTypes {
   RequestConfig: RequestConfig;

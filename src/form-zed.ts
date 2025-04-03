@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { handleError } from './handle-error.js';
 
 type Name =
@@ -26,13 +27,13 @@ type Type =
   | 'week'
   | undefined;
 
-interface Zed {
+type Zed = {
   placeholder: string;
   type: Type;
   maxLength: number;
   minLength: number;
   title: string;
-}
+};
 
 /**
  * Represents the field names for the form.

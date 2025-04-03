@@ -1,12 +1,12 @@
 type Name = 'first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username';
 type Type = 'number' | 'email' | 'password' | 'text' | 'tel' | 'hidden' | 'search' | 'time' | 'url' | 'date' | 'datetime-local' | 'month' | 'week' | undefined;
-interface Zed {
+type Zed = {
     placeholder: string;
     type: Type;
     maxLength: number;
     minLength: number;
     title: string;
-}
+};
 export interface FormZedTypes {
     Name: Name;
     Type: Type;

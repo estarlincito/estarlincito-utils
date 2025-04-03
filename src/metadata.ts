@@ -1,79 +1,136 @@
-/**
- * Interface for image metadata.
- */
-interface Images {
-  url: string;
-  alt: string;
-  width?: number;
-  height?: number;
-}
-/**
- * Interface for general website metadata.
- */
-interface Website {
-  title: string;
-  description: string;
-  url: string;
-  siteName: string;
-  locale: 'en-US' | string;
-  images: [Images, ...Images[]];
-}
-/**
- * Interface for book metadata, extends Website metadata.
- */
-interface Book extends Website {
-  isbn: string;
-  releaseDate: string;
-  tags: [string, ...string[]];
-  authors: [string, ...string[]];
-}
-/**
- * Interface for article metadata, extends Website metadata.
- */
-interface Article extends Website {
-  section: string;
-  publishedTime: string;
-  modifiedTime: string;
-  audio?: URL;
-  tags: [string, ...string[]];
-  authors: [string, ...string[]];
-}
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import { z } from 'zod';
 
-interface Type {
+/**
+ * Schema for image metadata.
+ */
+const ImagesSchema = z.object({
+  alt: z.string(),
+  height: z.number().optional(),
+  url: z.string(),
+  width: z.number().optional(),
+});
+
+/**
+ * Types for image metadata.
+ */
+type Images = z.infer<typeof ImagesSchema>;
+
+/**
+ * Schema for general website metadata.
+ */
+const WebsiteSchema = z.object({
+  description: z.string(),
+  images: z.tuple([ImagesSchema]).rest(ImagesSchema),
+  locale: z.string().default('en-US'),
+  siteName: z.string(),
+  title: z.string(),
+  url: z.string(),
+});
+
+/**
+ * Types for general website metadata.
+ */
+type Website = z.infer<typeof WebsiteSchema>;
+
+/**
+ * Schema for book metadata, extending website metadata.
+ */
+const BookSchema = z
+  .object({
+    authors: z.tuple([z.string()]).rest(z.string()),
+    isbn: z.string(),
+    releaseDate: z.string(),
+    tags: z.tuple([z.string()]).rest(z.string()),
+  })
+  .merge(WebsiteSchema);
+
+/**
+ * Types for book metadata, extends Website metadata.
+ */
+type Book = z.infer<typeof BookSchema>;
+
+/**
+ * Schema for article metadata, extending website metadata.
+ */
+const ArticleSchema = z
+  .object({
+    audio: z.string().url().optional(),
+    authors: z.tuple([z.string()]).rest(z.string()),
+    modifiedTime: z.string(),
+    publishedTime: z.string(),
+    section: z.string(),
+    tags: z.tuple([z.string()]).rest(z.string()),
+  })
+  .merge(WebsiteSchema);
+
+/**
+ * Types for article metadata, extends Website metadata.
+ */
+type Article = z.infer<typeof ArticleSchema>;
+
+/** Possible OpenGraph content types. */
+type Type = {
   type: 'article' | 'website' | 'book';
-}
+};
 
 /**
- * Union type for website, book, and article metadata.
+ * OpenGraph metadata schemas for different content types.
  */
-// type Meta = Website | Book | Article;
-/**
- * Type representing the metadata returned after generation.
- */
-interface Returns<M> {
-  title: string;
-  description: string;
-  metadataBase: URL;
-  openGraph: M;
-  icons: {
-    icon: string;
-    shortcut: string;
-  };
-}
-type ReturnsWithType<T> = Returns<T & Type>;
+const OpenGraphSchema = z.object({
+  article: ArticleSchema,
+  book: BookSchema,
+  website: WebsiteSchema,
+});
 
+/**
+ * Types for OpenGraph.
+ */
+type OpenGraph = z.infer<typeof OpenGraphSchema>;
+
+/**
+ * Schema generator for structured metadata.
+ *
+ * @template T - The OpenGraph content type (`'article' | 'website' | 'book'`).
+ * @param {T} type - The type of content for metadata generation.
+ */
+const ReturnsSchema = <T extends Type['type']>(type: T) => {
+  return z.object({
+    description: z.string(),
+    icons: z.object({
+      icon: z.string(),
+      shortcut: z.string(),
+    }),
+    metadataBase: z.instanceof(URL),
+    openGraph: z
+      .object({ type: z.literal(type) })
+      .merge(OpenGraphSchema.shape[type]),
+    title: z.string(),
+  });
+};
+
+/**
+ * Types for Returns.
+ */
+type Returns<T extends Type['type']> = z.infer<
+  ReturnType<typeof ReturnsSchema<T>>
+>;
+
+/**
+ * Types for GenerateMetadataTypes.
+ */
 export interface GenerateMetadataTypes {
   Type: Type;
   Images: Images;
   Website: Website;
   Article: Article;
   Book: Book;
-  ReturnsWebsite: ReturnsWithType<Website>;
-  ReturnsArticle: ReturnsWithType<Article>;
-  ReturnsBook: ReturnsWithType<Book>;
-  ReturnsWebsites: ReturnsWithType<Website[]>;
-  ReturnsArticles: ReturnsWithType<Article[]>;
-  ReturnsBooks: ReturnsWithType<Book[]>;
+  ReturnsWebsite: Returns<'website'>;
+  ReturnsArticle: Returns<'article'>;
+  ReturnsBook: Returns<'book'>;
+  ReturnsWebsites: Returns<'website'>[];
+  ReturnsArticles: Returns<'article'>[];
+  ReturnsBooks: Returns<'book'>[];
 }
 
 /**
@@ -84,11 +141,11 @@ export interface GenerateMetadataTypes {
 export class GenerateMetadata {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
-  private static generate<M extends Website>(
-    meta: M,
-    type: Type['type'],
-  ): Returns<M & Type> {
-    const newImages = meta.images.map((image) => {
+  private static generate<T extends Type['type']>(
+    openGraph: OpenGraph[T],
+    type: T,
+  ): Returns<T> {
+    const newImages = openGraph.images.map((image) => {
       if (!image.height) {
         image.height = 600;
       }
@@ -96,25 +153,20 @@ export class GenerateMetadata {
         image.width = 800;
       }
       return image;
-    }) as typeof meta.images;
+    }) as typeof openGraph.images;
 
-    meta.images = newImages;
+    openGraph.images = newImages;
 
-    let openGraph;
-    if (type === 'article') openGraph = { ...meta, type };
-    if (type === 'book') openGraph = { ...meta, type };
-    openGraph = { ...meta, type };
-
-    return {
-      description: meta.description,
+    return ReturnsSchema(type).parse({
+      description: openGraph.description,
       icons: {
         icon: '/assets/favicons/favicon.ico',
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
-      metadataBase: new URL(meta.url),
-      openGraph,
-      title: meta.title,
-    };
+      metadataBase: new URL(openGraph.url),
+      openGraph: { ...OpenGraphSchema.shape[type].parse(openGraph), type },
+      title: openGraph.title,
+    });
   }
   /**
    * Generates metadata specifically for an article.
