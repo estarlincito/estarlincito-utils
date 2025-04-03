@@ -1,7 +1,7 @@
 /**
  * Interface for image metadata.
  */
-export interface Images {
+interface Images {
     url: string;
     alt: string;
     width?: number;
@@ -10,7 +10,7 @@ export interface Images {
 /**
  * Interface for general website metadata.
  */
-export interface Website {
+interface Website {
     title: string;
     description: string;
     url: string;
@@ -21,7 +21,7 @@ export interface Website {
 /**
  * Interface for book metadata, extends Website metadata.
  */
-export interface Book extends Website {
+interface Book extends Website {
     isbn: string;
     releaseDate: string;
     tags: [string, ...string[]];
@@ -30,7 +30,7 @@ export interface Book extends Website {
 /**
  * Interface for article metadata, extends Website metadata.
  */
-export interface Article extends Website {
+interface Article extends Website {
     section: string;
     publishedTime: string;
     modifiedTime: string;
@@ -41,11 +41,10 @@ export interface Article extends Website {
 /**
  * Union type for website, book, and article metadata.
  */
-export type Meta = Website | Book | Article;
 /**
  * Type representing the metadata returned after generation.
  */
-export interface Returns<M> {
+interface Returns<M> {
     title: string;
     description: string;
     metadataBase: URL;
@@ -54,6 +53,13 @@ export interface Returns<M> {
         icon: string;
         shortcut: string;
     };
+}
+export interface GenerateMetadataTypes<M> {
+    Images: Images;
+    Website: Website;
+    Article: Article;
+    Book: Book;
+    Returns: Returns<M>;
 }
 /**
  * Class for generating metadata for different types of content (website, book, article).
@@ -84,7 +90,13 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.article(articleMeta);
      */
-    static article(meta: Article): Returns<Article>;
+    static article(meta: Article): Returns<(Article & {
+        type: "article";
+    }) | (Article & {
+        type: "book";
+    }) | (Article & {
+        type: "website";
+    })>;
     /**
      * Generates metadata specifically for a website.
      *
@@ -102,7 +114,13 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.website(websiteMeta);
      */
-    static website(meta: Website): Returns<Website>;
+    static website(meta: Website): Returns<(Website & {
+        type: "article";
+    }) | (Website & {
+        type: "book";
+    }) | (Website & {
+        type: "website";
+    })>;
     /**
      * Generates metadata specifically for a book.
      *
@@ -124,5 +142,12 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.book(bookMeta);
      */
-    static book(meta: Book): Returns<Book>;
+    static book(meta: Book): Returns<(Book & {
+        type: "article";
+    }) | (Book & {
+        type: "book";
+    }) | (Book & {
+        type: "website";
+    })>;
 }
+export {};

@@ -1,6 +1,6 @@
 import { handleError } from './handle-error.js';
 
-export type Name =
+type Name =
   | 'first-name'
   | 'last-name'
   | 'company'
@@ -10,7 +10,7 @@ export type Name =
   | 'message'
   | 'username';
 
-export type Type =
+type Type =
   | 'number'
   | 'email'
   | 'password'
@@ -26,7 +26,7 @@ export type Type =
   | 'week'
   | undefined;
 
-export interface Zed {
+interface Zed {
   placeholder: string;
   type: Type;
   maxLength: number;
@@ -124,6 +124,11 @@ const fields: Record<Name, Zed> = {
   },
 };
 
+export interface FormZedTypes {
+  Name: Name;
+  Type: Type;
+  Zed: Zed;
+}
 /**
  * Retrieves the configuration for a specific form field based on the field's name.
  * The field name must match one of the predefined names (e.g., 'first-name', 'last-name', etc.).

@@ -1,7 +1,7 @@
 /**
  * Interface for image metadata.
  */
-export interface Images {
+interface Images {
   url: string;
   alt: string;
   width?: number;
@@ -10,7 +10,7 @@ export interface Images {
 /**
  * Interface for general website metadata.
  */
-export interface Website {
+interface Website {
   title: string;
   description: string;
   url: string;
@@ -21,7 +21,7 @@ export interface Website {
 /**
  * Interface for book metadata, extends Website metadata.
  */
-export interface Book extends Website {
+interface Book extends Website {
   isbn: string;
   releaseDate: string;
   tags: [string, ...string[]];
@@ -30,7 +30,7 @@ export interface Book extends Website {
 /**
  * Interface for article metadata, extends Website metadata.
  */
-export interface Article extends Website {
+interface Article extends Website {
   section: string;
   publishedTime: string;
   modifiedTime: string;
@@ -42,11 +42,11 @@ export interface Article extends Website {
 /**
  * Union type for website, book, and article metadata.
  */
-export type Meta = Website | Book | Article;
+// type Meta = Website | Book | Article;
 /**
  * Type representing the metadata returned after generation.
  */
-export interface Returns<M> {
+interface Returns<M> {
   title: string;
   description: string;
   metadataBase: URL;
@@ -57,6 +57,14 @@ export interface Returns<M> {
   };
 }
 
+export interface GenerateMetadataTypes<M> {
+  Images: Images;
+  Website: Website;
+  Article: Article;
+  Book: Book;
+  Returns: Returns<M>;
+}
+
 /**
  * Class for generating metadata for different types of content (website, book, article).
  * Each method generates metadata specific to a content type (website, book, or article).
@@ -65,7 +73,14 @@ export interface Returns<M> {
 export class GenerateMetadata {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
-  private static generate<M extends Website, T>(meta: M, type: T): Returns<M> {
+  private static generate<M extends Website>(
+    meta: M,
+    type: 'article' | 'website' | 'book',
+  ): Returns<
+    | (M & { type: 'article' })
+    | (M & { type: 'book' })
+    | (M & { type: 'website' })
+  > {
     const newImages = meta.images.map((image) => {
       if (!image.height) {
         image.height = 600;
@@ -77,6 +92,12 @@ export class GenerateMetadata {
     }) as typeof meta.images;
 
     meta.images = newImages;
+
+    let openGraph;
+    if (type === 'article') openGraph = { ...meta, type };
+    if (type === 'book') openGraph = { ...meta, type };
+    openGraph = { ...meta, type };
+
     return {
       description: meta.description,
       icons: {
@@ -84,7 +105,7 @@ export class GenerateMetadata {
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
       metadataBase: new URL(meta.url),
-      openGraph: { ...meta, type } as M,
+      openGraph,
       title: meta.title,
     };
   }
@@ -111,7 +132,7 @@ export class GenerateMetadata {
    * const metadata = GenerateMetadata.article(articleMeta);
    */
   static article(meta: Article) {
-    return this.generate(meta, 'article' as const);
+    return this.generate(meta, 'article');
   }
   /**
    * Generates metadata specifically for a website.
@@ -132,7 +153,7 @@ export class GenerateMetadata {
    */
 
   static website(meta: Website) {
-    return this.generate(meta, 'website' as const);
+    return this.generate(meta, 'website');
   }
 
   /**
@@ -157,7 +178,7 @@ export class GenerateMetadata {
    * const metadata = GenerateMetadata.book(bookMeta);
    */
   static book(meta: Book) {
-    return this.generate(meta, 'book' as const);
+    return this.generate(meta, 'book');
   }
 }
 

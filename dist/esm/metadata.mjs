@@ -1,17 +1,19 @@
-class n {
+class c {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
   }
-  static generate(t, s) {
-    const i = t.images.map((e) => (e.height || (e.height = 600), e.width || (e.width = 800), e));
-    return t.images = i, {
+  static generate(t, e) {
+    const r = t.images.map((i) => (i.height || (i.height = 600), i.width || (i.width = 800), i));
+    t.images = r;
+    let s;
+    return e === "article" && (s = { ...t, type: e }), e === "book" && (s = { ...t, type: e }), s = { ...t, type: e }, {
       description: t.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
         shortcut: "/assets/favicons/shortcut-icon.png"
       },
       metadataBase: new URL(t.url),
-      openGraph: { ...t, type: s },
+      openGraph: s,
       title: t.title
     };
   }
@@ -86,5 +88,5 @@ class n {
   }
 }
 export {
-  n as GenerateMetadata
+  c as GenerateMetadata
 };

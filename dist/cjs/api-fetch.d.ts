@@ -7,11 +7,14 @@
  * @property {HeadersInit} headers - The headers to include in the request.
  * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
  */
-export interface RequestConfig {
+interface RequestConfig {
     url: URL | string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: string;
     headers?: HeadersInit;
+}
+export interface ApiFetchTypes {
+    RequestConfig: RequestConfig;
 }
 /**
  * Makes an HTTP request using the `fetch` API.
@@ -33,3 +36,4 @@ export interface RequestConfig {
  * console.log(await response.json());
  */
 export declare const apiFetch: ({ url, body, headers, method, }: RequestConfig) => Promise<Response>;
+export {};

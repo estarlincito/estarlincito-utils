@@ -1,11 +1,16 @@
-export type Name = 'first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username';
-export type Type = 'number' | 'email' | 'password' | 'text' | 'tel' | 'hidden' | 'search' | 'time' | 'url' | 'date' | 'datetime-local' | 'month' | 'week' | undefined;
-export interface Zed {
+type Name = 'first-name' | 'last-name' | 'company' | 'phone-number' | 'email' | 'password' | 'message' | 'username';
+type Type = 'number' | 'email' | 'password' | 'text' | 'tel' | 'hidden' | 'search' | 'time' | 'url' | 'date' | 'datetime-local' | 'month' | 'week' | undefined;
+interface Zed {
     placeholder: string;
     type: Type;
     maxLength: number;
     minLength: number;
     title: string;
+}
+export interface FormZedTypes {
+    Name: Name;
+    Type: Type;
+    Zed: Zed;
 }
 /**
  * Retrieves the configuration for a specific form field based on the field's name.
@@ -22,3 +27,4 @@ export interface Zed {
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
 export declare const formZed: (name: Name) => Zed | undefined;
+export {};

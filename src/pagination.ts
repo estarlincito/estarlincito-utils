@@ -4,7 +4,7 @@
  * @property {string} query - The query string for the link (e.g., `?page=2`).
  * @property {boolean} stop - A flag indicating whether pagination should stop. If true, no further pages exist.
  */
-export interface LinkType {
+interface LinkType {
   query: string;
   stop: boolean;
 }
@@ -12,7 +12,7 @@ export interface LinkType {
  * Represents a page type, which can be either a string (e.g., `'1'`, `'2'`, etc.) or undefined.
  * This is used for pagination to identify the current page.
  */
-export type PageType = string | undefined;
+type PageType = string | undefined;
 
 /**
  * Represents the result of pagination, containing the paginated data and navigation links.
@@ -26,13 +26,19 @@ export type PageType = string | undefined;
  * @property {number} start - The starting index of the current page's data.
  * @property {number} end - The ending index of the current page's data.
  */
-export interface PaginationResult<T> {
+interface PaginationResult<T> {
   data: T[];
   next: LinkType;
   prev: LinkType;
   length: number;
   start: number;
   end: number;
+}
+
+export interface PaginationTypes<T> {
+  PaginationResult: PaginationResult<T>;
+  PageType: PageType;
+  LinkType: LinkType;
 }
 
 /**
