@@ -32,9 +32,8 @@ export class Base64 {
    * const encoded = Base64.encode('Hello World');
    * console.log(encoded); // Outputs: "SGVsbG8gV29ybGQ="
    */
-  static encode = (value: string): string => {
-    return this.generate(value, 'utf-8', 'base64');
-  };
+  static encode = (value: string): string =>
+    this.generate(value, 'utf-8', 'base64');
 
   /**
    * Decodes a Base64-encoded string to UTF-8.
@@ -46,7 +45,6 @@ export class Base64 {
    * const decoded = Base64.decode('SGVsbG8gV29ybGQ=');
    * console.log(decoded); // Outputs: "Hello World"
    */
-  static decode = (value: string): string => {
-    return this.generate(value, 'base64', 'utf-8');
-  };
+  static decode = (value: string): string =>
+    this.generate(value, 'base64', 'utf-8');
 }

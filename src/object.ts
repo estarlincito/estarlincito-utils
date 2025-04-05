@@ -86,7 +86,6 @@ export class ObjectUtils {
    * console.log(frozenObj.name); // "Estarlin"
    * frozenObj.name = "John"; // Error: Cannot assign to 'name' because it is a read-only property
    */
-  static create = <T extends object>(data: T): Readonly<T> => {
-    return ObjectUtils.freeze(data as T);
-  };
+  static create = <T extends object>(data: T): Readonly<T> =>
+    ObjectUtils.freeze(data);
 }

@@ -15,10 +15,9 @@
  * const sortedData = sortByDate(data, "date");
  * console.log(sortedData);
  */
-export const sortByDate = <T>(data: T[], key: keyof T): T[] => {
-  return data.sort(
+export const sortByDate = <T>(data: T[], key: keyof T): T[] =>
+  data.sort(
     (a, b) =>
       new Date(b[key] as unknown as string).valueOf() -
       new Date(a[key] as unknown as string).valueOf(),
   );
-};

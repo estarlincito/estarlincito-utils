@@ -15,5 +15,6 @@ export const dateFormat = (publishedAt: string): string => {
     month: 'short',
     year: 'numeric',
   };
+
   return date.toLocaleDateString('en-US', options);
 };

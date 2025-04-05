@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /**
  * Creates a response object with a custom success message and HTTP status code.
  *
@@ -24,9 +25,8 @@ export interface ResmsgTypes {
   Resmsg: Resmsg;
 }
 
-export const resmsg = ({ success, message, code }: Resmsg): Response => {
-  return new Response(JSON.stringify({ message, success }), { status: code });
-};
+export const resmsg = ({ success, message, code }: Resmsg): Response =>
+  new Response(JSON.stringify({ message, success }), { status: code });
 
 // 400 (Bad Request)
 // 404 (Not Found)

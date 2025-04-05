@@ -44,6 +44,7 @@ export interface ApiFetchTypes {
 const urlencoded = (obj: string): string | undefined => {
   try {
     const parsedObj = JSON.parse(obj) as Record<string, string>;
+
     return new URLSearchParams(parsedObj).toString();
   } catch {
     handleError('Invalid JSON string in body');
@@ -79,16 +80,15 @@ export const apiFetch = async ({
 
   const init = {
     body: body ? urlencoded(body) : undefined,
-    headers: headers
-      ? headers
-      : {
-          Accept: '*/*',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
-        },
+    headers: headers ?? {
+      Accept: '*/*',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Estarlincito (https://www.estarlincito.com)',
+    },
     method,
   };
 
   const res = await fetch(urlString, init);
+
   return res;
 };

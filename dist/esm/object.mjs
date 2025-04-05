@@ -13,10 +13,10 @@ class t {
    * @param {'get' | 'remove'} method - The operation to perform, either 'get' to select keys or 'remove' to exclude them.
    * @returns {Pick<T, K> | Omit<T, K>} - A new object with only the specified keys, either selected or removed.
    */
-  static generate(e, r, c) {
-    const n = Array.isArray(r) ? r : [r];
+  static generate(e, r, i) {
+    const c = Array.isArray(r) ? r : [r];
     return Object.fromEntries(
-      c === "get" ? Object.entries(e).filter(([s]) => n.includes(s)) : Object.entries(e).filter(([s]) => !n.includes(s))
+      i === "get" ? Object.entries(e).filter(([s]) => c.includes(s)) : Object.entries(e).filter(([s]) => !c.includes(s))
     );
   }
   /**

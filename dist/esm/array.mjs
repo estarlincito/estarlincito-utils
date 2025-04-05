@@ -47,18 +47,21 @@ class d {
    * //   }
    * // ]
    */
-  static getUniqueByKey(n, e, ...s) {
+  static getUniqueByKey(r, e, ...s) {
     const a = /* @__PURE__ */ new Set();
-    return n.reduce((o, l) => {
-      const c = (t) => t.split(":").reduce((r, m) => r?.[m], l), u = c(e), i = JSON.stringify({
-        [e]: u,
+    return r.reduce((o, l) => {
+      const c = (t) => (
+        // eslint-disable-next-line no-shadow
+        t.split(":").reduce((n, m) => n?.[m], l)
+      ), i = c(e), u = JSON.stringify({
+        [e]: i,
         ...Object.fromEntries(s.map((t) => [t, c(t)]))
       });
-      if (!a.has(i)) {
-        a.add(i);
+      if (!a.has(u)) {
+        a.add(u);
         const t = {};
-        t[e] = u, s.forEach((r) => {
-          t[r] = c(r);
+        t[e] = i, s.forEach((n) => {
+          t[n] = c(n);
         }), o.push(t);
       }
       return o;
@@ -85,7 +88,7 @@ class d {
    * console.log(uniqueCategories);
    * // Output: ['Tech', 'Health', 'Education']
    */
-  static getUniqueValues = (n, e) => [...new Set(n.map((s) => s[e]))];
+  static getUniqueValues = (r, e) => [...new Set(r.map((s) => s[e]))];
 }
 export {
   d as ArrayUtils

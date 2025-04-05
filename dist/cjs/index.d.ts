@@ -1,3 +1,4 @@
+export * from '././num.js';
 export * from './api-fetch.js';
 export * from './array.js';
 export * from './base-64.js';

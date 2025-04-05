@@ -1,53 +1,54 @@
-import { z as t } from "zod";
-const i = t.object({
-  query: t.string(),
-  stop: t.boolean()
-}), c = () => t.object({
-  data: t.array(t.any()),
-  end: t.number(),
-  length: t.number(),
-  next: i,
-  prev: i,
-  start: t.number()
-}).transform((e) => ({
-  ...e,
-  data: e.data
-})), m = (e, r = []) => {
-  const s = r.length, p = c(), u = p.parse({
+import { z as e } from "zod";
+import { num as t } from "./num.mjs";
+const c = e.object({
+  query: e.string(),
+  stop: e.boolean()
+}), m = () => e.object({
+  data: e.array(e.any()),
+  end: e.number(),
+  length: e.number(),
+  next: c,
+  prev: c,
+  start: e.number()
+}).transform((r) => ({
+  ...r,
+  data: r.data
+})), h = (r, s = []) => {
+  const { length: a } = s, u = m(), i = u.parse({
     data: [],
-    end: 0,
-    length: 0,
+    end: t("0"),
+    length: t("0"),
     next: { query: "#", stop: !0 },
     prev: { query: "#", stop: !0 },
-    start: 0
+    start: t("0")
   });
-  if (!e || isNaN(parseInt(e)))
-    return p.parse({
-      data: r.slice(0, 6),
-      end: Math.min(6, r.length),
-      length: s,
-      next: { query: "?page=2", stop: r.length < 6 },
+  if (!r || isNaN(parseInt(r)))
+    return u.parse({
+      data: s.slice(t("0"), t("6")),
+      end: Math.min(t("6"), s.length),
+      length: a,
+      next: { query: "?page=2", stop: s.length < t("6") },
       prev: { query: "#", stop: !0 },
-      start: 1
+      start: t("1")
     });
-  const n = typeof e == "number" ? e : parseInt(e, 10);
-  if (n <= 0) return u;
-  const a = (n - 1) * 6, o = Math.min(a + 6, s);
-  return a >= o ? u : p.parse({
-    data: r.slice(a, o),
-    end: o,
-    length: s,
+  const n = typeof r == "number" ? r : parseInt(r, t("10"));
+  if (n <= t("0")) return i;
+  const o = (n - t("1")) * t("6"), p = Math.min(o + t("6"), a);
+  return o >= p ? i : u.parse({
+    data: s.slice(o, p),
+    end: p,
+    length: a,
     next: {
-      query: `?page=${n + 1}`,
-      stop: o === s
+      query: `?page=${n + t("1")}`,
+      stop: p === a
     },
     prev: {
-      query: n > 1 ? `?page=${n - 1}` : "#",
-      stop: n <= 1
+      query: n > t("1") ? `?page=${n - t("1")}` : "#",
+      stop: n <= t("1")
     },
-    start: a + 1
+    start: o + t("1")
   });
 };
 export {
-  m as pagination
+  h as pagination
 };

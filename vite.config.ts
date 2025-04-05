@@ -12,8 +12,8 @@ const componentFiles = fs
 // Generate entry points dynamically
 const entry = componentFiles.reduce((acc: Record<string, string>, file) => {
   const name = path.basename(file, path.extname(file));
-  acc[name] = path.resolve(dir, file);
-  return acc;
+
+  return { ...acc, [name]: path.resolve(dir, file) };
 }, {});
 
 const dtsPlugin = dts({

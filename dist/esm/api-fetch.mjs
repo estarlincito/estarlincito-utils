@@ -15,7 +15,7 @@ const s = (t) => {
 }) => {
   const o = t instanceof URL ? t.toString() : t, c = {
     body: n ? s(n) : void 0,
-    headers: r || {
+    headers: r ?? {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
       "User-Agent": "Estarlincito (https://www.estarlincito.com)"

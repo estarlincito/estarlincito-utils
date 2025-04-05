@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type NestedPaths<T, Depth extends any[] = []> = T extends object
-  ? Depth['length'] extends 3
+  ? // eslint-disable-next-line no-magic-numbers
+    Depth['length'] extends 3
     ? never
     : {
         [K in keyof T]: K extends string
@@ -86,9 +87,9 @@ export class ArrayUtils {
     const seen = new Set<string>();
 
     return array.reduce((acc, obj) => {
-      const getNestedValue = <P extends string>(path: P): NestedValue<T, P> => {
-        return path.split(':').reduce((acc: any, part) => acc?.[part], obj);
-      };
+      const getNestedValue = <P extends string>(path: P): NestedValue<T, P> =>
+        // eslint-disable-next-line no-shadow
+        path.split(':').reduce((acc: any, part) => acc?.[part], obj);
 
       const groupValue = getNestedValue(groupKey);
       const compositeKey = JSON.stringify({
@@ -139,7 +140,5 @@ export class ArrayUtils {
   static getUniqueValues = <T, K extends keyof T>(
     array: T[],
     key: K,
-  ): T[K][] => {
-    return [...new Set(array.map((item) => item[key]))];
-  };
+  ): T[K][] => [...new Set(array.map((item) => item[key]))];
 }

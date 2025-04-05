@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { z } from 'zod';
 
+import { num } from './num.js';
+
 /**
  * Schema for image metadata.
  */
@@ -87,27 +89,36 @@ const OpenGraphSchema = z.object({
  * Types for OpenGraph.
  */
 type OpenGraph = z.infer<typeof OpenGraphSchema>;
-
+type _Image = {
+  alt: string;
+  url: string;
+  // eslint-disable-next-line no-magic-numbers
+  height: 600;
+  // eslint-disable-next-line no-magic-numbers
+  width: 800;
+};
 /**
  * Schema generator for structured metadata.
  *
  * @template T - The OpenGraph content type (`'article' | 'website' | 'book'`).
  * @param {T} type - The type of content for metadata generation.
  */
-const ReturnsSchema = <T extends Type['type']>(type: T) => {
-  return z.object({
+const ReturnsSchema = <T extends Type['type']>(type: T) =>
+  z.object({
     description: z.string(),
     icons: z.object({
       icon: z.string(),
       shortcut: z.string(),
     }),
     metadataBase: z.instanceof(URL),
-    openGraph: z
-      .object({ type: z.literal(type) })
-      .merge(OpenGraphSchema.shape[type]),
+
+    openGraph: OpenGraphSchema.shape[type].transform((data) => ({
+      ...data,
+      images: data.images as [_Image, ..._Image[]],
+      type: z.literal(type),
+    })),
     title: z.string(),
   });
-};
 
 /**
  * Types for Returns.
@@ -145,17 +156,17 @@ export class GenerateMetadata {
     openGraph: OpenGraph[T],
     type: T,
   ): Returns<T> {
-    const newImages = openGraph.images.map((image) => {
-      if (!image.height) {
-        image.height = 600;
+    const newImages = openGraph.images.map((image, index) => {
+      const updatedImage = { ...image };
+      if (index === 0 && image.height !== undefined) {
+        updatedImage.height = num('600');
       }
-      if (!image.width) {
-        image.width = 800;
-      }
-      return image;
-    }) as typeof openGraph.images;
 
-    openGraph.images = newImages;
+      if (index === 0 && image.width !== undefined) {
+        updatedImage.width = num('800');
+      }
+      return updatedImage;
+    });
 
     return ReturnsSchema(type).parse({
       description: openGraph.description,
@@ -164,7 +175,13 @@ export class GenerateMetadata {
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
       metadataBase: new URL(openGraph.url),
-      openGraph: { ...OpenGraphSchema.shape[type].parse(openGraph), type },
+      openGraph: {
+        ...OpenGraphSchema.shape[type].parse({
+          ...openGraph,
+          images: newImages,
+        }),
+        type,
+      },
       title: openGraph.title,
     });
   }
@@ -241,4 +258,4 @@ export class GenerateMetadata {
   }
 }
 
-//x and google support and more
+// x and google support and more

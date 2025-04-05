@@ -1,7 +1,7 @@
 {
   "name": "@estarlincito/utils",
   "type": "module",
-  "version": "2.4.9",
+  "version": "2.5.0",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
   "types": "./dist/esm/index.d.ts",
   "main": "./dist/esm/index.mjs",
@@ -63,11 +63,11 @@
     "url": "https://github.com/estarlincito/estarlincito-utils/issues"
   },
   "devDependencies": {
-    "@estarlincito/eslint": "^1.8.0",
-    "@types/node": "^22.13.17",
-    "eslint": "^9.23.0",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.4",
+    "@estarlincito/eslint": "^1.8.2",
+    "@types/node": "^22.14.0",
+    "eslint": "^9.24.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.5",
     "vite-plugin-dts": "^4.5.3"
   },
   "pnpm": {

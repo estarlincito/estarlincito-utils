@@ -145,7 +145,7 @@ export interface FormZedTypes {
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
 export const formZed = (name: Name): Zed | undefined => {
-  const indexOne: string = name[0] as string;
+  const indexOne: string = name[0];
   const title = name
     .replace(indexOne, indexOne.toLocaleUpperCase())
     .replace('-', ' ');

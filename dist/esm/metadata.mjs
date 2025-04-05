@@ -1,56 +1,70 @@
 import { z as t } from "zod";
-const a = t.object({
+import { num as c } from "./num.mjs";
+const g = t.object({
   alt: t.string(),
   height: t.number().optional(),
   url: t.string(),
   width: t.number().optional()
-}), n = t.object({
+}), a = t.object({
   description: t.string(),
-  images: t.tuple([a]).rest(a),
+  images: t.tuple([g]).rest(g),
   locale: t.string().default("en-US"),
   siteName: t.string(),
   title: t.string(),
   url: t.string()
-}), g = t.object({
+}), u = t.object({
   authors: t.tuple([t.string()]).rest(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(n), l = t.object({
+}).merge(a), h = t.object({
   audio: t.string().url().optional(),
   authors: t.tuple([t.string()]).rest(t.string()),
   modifiedTime: t.string(),
   publishedTime: t.string(),
   section: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(n), o = t.object({
-  article: l,
-  book: g,
-  website: n
-}), u = (i) => t.object({
+}).merge(a), l = t.object({
+  article: h,
+  book: u,
+  website: a
+}), p = (s) => t.object({
   description: t.string(),
   icons: t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
   metadataBase: t.instanceof(URL),
-  openGraph: t.object({ type: t.literal(i) }).merge(o.shape[i]),
+  openGraph: l.shape[s].transform((e) => ({
+    ...e,
+    images: e.images,
+    type: t.literal(s)
+  })),
   title: t.string()
 });
-class m {
+class f {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
   }
-  static generate(e, r) {
-    const c = e.images.map((s) => (s.height || (s.height = 600), s.width || (s.width = 800), s));
-    return e.images = c, u(r).parse({
+  static generate(e, i) {
+    const m = e.images.map((r, o) => {
+      const n = { ...r };
+      return o === 0 && r.height !== void 0 && (n.height = c("600")), o === 0 && r.width !== void 0 && (n.width = c("800")), n;
+    });
+    return p(i).parse({
       description: e.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
         shortcut: "/assets/favicons/shortcut-icon.png"
       },
       metadataBase: new URL(e.url),
-      openGraph: { ...o.shape[r].parse(e), type: r },
+      openGraph: {
+        ...l.shape[i].parse({
+          ...e,
+          images: m
+        }),
+        type: i
+      },
       title: e.title
     });
   }
@@ -125,5 +139,5 @@ class m {
   }
 }
 export {
-  m as GenerateMetadata
+  f as GenerateMetadata
 };

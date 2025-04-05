@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const o=(t,e)=>t.sort((r,a)=>new Date(a[e]).valueOf()-new Date(r[e]).valueOf());exports.sortByDate=o;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const r=(t,e)=>t.sort((a,o)=>new Date(o[e]).valueOf()-new Date(a[e]).valueOf());exports.sortByDate=r;

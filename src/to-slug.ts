@@ -11,11 +11,10 @@
  * const slug = toSlug('Héllo Wörld!');
  * console.log(slug); // Output: "hello-world"
  */
-export const toSlug = (str: string): string => {
-  return str
+export const toSlug = (str: string): string =>
+  str
     .normalize('NFD') // Remove accents
     .replace(/[\u0300-\u036f]/g, '') // Strip diacritics
     .toLowerCase() // Convert to lowercase
     .replace(/\s+/g, '-') // Replace spaces with dashes
     .replace(/[^a-z0-9-]/g, ''); // Remove special characters
-};
