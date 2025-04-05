@@ -1,7 +1,7 @@
 {
   "name": "@estarlincito/utils",
   "type": "module",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
   "types": "./dist/esm/index.d.ts",
   "main": "./dist/esm/index.mjs",

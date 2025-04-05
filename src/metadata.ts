@@ -115,7 +115,7 @@ const ReturnsSchema = <T extends Type['type']>(type: T) =>
     openGraph: OpenGraphSchema.shape[type].transform((data) => ({
       ...data,
       images: data.images as [_Image, ..._Image[]],
-      type: z.literal(type),
+      type,
     })),
     title: z.string(),
   });

@@ -12,7 +12,7 @@ const g = t.object({
   siteName: t.string(),
   title: t.string(),
   url: t.string()
-}), u = t.object({
+}), l = t.object({
   authors: t.tuple([t.string()]).rest(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
@@ -24,21 +24,21 @@ const g = t.object({
   publishedTime: t.string(),
   section: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), l = t.object({
+}).merge(a), m = t.object({
   article: h,
-  book: u,
+  book: l,
   website: a
-}), p = (s) => t.object({
+}), b = (s) => t.object({
   description: t.string(),
   icons: t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
   metadataBase: t.instanceof(URL),
-  openGraph: l.shape[s].transform((e) => ({
+  openGraph: m.shape[s].transform((e) => ({
     ...e,
     images: e.images,
-    type: t.literal(s)
+    type: s
   })),
   title: t.string()
 });
@@ -47,11 +47,11 @@ class f {
   constructor() {
   }
   static generate(e, i) {
-    const m = e.images.map((r, o) => {
+    const u = e.images.map((r, o) => {
       const n = { ...r };
       return o === 0 && r.height !== void 0 && (n.height = c("600")), o === 0 && r.width !== void 0 && (n.width = c("800")), n;
     });
-    return p(i).parse({
+    return b(i).parse({
       description: e.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
@@ -59,9 +59,9 @@ class f {
       },
       metadataBase: new URL(e.url),
       openGraph: {
-        ...l.shape[i].parse({
+        ...m.shape[i].parse({
           ...e,
-          images: m
+          images: u
         }),
         type: i
       },

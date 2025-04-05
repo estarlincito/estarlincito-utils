@@ -393,7 +393,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         locale?: string | undefined;
     }>, {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -401,7 +401,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: string;
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -413,7 +413,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         tags: [string, ...string[]];
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -528,7 +528,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         locale?: string | undefined;
     }>, {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -536,7 +536,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: string;
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -548,7 +548,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         tags: [string, ...string[]];
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -673,7 +673,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         audio?: string | undefined;
     }>, {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -681,7 +681,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: string;
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -693,7 +693,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         tags: [string, ...string[]];
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -740,7 +740,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
     metadataBase: URL;
     openGraph: {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -748,7 +748,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: string;
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -760,7 +760,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         tags: [string, ...string[]];
     } | {
         images: [_Image, ..._Image[]];
-        type: z.ZodLiteral<T>;
+        type: T;
         url: string;
         title: string;
         description: string;
@@ -903,7 +903,7 @@ export declare class GenerateMetadata {
         metadataBase: URL;
         openGraph: {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"article">;
+            type: "article";
             url: string;
             title: string;
             description: string;
@@ -911,7 +911,7 @@ export declare class GenerateMetadata {
             siteName: string;
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"article">;
+            type: "article";
             url: string;
             title: string;
             description: string;
@@ -923,7 +923,7 @@ export declare class GenerateMetadata {
             tags: [string, ...string[]];
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"article">;
+            type: "article";
             url: string;
             title: string;
             description: string;
@@ -964,7 +964,7 @@ export declare class GenerateMetadata {
         metadataBase: URL;
         openGraph: {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"website">;
+            type: "website";
             url: string;
             title: string;
             description: string;
@@ -972,7 +972,7 @@ export declare class GenerateMetadata {
             siteName: string;
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"website">;
+            type: "website";
             url: string;
             title: string;
             description: string;
@@ -984,7 +984,7 @@ export declare class GenerateMetadata {
             tags: [string, ...string[]];
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"website">;
+            type: "website";
             url: string;
             title: string;
             description: string;
@@ -1029,7 +1029,7 @@ export declare class GenerateMetadata {
         metadataBase: URL;
         openGraph: {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"book">;
+            type: "book";
             url: string;
             title: string;
             description: string;
@@ -1037,7 +1037,7 @@ export declare class GenerateMetadata {
             siteName: string;
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"book">;
+            type: "book";
             url: string;
             title: string;
             description: string;
@@ -1049,7 +1049,7 @@ export declare class GenerateMetadata {
             tags: [string, ...string[]];
         } | {
             images: [_Image, ..._Image[]];
-            type: z.ZodLiteral<"book">;
+            type: "book";
             url: string;
             title: string;
             description: string;
