@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
 
 /**
  * Type that converts a string literal type into a number type.
@@ -33,6 +33,6 @@ export const num = <S extends string>(n: S): ConvertLiteral<S> => {
   try {
     return isNumber.parse(n) as ConvertLiteral<S>;
   } catch {
-    throw handleError('Invalid number');
+    throw throwAppError('Invalid number');
   }
 };

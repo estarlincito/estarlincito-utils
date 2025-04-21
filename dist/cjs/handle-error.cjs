@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});class t extends Error{constructor(r,o){super(r),this.code=o,this.name="AppError"}}const s=(e,r)=>{throw new t(e,r)};exports.handleError=s;

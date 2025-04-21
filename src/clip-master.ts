@@ -1,4 +1,4 @@
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
 
 /**
  * Asynchronously writes text to the clipboard.
@@ -16,6 +16,6 @@ export const clipMaster = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
   } catch {
-    handleError('Failed to copy to clipboard');
+    throwAppError('Failed to copy to clipboard');
   }
 };

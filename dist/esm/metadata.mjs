@@ -1,11 +1,11 @@
 import { z as t } from "zod";
-import { num as c } from "./num.mjs";
+import { num as s } from "./num.mjs";
 const g = t.object({
   alt: t.string(),
   height: t.number().optional(),
   url: t.string(),
   width: t.number().optional()
-}), a = t.object({
+}), o = t.object({
   description: t.string(),
   images: t.tuple([g]).rest(g),
   locale: t.string().default("en-US"),
@@ -17,28 +17,28 @@ const g = t.object({
   isbn: t.string(),
   releaseDate: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), h = t.object({
+}).merge(o), h = t.object({
   audio: t.string().url().optional(),
   authors: t.tuple([t.string()]).rest(t.string()),
   modifiedTime: t.string(),
   publishedTime: t.string(),
   section: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), m = t.object({
+}).merge(o), m = t.object({
   article: h,
   book: l,
-  website: a
-}), b = (s) => t.object({
+  website: o
+}), b = (i) => t.object({
   description: t.string(),
   icons: t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
   metadataBase: t.instanceof(URL),
-  openGraph: m.shape[s].transform((e) => ({
+  openGraph: m.shape[i].transform((e) => ({
     ...e,
     images: e.images,
-    type: s
+    type: i
   })),
   title: t.string()
 });
@@ -46,12 +46,12 @@ class f {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
   }
-  static generate(e, i) {
-    const u = e.images.map((r, o) => {
-      const n = { ...r };
-      return o === 0 && r.height !== void 0 && (n.height = c("600")), o === 0 && r.width !== void 0 && (n.width = c("800")), n;
+  static generate(e, r) {
+    const u = e.images.map((n, c) => {
+      const a = { ...n };
+      return c === s("0") && n.height !== void 0 && (a.height = s("600")), c === s("0") && n.width !== void 0 && (a.width = s("800")), a;
     });
-    return b(i).parse({
+    return b(r).parse({
       description: e.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
@@ -59,11 +59,11 @@ class f {
       },
       metadataBase: new URL(e.url),
       openGraph: {
-        ...m.shape[i].parse({
+        ...m.shape[r].parse({
           ...e,
           images: u
         }),
-        type: i
+        type: r
       },
       title: e.title
     });

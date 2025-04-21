@@ -1,4 +1,4 @@
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
 
 /**
  * Converts a string into a `URL` object.
@@ -22,6 +22,8 @@ export const toURL = (url: string): URL | undefined => {
   try {
     return new URL(url);
   } catch {
-    return handleError(`Invalid URL: ${url}, example: 'https://example.com/'`);
+    return throwAppError(
+      `Invalid URL: ${url}, example: 'https://example.com/'`,
+    );
   }
 };

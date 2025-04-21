@@ -1,21 +1,21 @@
-import { handleError as i } from "./handle-error.mjs";
+import { throwAppError as i } from "./error-handling.mjs";
 const s = (t) => {
   try {
-    const n = JSON.parse(t);
-    return new URLSearchParams(n).toString();
+    const r = JSON.parse(t);
+    return new URLSearchParams(r).toString();
   } catch {
     i("Invalid JSON string in body");
     return;
   }
-}, p = async ({
+}, d = async ({
   url: t,
-  body: n,
-  headers: r,
+  body: r,
+  headers: n,
   method: e
 }) => {
   const o = t instanceof URL ? t.toString() : t, c = {
-    body: n ? s(n) : void 0,
-    headers: r ?? {
+    body: r ? s(r) : void 0,
+    headers: n ?? {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
       "User-Agent": "Estarlincito (https://www.estarlincito.com)"
@@ -25,5 +25,5 @@ const s = (t) => {
   return await fetch(o, c);
 };
 export {
-  p as apiFetch
+  d as apiFetch
 };

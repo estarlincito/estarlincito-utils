@@ -3,18 +3,15 @@
  * Extends the built-in `Error` class.
  */
 class AppError extends Error {
-  /**
-   * Creates an instance of `AppError`.
-   *
-   * @param {string} message - The error message.
-   * @param {string} [code] - An optional error code to categorize the error.
-   */
   constructor(
     message: string,
     public code?: string,
   ) {
     super(message);
     this.name = 'AppError';
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, AppError);
+    }
   }
 }
 /**
@@ -26,13 +23,32 @@ class AppError extends Error {
  *
  * @example
  * try {
- *   handleError('Something went wrong', 'ERR001');
+ *   throwAppError('Something went wrong', 'ERR001');
  * } catch (error) {
  *   console.error(error.name); // 'AppError'
  *   console.error(error.message); // 'Something went wrong'
  *   console.error(error.code); // 'ERR001'
  * }
  */
-export const handleError = (message: string, code?: string): never => {
+export const throwAppError = (message: string, code?: string): never => {
   throw new AppError(message, code);
 };
+
+/**
+ * Logs an error to the console in a consistent and readable way.
+ *
+
+ * @param message - Optional context message to prepend.
+ * @param error - The error to log (can be anything).
+ */
+export function logError(message = 'Unexpected error', error: unknown): void {
+  if (error instanceof Error) {
+    // eslint-disable-next-line no-console
+    console.error(`❌ ${message}:`, error.message);
+    // eslint-disable-next-line no-console
+    console.error(error.stack);
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(`❌ ${message}:`, error);
+  }
+}

@@ -104,12 +104,12 @@ type Website = z.infer<typeof WebsiteSchema>;
 /**
  * Schema for book metadata, extending website metadata.
  */
-declare const BookSchema: z.ZodObject<z.objectUtil.extendShape<{
+declare const BookSchema: z.ZodObject<{
     authors: z.ZodTuple<[z.ZodString], z.ZodString>;
     isbn: z.ZodString;
     releaseDate: z.ZodString;
     tags: z.ZodTuple<[z.ZodString], z.ZodString>;
-}, {
+} & {
     description: z.ZodString;
     images: z.ZodTuple<[z.ZodObject<{
         alt: z.ZodString;
@@ -146,7 +146,7 @@ declare const BookSchema: z.ZodObject<z.objectUtil.extendShape<{
     siteName: z.ZodString;
     title: z.ZodString;
     url: z.ZodString;
-}>, "strip", z.ZodTypeAny, {
+}, "strip", z.ZodTypeAny, {
     url: string;
     title: string;
     description: string;
@@ -196,14 +196,14 @@ type Book = z.infer<typeof BookSchema>;
 /**
  * Schema for article metadata, extending website metadata.
  */
-declare const ArticleSchema: z.ZodObject<z.objectUtil.extendShape<{
+declare const ArticleSchema: z.ZodObject<{
     audio: z.ZodOptional<z.ZodString>;
     authors: z.ZodTuple<[z.ZodString], z.ZodString>;
     modifiedTime: z.ZodString;
     publishedTime: z.ZodString;
     section: z.ZodString;
     tags: z.ZodTuple<[z.ZodString], z.ZodString>;
-}, {
+} & {
     description: z.ZodString;
     images: z.ZodTuple<[z.ZodObject<{
         alt: z.ZodString;
@@ -240,7 +240,7 @@ declare const ArticleSchema: z.ZodObject<z.objectUtil.extendShape<{
     siteName: z.ZodString;
     title: z.ZodString;
     url: z.ZodString;
-}>, "strip", z.ZodTypeAny, {
+}, "strip", z.ZodTypeAny, {
     url: string;
     title: string;
     description: string;
@@ -442,12 +442,12 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         }[]];
         siteName: string;
         locale?: string | undefined;
-    }> | z.ZodEffects<z.ZodObject<z.objectUtil.extendShape<{
+    }> | z.ZodEffects<z.ZodObject<{
         authors: z.ZodTuple<[z.ZodString], z.ZodString>;
         isbn: z.ZodString;
         releaseDate: z.ZodString;
         tags: z.ZodTuple<[z.ZodString], z.ZodString>;
-    }, {
+    } & {
         description: z.ZodString;
         images: z.ZodTuple<[z.ZodObject<{
             alt: z.ZodString;
@@ -484,7 +484,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: z.ZodString;
         title: z.ZodString;
         url: z.ZodString;
-    }>, "strip", z.ZodTypeAny, {
+    }, "strip", z.ZodTypeAny, {
         url: string;
         title: string;
         description: string;
@@ -581,14 +581,14 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         releaseDate: string;
         tags: [string, ...string[]];
         locale?: string | undefined;
-    }> | z.ZodEffects<z.ZodObject<z.objectUtil.extendShape<{
+    }> | z.ZodEffects<z.ZodObject<{
         audio: z.ZodOptional<z.ZodString>;
         authors: z.ZodTuple<[z.ZodString], z.ZodString>;
         modifiedTime: z.ZodString;
         publishedTime: z.ZodString;
         section: z.ZodString;
         tags: z.ZodTuple<[z.ZodString], z.ZodString>;
-    }, {
+    } & {
         description: z.ZodString;
         images: z.ZodTuple<[z.ZodObject<{
             alt: z.ZodString;
@@ -625,7 +625,7 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         siteName: z.ZodString;
         title: z.ZodString;
         url: z.ZodString;
-    }>, "strip", z.ZodTypeAny, {
+    }, "strip", z.ZodTypeAny, {
         url: string;
         title: string;
         description: string;

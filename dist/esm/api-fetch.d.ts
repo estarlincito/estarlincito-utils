@@ -20,7 +20,7 @@ export interface ApiFetchTypes {
  * Makes an HTTP request using the `fetch` API.
  *
  * This function sends an HTTP request based on the provided `RequestConfig` object and handles the response.
- * If the request fails (i.e., the response status is not OK), it calls `handleError` with the error message.
+ * If the request fails (i.e., the response status is not OK), it calls `throwAppError` with the error message.
  *
  * @param {RequestConfig} config - The configuration object containing the URL, request method, body (optional, stringified JSON), and optional headers.
  * @returns {Promise<Response>} A promise that resolves to the response object.

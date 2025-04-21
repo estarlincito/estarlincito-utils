@@ -1,28 +1,7 @@
 {
   "name": "@estarlincito/utils",
-  "type": "module",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
-  "types": "./dist/esm/index.d.ts",
-  "main": "./dist/esm/index.mjs",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index.cjs"
-      }
-    }
-  },
-  "scripts": {
-    "lint": "eslint --ext .js,.ts, . && pnpm tsc --noEmit",
-    "build": "pnpm lint && pnpm vite build",
-    "build:w": "vite build --watch",
-    "git": "rm -rf dist && pnpm build && read -p \"Enter commit message: \" msg; git add .; git commit -m \"$msg\"; git push && npm publish --access public"
-  },
   "keywords": [
     "estarlincito-utils",
     "utils",
@@ -42,40 +21,59 @@
     "nodejs",
     "typescript-utils"
   ],
+  "homepage": "https://github.com/estarlincito/estarlincito-utils#readme",
+  "bugs": {
+    "url": "https://github.com/estarlincito/estarlincito-utils/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estarlincito/estarlincito-utils.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Estarlin R",
     "email": "dev@estarlincito.com",
     "url": "https://estarlincito.com"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "main": "./dist/esm/index.mjs",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "LICENSE",
     "README.md",
     "dist",
     "docs"
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/estarlincito/estarlincito-utils#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/estarlincito/estarlincito-utils.git"
+  "scripts": {
+    "build": "pnpm lint && pnpm vite build",
+    "build:w": "vite build --watch",
+    "git": "rm -rf dist && pnpm build && read -p \"Enter commit message: \" msg; git add .; git commit -m \"$msg\"; git push && npm publish --access public",
+    "lint": "eslint --ext .js,.ts, . && pnpm tsc --noEmit"
   },
-  "bugs": {
-    "url": "https://github.com/estarlincito/estarlincito-utils/issues"
+  "dependencies": {
+    "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@estarlincito/eslint": "^1.8.2",
-    "@types/node": "^22.14.0",
-    "eslint": "^9.24.0",
+    "@estarlincito/eslint": "^1.8.5",
+    "@types/node": "^22.14.1",
+    "eslint": "^9.25.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-packagejson": "^2.5.10",
     "typescript": "^5.8.3",
-    "vite": "^6.2.5",
+    "vite": "^6.3.2",
     "vite-plugin-dts": "^4.5.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "unrs-resolver"
     ]
-  },
-  "dependencies": {
-    "zod": "^3.24.2"
   }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
+import { num } from './num.js';
 
 type Name =
   | 'first-name'
@@ -145,7 +146,7 @@ export interface FormZedTypes {
  * // Returns: { placeholder: 'name@domain.com', type: 'email', maxLength: 30, minLength: 5, title: 'Email' }
  */
 export const formZed = (name: Name): Zed | undefined => {
-  const indexOne: string = name[0];
+  const indexOne: string = name[num('0')];
   const title = name
     .replace(indexOne, indexOne.toLocaleUpperCase())
     .replace('-', ' ');
@@ -153,7 +154,7 @@ export const formZed = (name: Name): Zed | undefined => {
   const field = fields[name];
 
   if (!field) {
-    handleError(`${name} was not found in (fields) /lib/zed.ts`);
+    throwAppError(`${name} was not found in (fields) /lib/zed.ts`);
     return undefined;
   }
   return { ...field, title };

@@ -158,11 +158,11 @@ export class GenerateMetadata {
   ): Returns<T> {
     const newImages = openGraph.images.map((image, index) => {
       const updatedImage = { ...image };
-      if (index === 0 && image.height !== undefined) {
+      if (index === num('0') && image.height !== undefined) {
         updatedImage.height = num('600');
       }
 
-      if (index === 0 && image.width !== undefined) {
+      if (index === num('0') && image.width !== undefined) {
         updatedImage.width = num('800');
       }
       return updatedImage;

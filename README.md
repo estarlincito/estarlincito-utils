@@ -43,7 +43,7 @@ yarn add @estarlincito/utils
 
 ### 🔹 [generateMetadata](/docs/metadata.md)
 
-### 🔹 [handleError](/docs/handle-error.md)
+### 🔹 [Error Handling](/docs/error-handling.md)
 
 ### 🔹 [pagination](/docs/pagination.md)
 

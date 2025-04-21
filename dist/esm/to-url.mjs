@@ -1,9 +1,11 @@
-import { handleError as t } from "./handle-error.mjs";
+import { throwAppError as t } from "./error-handling.mjs";
 const o = (r) => {
   try {
     return new URL(r);
   } catch {
-    return t(`Invalid URL: ${r}, example: 'https://example.com/'`);
+    return t(
+      `Invalid URL: ${r}, example: 'https://example.com/'`
+    );
   }
 };
 export {

@@ -1,5 +1,5 @@
-import { handleError as t } from "./handle-error.mjs";
-const o = async (r) => {
+import { throwAppError as t } from "./error-handling.mjs";
+const a = async (r) => {
   try {
     await navigator.clipboard.writeText(r);
   } catch {
@@ -7,5 +7,5 @@ const o = async (r) => {
   }
 };
 export {
-  o as clipMaster
+  a as clipMaster
 };

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
 /**
  * Represents the configuration options for making a request.
  *
@@ -35,7 +35,7 @@ export interface ApiFetchTypes {
  * Encodes an object as a URL-encoded query string.
  *
  * This function takes a JSON string (body) and converts it into a format suitable for sending as `application/x-www-form-urlencoded`.
- * If the input is not a valid JSON string, it calls `handleError` with an error message.
+ * If the input is not a valid JSON string, it calls `throwAppError` with an error message.
  *
  * @param {string} obj - The JSON string to be encoded into a URL-encoded query string.
  * @returns {string} The URL-encoded query string.
@@ -47,7 +47,7 @@ const urlencoded = (obj: string): string | undefined => {
 
     return new URLSearchParams(parsedObj).toString();
   } catch {
-    handleError('Invalid JSON string in body');
+    throwAppError('Invalid JSON string in body');
     return undefined;
   }
 };
@@ -55,7 +55,7 @@ const urlencoded = (obj: string): string | undefined => {
  * Makes an HTTP request using the `fetch` API.
  *
  * This function sends an HTTP request based on the provided `RequestConfig` object and handles the response.
- * If the request fails (i.e., the response status is not OK), it calls `handleError` with the error message.
+ * If the request fails (i.e., the response status is not OK), it calls `throwAppError` with the error message.
  *
  * @param {RequestConfig} config - The configuration object containing the URL, request method, body (optional, stringified JSON), and optional headers.
  * @returns {Promise<Response>} A promise that resolves to the response object.

@@ -1,4 +1,4 @@
-import { handleError } from './handle-error.js';
+import { throwAppError } from './error-handling.js';
 
 /**
  * Generates a copyright statement based on the build year and current year.
@@ -11,7 +11,7 @@ export const copyright = (buildYear: number): string => {
   const currentYear = date.getFullYear();
 
   if (buildYear > currentYear) {
-    handleError(
+    throwAppError(
       `buildYear (${buildYear}) cannot be greater than the current year (${currentYear}).`,
     );
   }
