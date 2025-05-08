@@ -20,7 +20,7 @@ export const copyright = (buildYear: number): string => {
   const ownYears =
     buildYear === currentYear
       ? `Copyright © ${buildYear}`
-      : `Copyright © ${buildYear}-${currentYear}`;
+      : `Copyright © ${buildYear}–${currentYear}`;
 
   return ownYears;
 };
