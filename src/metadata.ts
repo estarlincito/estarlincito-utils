@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { z } from 'zod';
 
@@ -108,7 +110,6 @@ type Returns<T extends Type_['type']> = z.infer<
  * Types for Metadata.
  */
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Metadata {
   /** Possible OpenGraph content types. */
   export type Type = Type_;
@@ -128,14 +129,15 @@ export namespace Metadata {
    * Types for book metadata, extends Website metadata.
    */
   export type Book = z.infer<typeof BookSchema>;
-  export type Return = {
-    Website: Returns<'website'>;
-    Article: Returns<'article'>;
-    Book: Returns<'book'>;
-    Websites: Returns<'website'>[];
-    Articles: Returns<'article'>[];
-    Books: Returns<'book'>[];
-  };
+
+  export namespace Return {
+    export type Website = Returns<'website'>;
+    export type Article = Returns<'article'>;
+    export type Book = Returns<'book'>;
+    export type Websites = Returns<'website'>[];
+    export type Articles = Returns<'article'>[];
+    export type Books = Returns<'book'>[];
+  }
 }
 
 /**

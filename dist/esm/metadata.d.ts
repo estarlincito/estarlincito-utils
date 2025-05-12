@@ -854,14 +854,14 @@ export declare namespace Metadata {
      * Types for book metadata, extends Website metadata.
      */
     type Book = z.infer<typeof BookSchema>;
-    type Return = {
-        Website: Returns<'website'>;
-        Article: Returns<'article'>;
-        Book: Returns<'book'>;
-        Websites: Returns<'website'>[];
-        Articles: Returns<'article'>[];
-        Books: Returns<'book'>[];
-    };
+    namespace Return {
+        type Website = Returns<'website'>;
+        type Article = Returns<'article'>;
+        type Book = Returns<'book'>;
+        type Websites = Returns<'website'>[];
+        type Articles = Returns<'article'>[];
+        type Books = Returns<'book'>[];
+    }
 }
 /**
  * Class for generating metadata for different types of content (website, book, article).
