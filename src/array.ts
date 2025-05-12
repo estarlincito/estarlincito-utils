@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type NestedPaths<T, Depth extends any[] = []> = T extends object
-  ? // eslint-disable-next-line no-magic-numbers
-    Depth['length'] extends 3
+  ? Depth['length'] extends 3
     ? never
     : {
         [K in keyof T]: K extends string
@@ -18,8 +16,8 @@ type NestedValue<T, P extends string> = P extends `${infer K}:${infer Rest}`
     ? NestedValue<T[K], Rest>
     : never
   : P extends keyof T
-  ? T[P]
-  : never;
+    ? T[P]
+    : never;
 
 /**
  * Utility class for array operations.
@@ -86,34 +84,37 @@ export class ArrayUtils {
   ): Record<GK | IK[number], NestedValue<T, GK | IK[number]>>[] {
     const seen = new Set<string>();
 
-    return array.reduce((acc, obj) => {
-      const getNestedValue = <P extends string>(path: P): NestedValue<T, P> =>
-        // eslint-disable-next-line no-shadow
-        path.split(':').reduce((acc: any, part) => acc?.[part], obj);
+    return array.reduce(
+      (acc, obj) => {
+        const getNestedValue = <P extends string>(path: P): NestedValue<T, P> =>
+          // eslint-disable-next-line no-shadow
+          path.split(':').reduce((acc: any, part) => acc?.[part], obj);
 
-      const groupValue = getNestedValue(groupKey);
-      const compositeKey = JSON.stringify({
-        [groupKey]: groupValue,
-        ...Object.fromEntries(includeKeys.map((k) => [k, getNestedValue(k)])),
-      });
-
-      if (!seen.has(compositeKey)) {
-        seen.add(compositeKey);
-        const newItem = {} as Record<string, unknown>;
-
-        // Add group key
-        newItem[groupKey] = groupValue;
-
-        // Add included keys
-        includeKeys.forEach((key) => {
-          newItem[key] = getNestedValue(key);
+        const groupValue = getNestedValue(groupKey);
+        const compositeKey = JSON.stringify({
+          [groupKey]: groupValue,
+          ...Object.fromEntries(includeKeys.map((k) => [k, getNestedValue(k)])),
         });
 
-        acc.push(newItem as (typeof acc)[number]);
-      }
+        if (!seen.has(compositeKey)) {
+          seen.add(compositeKey);
+          const newItem = {} as Record<string, unknown>;
 
-      return acc;
-    }, [] as Record<GK | IK[number], any>[]);
+          // Add group key
+          newItem[groupKey] = groupValue;
+
+          // Add included keys
+          includeKeys.forEach((key) => {
+            newItem[key] = getNestedValue(key);
+          });
+
+          acc.push(newItem as (typeof acc)[number]);
+        }
+
+        return acc;
+      },
+      [] as Record<GK | IK[number], any>[],
+    );
   }
 
   /**

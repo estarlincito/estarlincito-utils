@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { z } from 'zod';
 
-import { num } from './num.js';
-
 /**
  * Schema for image metadata.
  */
@@ -12,11 +10,6 @@ const ImagesSchema = z.object({
   url: z.string(),
   width: z.number().optional(),
 });
-
-/**
- * Types for image metadata.
- */
-type Images = z.infer<typeof ImagesSchema>;
 
 /**
  * Schema for general website metadata.
@@ -31,11 +24,6 @@ const WebsiteSchema = z.object({
 });
 
 /**
- * Types for general website metadata.
- */
-type Website = z.infer<typeof WebsiteSchema>;
-
-/**
  * Schema for book metadata, extending website metadata.
  */
 const BookSchema = z
@@ -46,11 +34,6 @@ const BookSchema = z
     tags: z.tuple([z.string()]).rest(z.string()),
   })
   .merge(WebsiteSchema);
-
-/**
- * Types for book metadata, extends Website metadata.
- */
-type Book = z.infer<typeof BookSchema>;
 
 /**
  * Schema for article metadata, extending website metadata.
@@ -65,16 +48,6 @@ const ArticleSchema = z
     tags: z.tuple([z.string()]).rest(z.string()),
   })
   .merge(WebsiteSchema);
-
-/**
- * Types for article metadata, extends Website metadata.
- */
-type Article = z.infer<typeof ArticleSchema>;
-
-/** Possible OpenGraph content types. */
-type Type = {
-  type: 'article' | 'website' | 'book';
-};
 
 /**
  * OpenGraph metadata schemas for different content types.
@@ -92,18 +65,22 @@ type OpenGraph = z.infer<typeof OpenGraphSchema>;
 type _Image = {
   alt: string;
   url: string;
-  // eslint-disable-next-line no-magic-numbers
   height: 600;
-  // eslint-disable-next-line no-magic-numbers
   width: 800;
 };
+
+/** Possible OpenGraph content types. */
+type Type_ = {
+  type: 'article' | 'website' | 'book';
+};
+
 /**
  * Schema generator for structured metadata.
  *
  * @template T - The OpenGraph content type (`'article' | 'website' | 'book'`).
  * @param {T} type - The type of content for metadata generation.
  */
-const ReturnsSchema = <T extends Type['type']>(type: T) =>
+const ReturnsSchema = <T extends Type_['type']>(type: T) =>
   z.object({
     description: z.string(),
     icons: z.object({
@@ -123,25 +100,42 @@ const ReturnsSchema = <T extends Type['type']>(type: T) =>
 /**
  * Types for Returns.
  */
-type Returns<T extends Type['type']> = z.infer<
+type Returns<T extends Type_['type']> = z.infer<
   ReturnType<typeof ReturnsSchema<T>>
 >;
 
 /**
- * Types for GenerateMetadataTypes.
+ * Types for Metadata.
  */
-export interface GenerateMetadataTypes {
-  Type: Type;
-  Images: Images;
-  Website: Website;
-  Article: Article;
-  Book: Book;
-  ReturnsWebsite: Returns<'website'>;
-  ReturnsArticle: Returns<'article'>;
-  ReturnsBook: Returns<'book'>;
-  ReturnsWebsites: Returns<'website'>[];
-  ReturnsArticles: Returns<'article'>[];
-  ReturnsBooks: Returns<'book'>[];
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace Metadata {
+  /** Possible OpenGraph content types. */
+  export type Type = Type_;
+  /**
+   * Types for image metadata.
+   */
+  export type Images = z.infer<typeof ImagesSchema>;
+  /**
+   * Types for general website metadata.
+   */
+  export type Website = z.infer<typeof WebsiteSchema>;
+  /**
+   * Types for article metadata, extends Website metadata.
+   */
+  export type Article = z.infer<typeof ArticleSchema>;
+  /**
+   * Types for book metadata, extends Website metadata.
+   */
+  export type Book = z.infer<typeof BookSchema>;
+  export type Return = {
+    Website: Returns<'website'>;
+    Article: Returns<'article'>;
+    Book: Returns<'book'>;
+    Websites: Returns<'website'>[];
+    Articles: Returns<'article'>[];
+    Books: Returns<'book'>[];
+  };
 }
 
 /**
@@ -152,18 +146,18 @@ export interface GenerateMetadataTypes {
 export class GenerateMetadata {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
-  private static generate<T extends Type['type']>(
+  private static generate<T extends Type_['type']>(
     openGraph: OpenGraph[T],
     type: T,
   ): Returns<T> {
     const newImages = openGraph.images.map((image, index) => {
       const updatedImage = { ...image };
-      if (index === num('0') && image.height !== undefined) {
-        updatedImage.height = num('600');
+      if (index === 0 && image.height !== undefined) {
+        updatedImage.height = 600;
       }
 
-      if (index === num('0') && image.width !== undefined) {
-        updatedImage.width = num('800');
+      if (index === 0 && image.width !== undefined) {
+        updatedImage.width = 800;
       }
       return updatedImage;
     });
@@ -207,7 +201,7 @@ export class GenerateMetadata {
    * };
    * const metadata = GenerateMetadata.article(articleMeta);
    */
-  static article(meta: Article) {
+  static article(meta: Metadata.Article) {
     return this.generate(meta, 'article');
   }
   /**
@@ -228,7 +222,7 @@ export class GenerateMetadata {
    * const metadata = GenerateMetadata.website(websiteMeta);
    */
 
-  static website(meta: Website) {
+  static website(meta: Metadata.Website) {
     return this.generate(meta, 'website');
   }
 
@@ -253,7 +247,7 @@ export class GenerateMetadata {
    * };
    * const metadata = GenerateMetadata.book(bookMeta);
    */
-  static book(meta: Book) {
+  static book(meta: Metadata.Book) {
     return this.generate(meta, 'book');
   }
 }

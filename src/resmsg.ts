@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 /**
  * Creates a response object with a custom success message and HTTP status code.
  *

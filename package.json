@@ -1,6 +1,6 @@
 {
   "name": "@estarlincito/utils",
-  "version": "2.5.2",
+  "version": "2.5.4",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
   "keywords": [
     "estarlincito-utils",
@@ -61,7 +61,7 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@estarlincito/eslint": "^1.8.5",
+    "@estarlincito/eslint": "^1.9.0",
     "@types/node": "^22.14.1",
     "eslint": "^9.25.0",
     "prettier": "^3.5.3",

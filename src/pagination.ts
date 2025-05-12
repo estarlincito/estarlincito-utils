@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { num } from './num.js';
-
 /**
  * Represents a pagination link, containing a query string and a stop flag.
  */
@@ -101,30 +99,29 @@ export const pagination = <T>(
 
   const emptyPaginationResult = paginationResultSchema.parse({
     data: [],
-    end: num('0'),
-    length: num('0'),
+    end: 0,
+    length: 0,
     next: { query: '#', stop: true },
     prev: { query: '#', stop: true },
-    start: num('0'),
+    start: 0,
   });
 
   if (!page || isNaN(parseInt(page))) {
     return paginationResultSchema.parse({
-      data: data.slice(num('0'), num('6')),
-      end: Math.min(num('6'), data.length),
+      data: data.slice(0, 6),
+      end: Math.min(6, data.length),
       length,
-      next: { query: `?page=2`, stop: data.length < num('6') },
+      next: { query: `?page=2`, stop: data.length < 6 },
       prev: { query: '#', stop: true },
-      start: num('1'),
+      start: 1,
     });
   }
 
-  const parsedPage =
-    typeof page === 'number' ? page : parseInt(page, num('10'));
-  if (parsedPage <= num('0')) return emptyPaginationResult;
+  const parsedPage = typeof page === 'number' ? page : parseInt(page, 10);
+  if (parsedPage <= 0) return emptyPaginationResult;
 
-  const start = (parsedPage - num('1')) * num('6');
-  const end = Math.min(start + num('6'), length);
+  const start = (parsedPage - 1) * 6;
+  const end = Math.min(start + 6, length);
 
   if (start >= end) {
     return emptyPaginationResult;
@@ -135,13 +132,13 @@ export const pagination = <T>(
     end,
     length,
     next: {
-      query: `?page=${parsedPage + num('1')}`,
+      query: `?page=${parsedPage + 1}`,
       stop: end === length,
     },
     prev: {
-      query: parsedPage > num('1') ? `?page=${parsedPage - num('1')}` : '#',
-      stop: parsedPage <= num('1'),
+      query: parsedPage > 1 ? `?page=${parsedPage - 1}` : '#',
+      stop: parsedPage <= 1,
     },
-    start: start + num('1'),
+    start: start + 1,
   });
 };

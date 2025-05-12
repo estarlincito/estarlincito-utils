@@ -19,10 +19,6 @@ declare const ImagesSchema: z.ZodObject<{
     width?: number | undefined;
 }>;
 /**
- * Types for image metadata.
- */
-type Images = z.infer<typeof ImagesSchema>;
-/**
  * Schema for general website metadata.
  */
 declare const WebsiteSchema: z.ZodObject<{
@@ -97,10 +93,6 @@ declare const WebsiteSchema: z.ZodObject<{
     siteName: string;
     locale?: string | undefined;
 }>;
-/**
- * Types for general website metadata.
- */
-type Website = z.infer<typeof WebsiteSchema>;
 /**
  * Schema for book metadata, extending website metadata.
  */
@@ -189,10 +181,6 @@ declare const BookSchema: z.ZodObject<{
     tags: [string, ...string[]];
     locale?: string | undefined;
 }>;
-/**
- * Types for book metadata, extends Website metadata.
- */
-type Book = z.infer<typeof BookSchema>;
 /**
  * Schema for article metadata, extending website metadata.
  */
@@ -287,19 +275,15 @@ declare const ArticleSchema: z.ZodObject<{
     locale?: string | undefined;
     audio?: string | undefined;
 }>;
-/**
- * Types for article metadata, extends Website metadata.
- */
-type Article = z.infer<typeof ArticleSchema>;
-/** Possible OpenGraph content types. */
-type Type = {
-    type: 'article' | 'website' | 'book';
-};
 type _Image = {
     alt: string;
     url: string;
     height: 600;
     width: 800;
+};
+/** Possible OpenGraph content types. */
+type Type_ = {
+    type: 'article' | 'website' | 'book';
 };
 /**
  * Schema generator for structured metadata.
@@ -307,7 +291,7 @@ type _Image = {
  * @template T - The OpenGraph content type (`'article' | 'website' | 'book'`).
  * @param {T} type - The type of content for metadata generation.
  */
-declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
+declare const ReturnsSchema: <T extends Type_["type"]>(type: T) => z.ZodObject<{
     description: z.ZodString;
     icons: z.ZodObject<{
         icon: z.ZodString;
@@ -321,267 +305,6 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
     }>;
     metadataBase: z.ZodType<URL, z.ZodTypeDef, URL>;
     openGraph: z.ZodEffects<z.ZodObject<{
-        description: z.ZodString;
-        images: z.ZodTuple<[z.ZodObject<{
-            alt: z.ZodString;
-            height: z.ZodOptional<z.ZodNumber>;
-            url: z.ZodString;
-            width: z.ZodOptional<z.ZodNumber>;
-        }, "strip", z.ZodTypeAny, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }>], z.ZodObject<{
-            alt: z.ZodString;
-            height: z.ZodOptional<z.ZodNumber>;
-            url: z.ZodString;
-            width: z.ZodOptional<z.ZodNumber>;
-        }, "strip", z.ZodTypeAny, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }>>;
-        locale: z.ZodDefault<z.ZodString>;
-        siteName: z.ZodString;
-        title: z.ZodString;
-        url: z.ZodString;
-    }, "strip", z.ZodTypeAny, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        locale: string;
-        siteName: string;
-    }, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        siteName: string;
-        locale?: string | undefined;
-    }>, {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-    } | {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-        authors: [string, ...string[]];
-        isbn: string;
-        releaseDate: string;
-        tags: [string, ...string[]];
-    } | {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-        authors: [string, ...string[]];
-        tags: [string, ...string[]];
-        modifiedTime: string;
-        publishedTime: string;
-        section: string;
-        audio?: string | undefined;
-    }, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        siteName: string;
-        locale?: string | undefined;
-    }> | z.ZodEffects<z.ZodObject<{
-        authors: z.ZodTuple<[z.ZodString], z.ZodString>;
-        isbn: z.ZodString;
-        releaseDate: z.ZodString;
-        tags: z.ZodTuple<[z.ZodString], z.ZodString>;
-    } & {
-        description: z.ZodString;
-        images: z.ZodTuple<[z.ZodObject<{
-            alt: z.ZodString;
-            height: z.ZodOptional<z.ZodNumber>;
-            url: z.ZodString;
-            width: z.ZodOptional<z.ZodNumber>;
-        }, "strip", z.ZodTypeAny, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }>], z.ZodObject<{
-            alt: z.ZodString;
-            height: z.ZodOptional<z.ZodNumber>;
-            url: z.ZodString;
-            width: z.ZodOptional<z.ZodNumber>;
-        }, "strip", z.ZodTypeAny, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, {
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }>>;
-        locale: z.ZodDefault<z.ZodString>;
-        siteName: z.ZodString;
-        title: z.ZodString;
-        url: z.ZodString;
-    }, "strip", z.ZodTypeAny, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        locale: string;
-        siteName: string;
-        authors: [string, ...string[]];
-        isbn: string;
-        releaseDate: string;
-        tags: [string, ...string[]];
-    }, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        siteName: string;
-        authors: [string, ...string[]];
-        isbn: string;
-        releaseDate: string;
-        tags: [string, ...string[]];
-        locale?: string | undefined;
-    }>, {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-    } | {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-        authors: [string, ...string[]];
-        isbn: string;
-        releaseDate: string;
-        tags: [string, ...string[]];
-    } | {
-        images: [_Image, ..._Image[]];
-        type: T;
-        url: string;
-        title: string;
-        description: string;
-        locale: string;
-        siteName: string;
-        authors: [string, ...string[]];
-        tags: [string, ...string[]];
-        modifiedTime: string;
-        publishedTime: string;
-        section: string;
-        audio?: string | undefined;
-    }, {
-        url: string;
-        title: string;
-        description: string;
-        images: [{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }, ...{
-            url: string;
-            alt: string;
-            height?: number | undefined;
-            width?: number | undefined;
-        }[]];
-        siteName: string;
-        authors: [string, ...string[]];
-        isbn: string;
-        releaseDate: string;
-        tags: [string, ...string[]];
-        locale?: string | undefined;
-    }> | z.ZodEffects<z.ZodObject<{
         audio: z.ZodOptional<z.ZodString>;
         authors: z.ZodTuple<[z.ZodString], z.ZodString>;
         modifiedTime: z.ZodString;
@@ -728,6 +451,267 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
         section: string;
         locale?: string | undefined;
         audio?: string | undefined;
+    }> | z.ZodEffects<z.ZodObject<{
+        authors: z.ZodTuple<[z.ZodString], z.ZodString>;
+        isbn: z.ZodString;
+        releaseDate: z.ZodString;
+        tags: z.ZodTuple<[z.ZodString], z.ZodString>;
+    } & {
+        description: z.ZodString;
+        images: z.ZodTuple<[z.ZodObject<{
+            alt: z.ZodString;
+            height: z.ZodOptional<z.ZodNumber>;
+            url: z.ZodString;
+            width: z.ZodOptional<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }>], z.ZodObject<{
+            alt: z.ZodString;
+            height: z.ZodOptional<z.ZodNumber>;
+            url: z.ZodString;
+            width: z.ZodOptional<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }>>;
+        locale: z.ZodDefault<z.ZodString>;
+        siteName: z.ZodString;
+        title: z.ZodString;
+        url: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        locale: string;
+        siteName: string;
+        authors: [string, ...string[]];
+        isbn: string;
+        releaseDate: string;
+        tags: [string, ...string[]];
+    }, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        siteName: string;
+        authors: [string, ...string[]];
+        isbn: string;
+        releaseDate: string;
+        tags: [string, ...string[]];
+        locale?: string | undefined;
+    }>, {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+    } | {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+        authors: [string, ...string[]];
+        isbn: string;
+        releaseDate: string;
+        tags: [string, ...string[]];
+    } | {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+        authors: [string, ...string[]];
+        tags: [string, ...string[]];
+        modifiedTime: string;
+        publishedTime: string;
+        section: string;
+        audio?: string | undefined;
+    }, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        siteName: string;
+        authors: [string, ...string[]];
+        isbn: string;
+        releaseDate: string;
+        tags: [string, ...string[]];
+        locale?: string | undefined;
+    }> | z.ZodEffects<z.ZodObject<{
+        description: z.ZodString;
+        images: z.ZodTuple<[z.ZodObject<{
+            alt: z.ZodString;
+            height: z.ZodOptional<z.ZodNumber>;
+            url: z.ZodString;
+            width: z.ZodOptional<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }>], z.ZodObject<{
+            alt: z.ZodString;
+            height: z.ZodOptional<z.ZodNumber>;
+            url: z.ZodString;
+            width: z.ZodOptional<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, {
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }>>;
+        locale: z.ZodDefault<z.ZodString>;
+        siteName: z.ZodString;
+        title: z.ZodString;
+        url: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        locale: string;
+        siteName: string;
+    }, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        siteName: string;
+        locale?: string | undefined;
+    }>, {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+    } | {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+        authors: [string, ...string[]];
+        isbn: string;
+        releaseDate: string;
+        tags: [string, ...string[]];
+    } | {
+        images: [_Image, ..._Image[]];
+        type: T;
+        url: string;
+        title: string;
+        description: string;
+        locale: string;
+        siteName: string;
+        authors: [string, ...string[]];
+        tags: [string, ...string[]];
+        modifiedTime: string;
+        publishedTime: string;
+        section: string;
+        audio?: string | undefined;
+    }, {
+        url: string;
+        title: string;
+        description: string;
+        images: [{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }, ...{
+            url: string;
+            alt: string;
+            height?: number | undefined;
+            width?: number | undefined;
+        }[]];
+        siteName: string;
+        locale?: string | undefined;
     }>;
     title: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -847,22 +831,37 @@ declare const ReturnsSchema: <T extends Type["type"]>(type: T) => z.ZodObject<{
 /**
  * Types for Returns.
  */
-type Returns<T extends Type['type']> = z.infer<ReturnType<typeof ReturnsSchema<T>>>;
+type Returns<T extends Type_['type']> = z.infer<ReturnType<typeof ReturnsSchema<T>>>;
 /**
- * Types for GenerateMetadataTypes.
+ * Types for Metadata.
  */
-export interface GenerateMetadataTypes {
-    Type: Type;
-    Images: Images;
-    Website: Website;
-    Article: Article;
-    Book: Book;
-    ReturnsWebsite: Returns<'website'>;
-    ReturnsArticle: Returns<'article'>;
-    ReturnsBook: Returns<'book'>;
-    ReturnsWebsites: Returns<'website'>[];
-    ReturnsArticles: Returns<'article'>[];
-    ReturnsBooks: Returns<'book'>[];
+export declare namespace Metadata {
+    /** Possible OpenGraph content types. */
+    type Type = Type_;
+    /**
+     * Types for image metadata.
+     */
+    type Images = z.infer<typeof ImagesSchema>;
+    /**
+     * Types for general website metadata.
+     */
+    type Website = z.infer<typeof WebsiteSchema>;
+    /**
+     * Types for article metadata, extends Website metadata.
+     */
+    type Article = z.infer<typeof ArticleSchema>;
+    /**
+     * Types for book metadata, extends Website metadata.
+     */
+    type Book = z.infer<typeof BookSchema>;
+    type Return = {
+        Website: Returns<'website'>;
+        Article: Returns<'article'>;
+        Book: Returns<'book'>;
+        Websites: Returns<'website'>[];
+        Articles: Returns<'article'>[];
+        Books: Returns<'book'>[];
+    };
 }
 /**
  * Class for generating metadata for different types of content (website, book, article).
@@ -893,7 +892,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.article(articleMeta);
      */
-    static article(meta: Article): {
+    static article(meta: Metadata.Article): {
         title: string;
         description: string;
         icons: {
@@ -954,7 +953,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.website(websiteMeta);
      */
-    static website(meta: Website): {
+    static website(meta: Metadata.Website): {
         title: string;
         description: string;
         icons: {
@@ -1019,7 +1018,7 @@ export declare class GenerateMetadata {
      * };
      * const metadata = GenerateMetadata.book(bookMeta);
      */
-    static book(meta: Book): {
+    static book(meta: Metadata.Book): {
         title: string;
         description: string;
         icons: {

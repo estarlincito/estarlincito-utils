@@ -1,57 +1,56 @@
 import { z as t } from "zod";
-import { num as s } from "./num.mjs";
-const g = t.object({
+const c = t.object({
   alt: t.string(),
   height: t.number().optional(),
   url: t.string(),
   width: t.number().optional()
-}), o = t.object({
+}), a = t.object({
   description: t.string(),
-  images: t.tuple([g]).rest(g),
+  images: t.tuple([c]).rest(c),
   locale: t.string().default("en-US"),
   siteName: t.string(),
   title: t.string(),
   url: t.string()
-}), l = t.object({
+}), u = t.object({
   authors: t.tuple([t.string()]).rest(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(o), h = t.object({
+}).merge(a), m = t.object({
   audio: t.string().url().optional(),
   authors: t.tuple([t.string()]).rest(t.string()),
   modifiedTime: t.string(),
   publishedTime: t.string(),
   section: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(o), m = t.object({
-  article: h,
-  book: l,
-  website: o
-}), b = (i) => t.object({
+}).merge(a), g = t.object({
+  article: m,
+  book: u,
+  website: a
+}), h = (s) => t.object({
   description: t.string(),
   icons: t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
   metadataBase: t.instanceof(URL),
-  openGraph: m.shape[i].transform((e) => ({
+  openGraph: g.shape[s].transform((e) => ({
     ...e,
     images: e.images,
-    type: i
+    type: s
   })),
   title: t.string()
 });
-class f {
+class d {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
   }
-  static generate(e, r) {
-    const u = e.images.map((n, c) => {
-      const a = { ...n };
-      return c === s("0") && n.height !== void 0 && (a.height = s("600")), c === s("0") && n.width !== void 0 && (a.width = s("800")), a;
+  static generate(e, i) {
+    const l = e.images.map((r, o) => {
+      const n = { ...r };
+      return o === 0 && r.height !== void 0 && (n.height = 600), o === 0 && r.width !== void 0 && (n.width = 800), n;
     });
-    return b(r).parse({
+    return h(i).parse({
       description: e.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
@@ -59,11 +58,11 @@ class f {
       },
       metadataBase: new URL(e.url),
       openGraph: {
-        ...m.shape[r].parse({
+        ...g.shape[i].parse({
           ...e,
-          images: u
+          images: l
         }),
-        type: r
+        type: i
       },
       title: e.title
     });
@@ -139,5 +138,5 @@ class f {
   }
 }
 export {
-  f as GenerateMetadata
+  d as GenerateMetadata
 };

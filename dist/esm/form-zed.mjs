@@ -1,6 +1,5 @@
-import { throwAppError as r } from "./error-handling.mjs";
-import { num as i } from "./num.mjs";
-const o = {
+import { throwAppError as i } from "./error-handling.mjs";
+const r = {
   company: {
     maxLength: 30,
     minLength: 2,
@@ -57,14 +56,14 @@ const o = {
     title: "",
     type: "text"
   }
-}, m = (e) => {
-  const t = e[i("0")], l = e.replace(t, t.toLocaleUpperCase()).replace("-", " "), n = o[e];
+}, o = (e) => {
+  const t = e[0], l = e.replace(t, t.toLocaleUpperCase()).replace("-", " "), n = r[e];
   if (!n) {
-    r(`${e} was not found in (fields) /lib/zed.ts`);
+    i(`${e} was not found in (fields) /lib/zed.ts`);
     return;
   }
   return { ...n, title: l };
 };
 export {
-  m as formZed
+  o as formZed
 };

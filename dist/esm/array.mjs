@@ -49,23 +49,26 @@ class d {
    */
   static getUniqueByKey(r, e, ...s) {
     const a = /* @__PURE__ */ new Set();
-    return r.reduce((o, l) => {
-      const c = (t) => (
-        // eslint-disable-next-line no-shadow
-        t.split(":").reduce((n, m) => n?.[m], l)
-      ), i = c(e), u = JSON.stringify({
-        [e]: i,
-        ...Object.fromEntries(s.map((t) => [t, c(t)]))
-      });
-      if (!a.has(u)) {
-        a.add(u);
-        const t = {};
-        t[e] = i, s.forEach((n) => {
-          t[n] = c(n);
-        }), o.push(t);
-      }
-      return o;
-    }, []);
+    return r.reduce(
+      (o, l) => {
+        const c = (t) => (
+          // eslint-disable-next-line no-shadow
+          t.split(":").reduce((n, m) => n?.[m], l)
+        ), i = c(e), u = JSON.stringify({
+          [e]: i,
+          ...Object.fromEntries(s.map((t) => [t, c(t)]))
+        });
+        if (!a.has(u)) {
+          a.add(u);
+          const t = {};
+          t[e] = i, s.forEach((n) => {
+            t[n] = c(n);
+          }), o.push(t);
+        }
+        return o;
+      },
+      []
+    );
   }
   /**
    * Extracts unique values from an array of objects based on a specified key.
