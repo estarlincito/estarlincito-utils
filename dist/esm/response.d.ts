@@ -1,4 +1,4 @@
-export type BodyInit = Record<string, any> & {
+export type BodyInit = Record<string, any> & Pick<ResponseInit, 'status'> & {
     success?: boolean;
     error?: string;
     message?: string;
@@ -39,6 +39,15 @@ export interface ResponseInit {
  *     success: true
  *   },
  *   {
+ *     status: 200
+ *   }
+ * );
+ * @example
+ * ApiResponse.json(
+ *   {
+ *     data: { count: 300 },
+ *     message: 'Done!',
+ *     success: true
  *     status: 200
  *   }
  * );

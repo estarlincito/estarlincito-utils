@@ -1,5 +1,5 @@
-import { throwAppError as t } from "./error-handling.mjs";
-class p {
+import { throwAppError as r } from "./error-handling.mjs";
+class n {
   // not used yet, but forces subclassing if needed
   /**
    * Creates a JSON response with proper status and optional headers.
@@ -7,21 +7,21 @@ class p {
    * @param init Optional status code and headers.
    * @returns A standardized JSON Response object.
    */
-  static json(s = {}, r = {}) {
-    const { status: e = 200, headers: n } = r;
-    if (s.success === !0 && e !== 200)
-      throw t("Success responses must use status 200.");
-    if (s.success === !1 && e === 200)
-      throw t("Failed responses must use a non-200 status.");
+  static json(s = {}, e = {}) {
+    const t = s.status ?? e.status ?? 200;
+    if (s.success && t !== 200)
+      throw r("Success responses must use status 200.");
+    if (!s.success && t === 200)
+      throw r("Failed responses must use a non-200 status.");
     return new Response(JSON.stringify(s), {
       headers: {
         "Content-Type": "application/json",
-        ...n
+        ...e.headers
       },
-      status: e
+      status: s.status ?? t
     });
   }
 }
 export {
-  p as ApiResponse
+  n as ApiResponse
 };

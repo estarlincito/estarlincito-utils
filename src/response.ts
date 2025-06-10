@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { throwAppError } from './error-handling.js';
 
-export type BodyInit = Record<string, any> & {
-  success?: boolean;
-  error?: string;
-  message?: string;
-};
+export type BodyInit = Record<string, any> &
+  Pick<ResponseInit, 'status'> & {
+    success?: boolean;
+    error?: string;
+    message?: string;
+  };
 
 export type HTTPStatus =
   | 200
@@ -61,6 +62,15 @@ export interface ResponseInit {
  *     status: 200
  *   }
  * );
+ * @example
+ * ApiResponse.json(
+ *   {
+ *     data: { count: 300 },
+ *     message: 'Done!',
+ *     success: true
+ *     status: 200
+ *   }
+ * );
  */
 export abstract class ApiResponse {
   abstract prop: string; // not used yet, but forces subclassing if needed
@@ -72,22 +82,22 @@ export abstract class ApiResponse {
    * @returns A standardized JSON Response object.
    */
   static json(body: BodyInit = {}, init: ResponseInit = {}): Response {
-    const { status = 200, headers } = init;
+    const status = body.status ?? init.status ?? 200;
 
-    if (body.success === true && status !== 200) {
+    if (body.success && status !== 200) {
       throw throwAppError('Success responses must use status 200.');
     }
 
-    if (body.success === false && status === 200) {
+    if (!body.success && status === 200) {
       throw throwAppError('Failed responses must use a non-200 status.');
     }
 
     return new Response(JSON.stringify(body), {
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
+        ...init.headers,
       },
-      status,
+      status: body.status ?? status,
     });
   }
 }
