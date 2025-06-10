@@ -1,39 +1,46 @@
-/**
- * Represents the configuration options for making a request.
- *
- * @interface RequestConfig
- * @property {URL | string} url - The URL for the request, which can be a `URL` object or a string.
- * @property {string} [body] - The body of the request, which should be a JSON string (e.g., `JSON.stringify({ 'first-name': 'Estarlin' })`).
- * @property {HeadersInit} headers - The headers to include in the request.
- * @property {'GET' | 'POST' | 'PUT' | 'DELETE'} method - The HTTP method to use for the request.
- */
-type RequestConfig = {
-    url: URL | string;
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: string;
-    headers?: HeadersInit;
-};
-export interface ApiFetchTypes {
-    RequestConfig: RequestConfig;
+export interface Init extends Pick<RequestInit, 'headers'> {
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    body?: Record<string, string>;
 }
 /**
- * Makes an HTTP request using the `fetch` API.
+ * Wrapper around the native fetch function that automatically formats the body
+ * as `application/x-www-form-urlencoded` when appropriate.
  *
- * This function sends an HTTP request based on the provided `RequestConfig` object and handles the response.
- * If the request fails (i.e., the response status is not OK), it calls `throwAppError` with the error message.
+ * @param {URL|string} url - The URL to fetch. Can be a string or URL object.
+ * @param {Object} [init] - Optional configuration object.
+ * @param {'GET'|'POST'|'PUT'|'DELETE'} [init.method='GET'] - HTTP method.
+ * @param {Record<string, string>} [init.body] - Key-value pairs to send as the request body.
+ * @param {HeadersInit} [init.headers] - Additional headers to include in the request.
  *
- * @param {RequestConfig} config - The configuration object containing the URL, request method, body (optional, stringified JSON), and optional headers.
- * @returns {Promise<Response>} A promise that resolves to the response object.
- * @throws {AppError} Throws an `AppError` if the response status is not OK.
+ * @returns {Promise<Response>} - The fetch Response promise.
  *
  * @example
- * const config: RequestConfig = {
- *   url: 'https://api.example.com/data',
- *   method: 'GET',
- *   body: JSON.stringify({ 'first-name': 'Estarlin' }),
- * };
- * const response = await apiFetch(config);
- * console.log(await response.json());
+ * // Client-side: Sending a POST request with urlencoded body
+ * const response = await apiFetch('https://api.example.com/login', {
+ *   method: 'POST',
+ *   body: {
+ *     token: 'abc123',
+ *   },
+ * });
+ *
+ * if (response.ok) {
+ *   const data = await response.json();
+ *   console.log(data);
+ * }
+ *
+ * @example
+ * // Server-side: Reading the form-urlencoded data from the request (e.g. in a Next.js API route)
+ * export async function POST(req: Request) {
+ *   // In some environments (like Next.js Edge API routes) you can do:
+ *   const formData = await req.formData();
+ *   const token = formData.get('token') ?? '';
+ *
+ *   // Or in Node.js with Express you parse it with middleware like express.urlencoded()
+ *
+ *   return new Response(JSON.stringify({ token }), {
+ *     status: 200,
+ *     headers: { 'Content-Type': 'application/json' },
+ *   });
+ * }
  */
-export declare const apiFetch: ({ url, body, headers, method, }: RequestConfig) => Promise<Response>;
-export {};
+export declare const apiFetch: (url: URL | string, init?: Init) => Promise<Response>;

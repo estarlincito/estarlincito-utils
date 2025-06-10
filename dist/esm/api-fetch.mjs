@@ -1,29 +1,16 @@
-import { throwAppError as i } from "./error-handling.mjs";
-const s = (t) => {
-  try {
-    const r = JSON.parse(t);
-    return new URLSearchParams(r).toString();
-  } catch {
-    i("Invalid JSON string in body");
-    return;
-  }
-}, d = async ({
-  url: t,
-  body: r,
-  headers: n,
-  method: e
-}) => {
-  const o = t instanceof URL ? t.toString() : t, c = {
-    body: r ? s(r) : void 0,
-    headers: n ?? {
+const s = async (o, e = {}) => {
+  const t = o instanceof URL ? o.toString() : o, d = e.method?.toUpperCase() ?? "GET", n = {
+    ...e,
+    body: d !== "GET" && d !== "DELETE" && e.body ? new URLSearchParams(e.body) : void 0,
+    headers: {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "Estarlincito (https://www.estarlincito.com)"
+      ...e.headers ?? {}
     },
-    method: e
+    method: d
   };
-  return await fetch(o, c);
+  return fetch(t, n);
 };
 export {
-  d as apiFetch
+  s as apiFetch
 };
