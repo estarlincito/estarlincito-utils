@@ -144,10 +144,8 @@ export namespace Metadata {
  * Class for generating metadata for different types of content (website, book, article).
  * Each method generates metadata specific to a content type (website, book, or article).
  */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class GenerateMetadata {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+export abstract class GenerateMetadata {
+  abstract prop: string;
   private static generate<T extends Type_['type']>(
     openGraph: OpenGraph[T],
     type: T,

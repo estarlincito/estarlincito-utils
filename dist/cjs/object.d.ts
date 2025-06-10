@@ -1,8 +1,8 @@
 /**
  * A utility class for manipulating object keys, allowing retrieval or removal of specified keys.
  */
-export declare class ObjectUtils {
-    private constructor();
+export declare abstract class ObjectUtils {
+    abstract prop: string;
     /**
      * Generates a new object with either selected or removed keys based on the provided method.
      *

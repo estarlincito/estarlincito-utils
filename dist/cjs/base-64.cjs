@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});class s{constructor(){}static generate(e,t,r){return Buffer.from(e,t).toString(r)}static encode=e=>this.generate(e,"utf-8","base64");static decode=e=>this.generate(e,"base64","utf-8")}exports.Base64=s;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});class s{static generate(e,t,a){return Buffer.from(e,t).toString(a)}static encode=e=>this.generate(e,"utf-8","base64");static decode=e=>this.generate(e,"base64","utf-8")}exports.Base64=s;

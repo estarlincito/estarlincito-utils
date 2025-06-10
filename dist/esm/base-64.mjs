@@ -1,7 +1,4 @@
-class a {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-  }
+class r {
   /**
    * Converts a string between different encodings (base64, utf-8).
    *
@@ -11,8 +8,8 @@ class a {
    * @param to - The target encoding type: 'utf-8' or 'base64'.
    * @returns - The encoded or decoded string in the target format.
    */
-  static generate(e, t, r) {
-    return Buffer.from(e, t).toString(r);
+  static generate(e, t, a) {
+    return Buffer.from(e, t).toString(a);
   }
   /**
    * Encodes a string from UTF-8 to Base64.
@@ -38,5 +35,5 @@ class a {
   static decode = (e) => this.generate(e, "base64", "utf-8");
 }
 export {
-  a as Base64
+  r as Base64
 };

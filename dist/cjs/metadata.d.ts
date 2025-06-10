@@ -867,8 +867,8 @@ export declare namespace Metadata {
  * Class for generating metadata for different types of content (website, book, article).
  * Each method generates metadata specific to a content type (website, book, or article).
  */
-export declare class GenerateMetadata {
-    private constructor();
+export declare abstract class GenerateMetadata {
+    abstract prop: string;
     private static generate;
     /**
      * Generates metadata specifically for an article.

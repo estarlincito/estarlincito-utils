@@ -11,12 +11,12 @@ const c = t.object({
   siteName: t.string(),
   title: t.string(),
   url: t.string()
-}), u = t.object({
+}), m = t.object({
   authors: t.tuple([t.string()]).rest(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), m = t.object({
+}).merge(a), u = t.object({
   audio: t.string().url().optional(),
   authors: t.tuple([t.string()]).rest(t.string()),
   modifiedTime: t.string(),
@@ -24,8 +24,8 @@ const c = t.object({
   section: t.string(),
   tags: t.tuple([t.string()]).rest(t.string())
 }).merge(a), g = t.object({
-  article: m,
-  book: u,
+  article: u,
+  book: m,
   website: a
 }), h = (s) => t.object({
   description: t.string(),
@@ -42,9 +42,6 @@ const c = t.object({
   title: t.string()
 });
 class d {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-  }
   static generate(e, i) {
     const l = e.images.map((r, o) => {
       const n = { ...r };

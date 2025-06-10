@@ -1,7 +1,4 @@
 class t {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-  }
   /**
    * Generates a new object with either selected or removed keys based on the provided method.
    *
@@ -13,10 +10,10 @@ class t {
    * @param {'get' | 'remove'} method - The operation to perform, either 'get' to select keys or 'remove' to exclude them.
    * @returns {Pick<T, K> | Omit<T, K>} - A new object with only the specified keys, either selected or removed.
    */
-  static generate(e, r, i) {
-    const c = Array.isArray(r) ? r : [r];
+  static generate(e, r, n) {
+    const i = Array.isArray(r) ? r : [r];
     return Object.fromEntries(
-      i === "get" ? Object.entries(e).filter(([s]) => c.includes(s)) : Object.entries(e).filter(([s]) => !c.includes(s))
+      n === "get" ? Object.entries(e).filter(([s]) => i.includes(s)) : Object.entries(e).filter(([s]) => !i.includes(s))
     );
   }
   /**

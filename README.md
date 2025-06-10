@@ -57,7 +57,7 @@ yarn add @estarlincito/utils
 
 ### 🔹 [dateFormat](/docs/date-format.md)
 
-### 🔹 [resmsg](/docs/resmsg.md)
+### 🔹 [ApiResponse](/docs/response.md)
 
 ### 🔹 [num](/docs/num.md)
 

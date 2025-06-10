@@ -23,10 +23,8 @@ type NestedValue<T, P extends string> = P extends `${infer K}:${infer Rest}`
  * Utility class for array operations.
  * This class cannot be instantiated.
  */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ArrayUtils {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+export abstract class ArrayUtils {
+  abstract prop: string;
 
   /**
    * Get unique objects by nested keys with full type safety

@@ -1,8 +1,8 @@
 /**
  * A utility class for encoding and decoding Base64 strings.
  */
-export declare class Base64 {
-    private constructor();
+export declare abstract class Base64 {
+    abstract prop: string;
     /**
      * Converts a string between different encodings (base64, utf-8).
      *

@@ -1,10 +1,8 @@
 /**
  * A utility class for manipulating object keys, allowing retrieval or removal of specified keys.
  */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ObjectUtils {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+export abstract class ObjectUtils {
+  abstract prop: string;
   /**
    * Generates a new object with either selected or removed keys based on the provided method.
    *

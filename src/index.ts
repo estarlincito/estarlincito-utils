@@ -11,7 +11,7 @@ export * from './metadata.js';
 export * from './num.js';
 export * from './object.js';
 export * from './pagination.js';
-export * from './resmsg.js';
+export * from './response.js';
 export * from './sort-date.js';
 export * from './to-slug.js';
 export * from './to-url.js';

@@ -1,7 +1,4 @@
 class d {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-  }
   /**
    * Get unique objects by nested keys with full type safety
    * @example
@@ -47,25 +44,25 @@ class d {
    * //   }
    * // ]
    */
-  static getUniqueByKey(r, e, ...s) {
-    const a = /* @__PURE__ */ new Set();
+  static getUniqueByKey(r, t, ...s) {
+    const c = /* @__PURE__ */ new Set();
     return r.reduce(
-      (o, l) => {
-        const c = (t) => (
+      (i, l) => {
+        const a = (e) => (
           // eslint-disable-next-line no-shadow
-          t.split(":").reduce((n, m) => n?.[m], l)
-        ), i = c(e), u = JSON.stringify({
-          [e]: i,
-          ...Object.fromEntries(s.map((t) => [t, c(t)]))
+          e.split(":").reduce((n, m) => n?.[m], l)
+        ), o = a(t), u = JSON.stringify({
+          [t]: o,
+          ...Object.fromEntries(s.map((e) => [e, a(e)]))
         });
-        if (!a.has(u)) {
-          a.add(u);
-          const t = {};
-          t[e] = i, s.forEach((n) => {
-            t[n] = c(n);
-          }), o.push(t);
+        if (!c.has(u)) {
+          c.add(u);
+          const e = {};
+          e[t] = o, s.forEach((n) => {
+            e[n] = a(n);
+          }), i.push(e);
         }
-        return o;
+        return i;
       },
       []
     );
@@ -91,7 +88,7 @@ class d {
    * console.log(uniqueCategories);
    * // Output: ['Tech', 'Health', 'Education']
    */
-  static getUniqueValues = (r, e) => [...new Set(r.map((s) => s[e]))];
+  static getUniqueValues = (r, t) => [...new Set(r.map((s) => s[t]))];
 }
 export {
   d as ArrayUtils

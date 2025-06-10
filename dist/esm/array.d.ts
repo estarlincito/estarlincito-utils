@@ -6,8 +6,8 @@ type NestedValue<T, P extends string> = P extends `${infer K}:${infer Rest}` ? K
  * Utility class for array operations.
  * This class cannot be instantiated.
  */
-export declare class ArrayUtils {
-    private constructor();
+export declare abstract class ArrayUtils {
+    abstract prop: string;
     /**
      * Get unique objects by nested keys with full type safety
      * @example

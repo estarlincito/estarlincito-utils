@@ -1,10 +1,8 @@
 /**
  * A utility class for encoding and decoding Base64 strings.
  */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class Base64 {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+export abstract class Base64 {
+  abstract prop: string;
   /**
    * Converts a string between different encodings (base64, utf-8).
    *
