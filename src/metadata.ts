@@ -1,60 +1,58 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { z } from 'zod';
+import { t } from 'tyne';
 
 /**
  * Schema for image metadata.
  */
-const ImagesSchema = z.object({
-  alt: z.string(),
-  height: z.number().optional(),
-  url: z.string(),
-  width: z.number().optional(),
+const ImagesSchema = t.object({
+  alt: t.string(),
+  height: t.number().optional(),
+  url: t.string(),
+  width: t.number().optional(),
 });
 
 /**
  * Schema for general website metadata.
  */
-const WebsiteSchema = z.object({
-  description: z.string(),
-  images: z.tuple([ImagesSchema]).rest(ImagesSchema),
-  locale: z.string().default('en-US'),
-  siteName: z.string(),
-  title: z.string(),
-  url: z.string(),
+const WebsiteSchema = t.object({
+  description: t.string(),
+  images: t.tuple(ImagesSchema).rest(ImagesSchema),
+  locale: t.string(),
+  siteName: t.string(),
+  title: t.string(),
+  url: t.string(),
 });
 
 /**
  * Schema for book metadata, extending website metadata.
  */
-const BookSchema = z
-  .object({
-    authors: z.tuple([z.string()]).rest(z.string()),
-    isbn: z.string(),
-    releaseDate: z.string(),
-    tags: z.tuple([z.string()]).rest(z.string()),
-  })
-  .merge(WebsiteSchema);
+const BookSchema = t.object({
+  authors: t.tuple(t.string()).rest(t.string()),
+  isbn: t.string(),
+  releaseDate: t.string(),
+  tags: t.tuple(t.string()).rest(t.string()),
+  ...WebsiteSchema.shape,
+});
 
 /**
  * Schema for article metadata, extending website metadata.
  */
-const ArticleSchema = z
-  .object({
-    audio: z.string().url().optional(),
-    authors: z.tuple([z.string()]).rest(z.string()),
-    modifiedTime: z.string(),
-    publishedTime: z.string(),
-    section: z.string(),
-    tags: z.tuple([z.string()]).rest(z.string()),
-  })
-  .merge(WebsiteSchema);
+const ArticleSchema = t.object({
+  audio: t.url().optional(),
+  authors: t.tuple(t.string()).rest(t.string()),
+  modifiedTime: t.string(),
+  publishedTime: t.string(),
+  section: t.string(),
+  tags: t.tuple(t.string()).rest(t.string()),
+  ...WebsiteSchema.shape,
+});
 
 /**
  * OpenGraph metadata schemas for different content types.
  */
-const OpenGraphSchema = z.object({
+const OpenGraphSchema = t.object({
   article: ArticleSchema,
   book: BookSchema,
   website: WebsiteSchema,
@@ -63,13 +61,7 @@ const OpenGraphSchema = z.object({
 /**
  * Types for OpenGraph.
  */
-type OpenGraph = z.infer<typeof OpenGraphSchema>;
-type _Image = {
-  alt: string;
-  url: string;
-  height: 600;
-  width: 800;
-};
+type OpenGraph = t.infer<typeof OpenGraphSchema>;
 
 /** Possible OpenGraph content types. */
 type Type_ = {
@@ -83,26 +75,38 @@ type Type_ = {
  * @param {T} type - The type of content for metadata generation.
  */
 const ReturnsSchema = <T extends Type_['type']>(type: T) =>
-  z.object({
-    description: z.string(),
-    icons: z.object({
-      icon: z.string(),
-      shortcut: z.string(),
+  t.object({
+    description: t.string(),
+    icons: t.object({
+      icon: t.string(),
+      shortcut: t.string(),
     }),
-    metadataBase: z.instanceof(URL),
 
-    openGraph: OpenGraphSchema.shape[type].transform((data) => ({
-      ...data,
-      images: data.images as [_Image, ..._Image[]],
-      type,
-    })),
-    title: z.string(),
+    metadataBase: t.instanceOf(URL),
+
+    openGraph: t.object({
+      ...OpenGraphSchema.shape[type].shape,
+      type: t.literal(type),
+    }),
+    title: t.string(),
   });
+
+/**
+ * Schema of  GenerateMetadata.
+ */
+export const Schemas = {
+  Article: ArticleSchema,
+  Book: BookSchema,
+  Images: ImagesSchema,
+  OpenGraph: OpenGraphSchema,
+  Returns: ReturnsSchema,
+  Website: WebsiteSchema,
+};
 
 /**
  * Types for Returns.
  */
-type Returns<T extends Type_['type']> = z.infer<
+type Returns<T extends Type_['type']> = t.infer<
   ReturnType<typeof ReturnsSchema<T>>
 >;
 
@@ -116,19 +120,19 @@ export namespace Metadata {
   /**
    * Types for image metadata.
    */
-  export type Images = z.infer<typeof ImagesSchema>;
+  export type Images = t.infer<typeof ImagesSchema>;
   /**
    * Types for general website metadata.
    */
-  export type Website = z.infer<typeof WebsiteSchema>;
+  export type Website = t.infer<typeof WebsiteSchema>;
   /**
    * Types for article metadata, extends Website metadata.
    */
-  export type Article = z.infer<typeof ArticleSchema>;
+  export type Article = t.infer<typeof ArticleSchema>;
   /**
    * Types for book metadata, extends Website metadata.
    */
-  export type Book = z.infer<typeof BookSchema>;
+  export type Book = t.infer<typeof BookSchema>;
 
   export namespace Return {
     export type Website = Returns<'website'>;
@@ -162,7 +166,7 @@ export abstract class GenerateMetadata {
       return updatedImage;
     });
 
-    return ReturnsSchema(type).parse({
+    return ReturnsSchema(type).validate({
       description: openGraph.description,
       icons: {
         icon: '/assets/favicons/favicon.ico',
@@ -170,7 +174,7 @@ export abstract class GenerateMetadata {
       },
       metadataBase: new URL(openGraph.url),
       openGraph: {
-        ...OpenGraphSchema.shape[type].parse({
+        ...OpenGraphSchema.shape[type].validate({
           ...openGraph,
           images: newImages,
         }),

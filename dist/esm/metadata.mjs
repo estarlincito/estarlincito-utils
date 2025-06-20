@@ -1,53 +1,61 @@
-import { z as t } from "zod";
-const c = t.object({
+import { t } from "tyne";
+const o = t.object({
   alt: t.string(),
   height: t.number().optional(),
   url: t.string(),
   width: t.number().optional()
-}), a = t.object({
+}), s = t.object({
   description: t.string(),
-  images: t.tuple([c]).rest(c),
-  locale: t.string().default("en-US"),
+  images: t.tuple(o).rest(o),
+  locale: t.string(),
   siteName: t.string(),
   title: t.string(),
   url: t.string()
-}), m = t.object({
-  authors: t.tuple([t.string()]).rest(t.string()),
+}), l = t.object({
+  authors: t.tuple(t.string()).rest(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
-  tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), u = t.object({
-  audio: t.string().url().optional(),
-  authors: t.tuple([t.string()]).rest(t.string()),
+  tags: t.tuple(t.string()).rest(t.string()),
+  ...s.shape
+}), h = t.object({
+  audio: t.url().optional(),
+  authors: t.tuple(t.string()).rest(t.string()),
   modifiedTime: t.string(),
   publishedTime: t.string(),
   section: t.string(),
-  tags: t.tuple([t.string()]).rest(t.string())
-}).merge(a), g = t.object({
-  article: u,
-  book: m,
-  website: a
-}), h = (s) => t.object({
+  tags: t.tuple(t.string()).rest(t.string()),
+  ...s.shape
+}), c = t.object({
+  article: h,
+  book: l,
+  website: s
+}), u = (i) => t.object({
   description: t.string(),
   icons: t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
-  metadataBase: t.instanceof(URL),
-  openGraph: g.shape[s].transform((e) => ({
-    ...e,
-    images: e.images,
-    type: s
-  })),
+  metadataBase: t.instanceOf(URL),
+  openGraph: t.object({
+    ...c.shape[i].shape,
+    type: t.literal(i)
+  }),
   title: t.string()
-});
+}), b = {
+  Article: h,
+  Book: l,
+  Images: o,
+  OpenGraph: c,
+  Returns: u,
+  Website: s
+};
 class d {
-  static generate(e, i) {
-    const l = e.images.map((r, o) => {
-      const n = { ...r };
-      return o === 0 && r.height !== void 0 && (n.height = 600), o === 0 && r.width !== void 0 && (n.width = 800), n;
+  static generate(e, r) {
+    const m = e.images.map((n, g) => {
+      const a = { ...n };
+      return g === 0 && n.height !== void 0 && (a.height = 600), g === 0 && n.width !== void 0 && (a.width = 800), a;
     });
-    return h(i).parse({
+    return u(r).validate({
       description: e.description,
       icons: {
         icon: "/assets/favicons/favicon.ico",
@@ -55,11 +63,11 @@ class d {
       },
       metadataBase: new URL(e.url),
       openGraph: {
-        ...g.shape[i].parse({
+        ...c.shape[r].validate({
           ...e,
-          images: l
+          images: m
         }),
-        type: i
+        type: r
       },
       title: e.title
     });
@@ -135,5 +143,6 @@ class d {
   }
 }
 export {
-  d as GenerateMetadata
+  d as GenerateMetadata,
+  b as Schemas
 };

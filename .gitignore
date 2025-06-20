@@ -1,4 +1,6 @@
 /node_modules
+/dist
+/playground
 /.pnp
 .pnp.js
 /coverage
@@ -10,4 +12,3 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 .env*.local
-

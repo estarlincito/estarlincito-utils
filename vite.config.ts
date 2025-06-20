@@ -7,7 +7,7 @@ import dts from 'vite-plugin-dts';
 const dir = path.resolve(__dirname, 'src');
 const componentFiles = fs
   .readdirSync(dir)
-  .filter((file) => file.endsWith('.ts'));
+  .filter((file) => file.endsWith('.ts') && file !== 'types.ts');
 
 // Generate entry points dynamically
 const entry = componentFiles.reduce((acc: Record<string, string>, file) => {
@@ -21,6 +21,7 @@ const dtsPlugin = dts({
   insertTypesEntry: true,
   outDir: ['dist/esm', 'dist/cjs'],
   tsconfigPath: './tsconfig.json',
+  exclude: ['vite.config.ts'],
 });
 
 export default defineConfig({
