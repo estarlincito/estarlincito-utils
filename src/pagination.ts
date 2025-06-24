@@ -1,15 +1,15 @@
-import { z } from 'zod';
+import { t } from 'tyne';
 
 /**
  * Represents a pagination link, containing a query string and a stop flag.
  */
-const LinkTypeSchema = z.object({
-  query: z.string(),
-  stop: z.boolean(),
+const LinkTypeSchema = t.object({
+  query: t.string(),
+  stop: t.boolean(),
 });
 
 /** Type inferred from `LinkTypeSchema`. */
-type LinkType = z.infer<typeof LinkTypeSchema>;
+type LinkType = t.infer<typeof LinkTypeSchema>;
 /**
  * Represents a page type, which can be either a string (e.g., `'1'`, `'2'`, etc.) or undefined.
  * This is used for pagination to identify the current page.
@@ -20,38 +20,30 @@ type PageType = string | undefined;
  * Defines the schema for paginated results.
  * @template T - The type of items in the paginated data.
  */
-const PaginationResultSchema = <T>() =>
-  z
-    .object({
-      data: z.array(z.any()),
-      end: z.number(),
-      length: z.number(),
-      next: LinkTypeSchema,
-      prev: LinkTypeSchema,
-      start: z.number(),
-    })
-    .transform((pagination) => ({
-      ...pagination,
-      data: pagination.data as T[],
-    }));
+const PaginationResultSchema = t.object({
+  data: t.array(t.any()),
+  end: t.number(),
+  length: t.number(),
+  next: LinkTypeSchema,
+  prev: LinkTypeSchema,
+  start: t.number(),
+});
 
 /**
  * Type inferred from `PaginationResultSchema`, representing a paginated response.
  *
  * @template T - The type of items in the paginated data.
  */
-type PaginationResult<T> = z.infer<
-  ReturnType<typeof PaginationResultSchema<T>>
->;
+type PaginationResult = t.infer<typeof PaginationResultSchema>;
 
 /**
  * Represents pagination-related types.
  *
  * @template T - The type of items in the paginated data.
  */
-export interface PaginationTypes<T> {
+export interface PaginationTypes {
   /** The paginated result containing data and navigation links. */
-  PaginationResult: PaginationResult<T>;
+  PaginationResult: PaginationResult;
   /** The type representing a page identifier. */
   PageType: PageType;
   /** The type representing pagination links. */
@@ -93,11 +85,10 @@ export interface PaginationTypes<T> {
 export const pagination = <T>(
   page: PageType,
   data: T[] = [],
-): PaginationResult<T[]> => {
+): PaginationResult => {
   const { length } = data;
-  const paginationResultSchema = PaginationResultSchema<T[]>();
 
-  const emptyPaginationResult = paginationResultSchema.parse({
+  const emptyPaginationResult = PaginationResultSchema.validate({
     data: [],
     end: 0,
     length: 0,
@@ -107,7 +98,7 @@ export const pagination = <T>(
   });
 
   if (!page || isNaN(parseInt(page))) {
-    return paginationResultSchema.parse({
+    return PaginationResultSchema.validate({
       data: data.slice(0, 6),
       end: Math.min(6, data.length),
       length,
@@ -127,7 +118,7 @@ export const pagination = <T>(
     return emptyPaginationResult;
   }
 
-  return paginationResultSchema.parse({
+  return PaginationResultSchema.validate({
     data: data.slice(start, end),
     end,
     length,

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { t } from 'tyne';
 
 import { throwAppError } from './error-handling.js';
 
@@ -22,7 +22,7 @@ type ConvertLiteral<S> = S extends `${infer N extends number}` ? N : number;
  * @template S - The string type passed to the function.
  */
 export const num = <S extends string>(n: S): ConvertLiteral<S> => {
-  const isNumber = z
+  const isNumber = t
     .string()
     .refine((val) => /^-?\d*\.?\d+$/.test(val), {
       message: 'Format invalid number',
@@ -31,7 +31,7 @@ export const num = <S extends string>(n: S): ConvertLiteral<S> => {
     .refine((val) => !isNaN(val), { message: 'Invalid number' });
 
   try {
-    return isNumber.parse(n) as ConvertLiteral<S>;
+    return isNumber.validate(n) as ConvertLiteral<S>;
   } catch {
     throw throwAppError('Invalid number');
   }

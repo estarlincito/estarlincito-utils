@@ -2,84 +2,84 @@ import { t } from 'tyne';
 /**
  * Schema for image metadata.
  */
-declare const ImagesSchema: import('tyne').TyneObject<{
-    alt: import('tyne').TyneString;
-    height: import('tyne').TyneOptional<number>;
-    url: import('tyne').TyneString;
-    width: import('tyne').TyneOptional<number>;
+declare const ImagesSchema: t.TyneObject<{
+    alt: t.TyneString;
+    height: t.TyneType<number | undefined>;
+    url: t.TyneString;
+    width: t.TyneType<number | undefined>;
 }>;
 /**
  * Schema for general website metadata.
  */
-declare const WebsiteSchema: import('tyne').TyneObject<{
-    description: import('tyne').TyneString;
-    images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
-    }>], import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
+declare const WebsiteSchema: t.TyneObject<{
+    description: t.TyneString;
+    images: t.TyneTuple<[t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
+    }>], t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
     }>>;
-    locale: import('tyne').TyneString;
-    siteName: import('tyne').TyneString;
-    title: import('tyne').TyneString;
-    url: import('tyne').TyneString;
+    locale: t.TyneString;
+    siteName: t.TyneString;
+    title: t.TyneString;
+    url: t.TyneString;
 }>;
 /**
  * Schema for book metadata, extending website metadata.
  */
-declare const BookSchema: import('tyne').TyneObject<{
-    description: import('tyne').TyneString;
-    images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
-    }>], import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
+declare const BookSchema: t.TyneObject<{
+    description: t.TyneString;
+    images: t.TyneTuple<[t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
+    }>], t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
     }>>;
-    locale: import('tyne').TyneString;
-    siteName: import('tyne').TyneString;
-    title: import('tyne').TyneString;
-    url: import('tyne').TyneString;
-    authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-    isbn: import('tyne').TyneString;
-    releaseDate: import('tyne').TyneString;
-    tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+    locale: t.TyneString;
+    siteName: t.TyneString;
+    title: t.TyneString;
+    url: t.TyneString;
+    authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+    isbn: t.TyneString;
+    releaseDate: t.TyneString;
+    tags: t.TyneTuple<[t.TyneString], t.TyneString>;
 }>;
 /**
  * Schema for article metadata, extending website metadata.
  */
-declare const ArticleSchema: import('tyne').TyneObject<{
-    description: import('tyne').TyneString;
-    images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
-    }>], import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
+declare const ArticleSchema: t.TyneObject<{
+    description: t.TyneString;
+    images: t.TyneTuple<[t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
+    }>], t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
     }>>;
-    locale: import('tyne').TyneString;
-    siteName: import('tyne').TyneString;
-    title: import('tyne').TyneString;
-    url: import('tyne').TyneString;
-    audio: import('tyne').TyneOptional<string>;
-    authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-    modifiedTime: import('tyne').TyneString;
-    publishedTime: import('tyne').TyneString;
-    section: import('tyne').TyneString;
-    tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+    locale: t.TyneString;
+    siteName: t.TyneString;
+    title: t.TyneString;
+    url: t.TyneString;
+    audio: t.TyneType<string | undefined>;
+    authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+    modifiedTime: t.TyneString;
+    publishedTime: t.TyneString;
+    section: t.TyneString;
+    tags: t.TyneTuple<[t.TyneString], t.TyneString>;
 }>;
 /** Possible OpenGraph content types. */
 type Type_ = {
@@ -91,293 +91,293 @@ type Type_ = {
  * @template T - The OpenGraph content type (`'article' | 'website' | 'book'`).
  * @param {T} type - The type of content for metadata generation.
  */
-declare const ReturnsSchema: <T extends Type_["type"]>(type: T) => import('tyne').TyneObject<{
-    description: import('tyne').TyneString;
-    icons: import('tyne').TyneObject<{
-        icon: import('tyne').TyneString;
-        shortcut: import('tyne').TyneString;
+declare const ReturnsSchema: <T extends Type_["type"]>(type: T) => t.TyneObject<{
+    description: t.TyneString;
+    icons: t.TyneObject<{
+        icon: t.TyneString;
+        shortcut: t.TyneString;
     }>;
-    metadataBase: import('tyne').TyneInstanceOf<URL>;
-    openGraph: import('tyne').TyneObject<{
-        type: import('tyne').TyneLiteral<T>;
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+    metadataBase: t.TyneInstanceof<URL>;
+    openGraph: t.TyneObject<{
+        type: t.TyneLiteral<T>;
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
     } | {
-        type: import('tyne').TyneLiteral<T>;
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+        type: t.TyneLiteral<T>;
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
-        authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-        isbn: import('tyne').TyneString;
-        releaseDate: import('tyne').TyneString;
-        tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
+        authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+        isbn: t.TyneString;
+        releaseDate: t.TyneString;
+        tags: t.TyneTuple<[t.TyneString], t.TyneString>;
     } | {
-        type: import('tyne').TyneLiteral<T>;
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+        type: t.TyneLiteral<T>;
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
-        audio: import('tyne').TyneOptional<string>;
-        authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-        modifiedTime: import('tyne').TyneString;
-        publishedTime: import('tyne').TyneString;
-        section: import('tyne').TyneString;
-        tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
+        audio: t.TyneType<string | undefined>;
+        authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+        modifiedTime: t.TyneString;
+        publishedTime: t.TyneString;
+        section: t.TyneString;
+        tags: t.TyneTuple<[t.TyneString], t.TyneString>;
     }>;
-    title: import('tyne').TyneString;
+    title: t.TyneString;
 }>;
 /**
  * Schema of  GenerateMetadata.
  */
 export declare const Schemas: {
-    Article: import('tyne').TyneObject<{
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+    Article: t.TyneObject<{
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
-        audio: import('tyne').TyneOptional<string>;
-        authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-        modifiedTime: import('tyne').TyneString;
-        publishedTime: import('tyne').TyneString;
-        section: import('tyne').TyneString;
-        tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
+        audio: t.TyneType<string | undefined>;
+        authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+        modifiedTime: t.TyneString;
+        publishedTime: t.TyneString;
+        section: t.TyneString;
+        tags: t.TyneTuple<[t.TyneString], t.TyneString>;
     }>;
-    Book: import('tyne').TyneObject<{
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+    Book: t.TyneObject<{
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
-        authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-        isbn: import('tyne').TyneString;
-        releaseDate: import('tyne').TyneString;
-        tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
+        authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+        isbn: t.TyneString;
+        releaseDate: t.TyneString;
+        tags: t.TyneTuple<[t.TyneString], t.TyneString>;
     }>;
-    Images: import('tyne').TyneObject<{
-        alt: import('tyne').TyneString;
-        height: import('tyne').TyneOptional<number>;
-        url: import('tyne').TyneString;
-        width: import('tyne').TyneOptional<number>;
+    Images: t.TyneObject<{
+        alt: t.TyneString;
+        height: t.TyneType<number | undefined>;
+        url: t.TyneString;
+        width: t.TyneType<number | undefined>;
     }>;
-    OpenGraph: import('tyne').TyneObject<{
-        article: import('tyne').TyneObject<{
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+    OpenGraph: t.TyneObject<{
+        article: t.TyneObject<{
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
-            audio: import('tyne').TyneOptional<string>;
-            authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-            modifiedTime: import('tyne').TyneString;
-            publishedTime: import('tyne').TyneString;
-            section: import('tyne').TyneString;
-            tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
+            audio: t.TyneType<string | undefined>;
+            authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+            modifiedTime: t.TyneString;
+            publishedTime: t.TyneString;
+            section: t.TyneString;
+            tags: t.TyneTuple<[t.TyneString], t.TyneString>;
         }>;
-        book: import('tyne').TyneObject<{
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+        book: t.TyneObject<{
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
-            authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-            isbn: import('tyne').TyneString;
-            releaseDate: import('tyne').TyneString;
-            tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
+            authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+            isbn: t.TyneString;
+            releaseDate: t.TyneString;
+            tags: t.TyneTuple<[t.TyneString], t.TyneString>;
         }>;
-        website: import('tyne').TyneObject<{
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+        website: t.TyneObject<{
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
         }>;
     }>;
-    Returns: <T extends Type_["type"]>(type: T) => import('tyne').TyneObject<{
-        description: import('tyne').TyneString;
-        icons: import('tyne').TyneObject<{
-            icon: import('tyne').TyneString;
-            shortcut: import('tyne').TyneString;
+    Returns: <T extends Type_["type"]>(type: T) => t.TyneObject<{
+        description: t.TyneString;
+        icons: t.TyneObject<{
+            icon: t.TyneString;
+            shortcut: t.TyneString;
         }>;
-        metadataBase: import('tyne').TyneInstanceOf<URL>;
-        openGraph: import('tyne').TyneObject<{
-            type: import('tyne').TyneLiteral<T>;
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+        metadataBase: t.TyneInstanceof<URL>;
+        openGraph: t.TyneObject<{
+            type: t.TyneLiteral<T>;
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
         } | {
-            type: import('tyne').TyneLiteral<T>;
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+            type: t.TyneLiteral<T>;
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
-            authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-            isbn: import('tyne').TyneString;
-            releaseDate: import('tyne').TyneString;
-            tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
+            authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+            isbn: t.TyneString;
+            releaseDate: t.TyneString;
+            tags: t.TyneTuple<[t.TyneString], t.TyneString>;
         } | {
-            type: import('tyne').TyneLiteral<T>;
-            description: import('tyne').TyneString;
-            images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
-            }>], import('tyne').TyneObject<{
-                alt: import('tyne').TyneString;
-                height: import('tyne').TyneOptional<number>;
-                url: import('tyne').TyneString;
-                width: import('tyne').TyneOptional<number>;
+            type: t.TyneLiteral<T>;
+            description: t.TyneString;
+            images: t.TyneTuple<[t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
+            }>], t.TyneObject<{
+                alt: t.TyneString;
+                height: t.TyneType<number | undefined>;
+                url: t.TyneString;
+                width: t.TyneType<number | undefined>;
             }>>;
-            locale: import('tyne').TyneString;
-            siteName: import('tyne').TyneString;
-            title: import('tyne').TyneString;
-            url: import('tyne').TyneString;
-            audio: import('tyne').TyneOptional<string>;
-            authors: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
-            modifiedTime: import('tyne').TyneString;
-            publishedTime: import('tyne').TyneString;
-            section: import('tyne').TyneString;
-            tags: import('tyne').TyneTuple<[import('tyne').TyneString], import('tyne').TyneString>;
+            locale: t.TyneString;
+            siteName: t.TyneString;
+            title: t.TyneString;
+            url: t.TyneString;
+            audio: t.TyneType<string | undefined>;
+            authors: t.TyneTuple<[t.TyneString], t.TyneString>;
+            modifiedTime: t.TyneString;
+            publishedTime: t.TyneString;
+            section: t.TyneString;
+            tags: t.TyneTuple<[t.TyneString], t.TyneString>;
         }>;
-        title: import('tyne').TyneString;
+        title: t.TyneString;
     }>;
-    Website: import('tyne').TyneObject<{
-        description: import('tyne').TyneString;
-        images: import('tyne').TyneTuple<[import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
-        }>], import('tyne').TyneObject<{
-            alt: import('tyne').TyneString;
-            height: import('tyne').TyneOptional<number>;
-            url: import('tyne').TyneString;
-            width: import('tyne').TyneOptional<number>;
+    Website: t.TyneObject<{
+        description: t.TyneString;
+        images: t.TyneTuple<[t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
+        }>], t.TyneObject<{
+            alt: t.TyneString;
+            height: t.TyneType<number | undefined>;
+            url: t.TyneString;
+            width: t.TyneType<number | undefined>;
         }>>;
-        locale: import('tyne').TyneString;
-        siteName: import('tyne').TyneString;
-        title: import('tyne').TyneString;
-        url: import('tyne').TyneString;
+        locale: t.TyneString;
+        siteName: t.TyneString;
+        title: t.TyneString;
+        url: t.TyneString;
     }>;
 };
 /**
@@ -445,6 +445,7 @@ export declare abstract class GenerateMetadata {
      * const metadata = GenerateMetadata.article(articleMeta);
      */
     static article(meta: Metadata.Article): {
+        title: string;
         description: string;
         icons: {
             icon: string;
@@ -452,71 +453,24 @@ export declare abstract class GenerateMetadata {
         };
         metadataBase: URL;
         openGraph: {
-            type: "article";
+            url: string;
+            title: string;
             description: string;
             images: [{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }, ...{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }[]];
             locale: string;
             siteName: string;
-            title: string;
-            url: string;
-        } | {
             type: "article";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            authors: [string, ...string[]];
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-        } | {
-            type: "article";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            audio: string | undefined;
-            authors: [string, ...string[]];
-            modifiedTime: string;
-            publishedTime: string;
-            section: string;
-            tags: [string, ...string[]];
         };
-        title: string;
     };
     /**
      * Generates metadata specifically for a website.
@@ -536,6 +490,7 @@ export declare abstract class GenerateMetadata {
      * const metadata = GenerateMetadata.website(websiteMeta);
      */
     static website(meta: Metadata.Website): {
+        title: string;
         description: string;
         icons: {
             icon: string;
@@ -543,71 +498,24 @@ export declare abstract class GenerateMetadata {
         };
         metadataBase: URL;
         openGraph: {
-            type: "website";
+            url: string;
+            title: string;
             description: string;
             images: [{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }, ...{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }[]];
             locale: string;
             siteName: string;
-            title: string;
-            url: string;
-        } | {
             type: "website";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            authors: [string, ...string[]];
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-        } | {
-            type: "website";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            audio: string | undefined;
-            authors: [string, ...string[]];
-            modifiedTime: string;
-            publishedTime: string;
-            section: string;
-            tags: [string, ...string[]];
         };
-        title: string;
     };
     /**
      * Generates metadata specifically for a book.
@@ -631,6 +539,7 @@ export declare abstract class GenerateMetadata {
      * const metadata = GenerateMetadata.book(bookMeta);
      */
     static book(meta: Metadata.Book): {
+        title: string;
         description: string;
         icons: {
             icon: string;
@@ -638,71 +547,24 @@ export declare abstract class GenerateMetadata {
         };
         metadataBase: URL;
         openGraph: {
-            type: "book";
+            url: string;
+            title: string;
             description: string;
             images: [{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }, ...{
+                url: string;
                 alt: string;
                 height: number | undefined;
-                url: string;
                 width: number | undefined;
             }[]];
             locale: string;
             siteName: string;
-            title: string;
-            url: string;
-        } | {
             type: "book";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            authors: [string, ...string[]];
-            isbn: string;
-            releaseDate: string;
-            tags: [string, ...string[]];
-        } | {
-            type: "book";
-            description: string;
-            images: [{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }, ...{
-                alt: string;
-                height: number | undefined;
-                url: string;
-                width: number | undefined;
-            }[]];
-            locale: string;
-            siteName: string;
-            title: string;
-            url: string;
-            audio: string | undefined;
-            authors: [string, ...string[]];
-            modifiedTime: string;
-            publishedTime: string;
-            section: string;
-            tags: [string, ...string[]];
         };
-        title: string;
     };
 }
 export {};

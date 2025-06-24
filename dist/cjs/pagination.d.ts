@@ -1,19 +1,13 @@
-import { z } from 'zod';
+import { t } from 'tyne';
 /**
  * Represents a pagination link, containing a query string and a stop flag.
  */
-declare const LinkTypeSchema: z.ZodObject<{
-    query: z.ZodString;
-    stop: z.ZodBoolean;
-}, "strip", z.ZodTypeAny, {
-    query: string;
-    stop: boolean;
-}, {
-    query: string;
-    stop: boolean;
+declare const LinkTypeSchema: t.TyneObject<{
+    query: t.TyneString;
+    stop: t.TyneBoolean;
 }>;
 /** Type inferred from `LinkTypeSchema`. */
-type LinkType = z.infer<typeof LinkTypeSchema>;
+type LinkType = t.infer<typeof LinkTypeSchema>;
 /**
  * Represents a page type, which can be either a string (e.g., `'1'`, `'2'`, etc.) or undefined.
  * This is used for pagination to identify the current page.
@@ -23,98 +17,34 @@ type PageType = string | undefined;
  * Defines the schema for paginated results.
  * @template T - The type of items in the paginated data.
  */
-declare const PaginationResultSchema: <T>() => z.ZodEffects<z.ZodObject<{
-    data: z.ZodArray<z.ZodAny, "many">;
-    end: z.ZodNumber;
-    length: z.ZodNumber;
-    next: z.ZodObject<{
-        query: z.ZodString;
-        stop: z.ZodBoolean;
-    }, "strip", z.ZodTypeAny, {
-        query: string;
-        stop: boolean;
-    }, {
-        query: string;
-        stop: boolean;
+declare const PaginationResultSchema: t.TyneObject<{
+    data: t.TyneArray<t.TyneAny>;
+    end: t.TyneNumber;
+    length: t.TyneNumber;
+    next: t.TyneObject<{
+        query: t.TyneString;
+        stop: t.TyneBoolean;
     }>;
-    prev: z.ZodObject<{
-        query: z.ZodString;
-        stop: z.ZodBoolean;
-    }, "strip", z.ZodTypeAny, {
-        query: string;
-        stop: boolean;
-    }, {
-        query: string;
-        stop: boolean;
+    prev: t.TyneObject<{
+        query: t.TyneString;
+        stop: t.TyneBoolean;
     }>;
-    start: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    length: number;
-    data: any[];
-    end: number;
-    next: {
-        query: string;
-        stop: boolean;
-    };
-    prev: {
-        query: string;
-        stop: boolean;
-    };
-    start: number;
-}, {
-    length: number;
-    data: any[];
-    end: number;
-    next: {
-        query: string;
-        stop: boolean;
-    };
-    prev: {
-        query: string;
-        stop: boolean;
-    };
-    start: number;
-}>, {
-    data: T[];
-    length: number;
-    end: number;
-    next: {
-        query: string;
-        stop: boolean;
-    };
-    prev: {
-        query: string;
-        stop: boolean;
-    };
-    start: number;
-}, {
-    length: number;
-    data: any[];
-    end: number;
-    next: {
-        query: string;
-        stop: boolean;
-    };
-    prev: {
-        query: string;
-        stop: boolean;
-    };
-    start: number;
+    start: t.TyneNumber;
 }>;
 /**
  * Type inferred from `PaginationResultSchema`, representing a paginated response.
  *
  * @template T - The type of items in the paginated data.
  */
-type PaginationResult<T> = z.infer<ReturnType<typeof PaginationResultSchema<T>>>;
+type PaginationResult = t.infer<typeof PaginationResultSchema>;
 /**
  * Represents pagination-related types.
  *
  * @template T - The type of items in the paginated data.
  */
-export interface PaginationTypes<T> {
+export interface PaginationTypes {
     /** The paginated result containing data and navigation links. */
-    PaginationResult: PaginationResult<T>;
+    PaginationResult: PaginationResult;
     /** The type representing a page identifier. */
     PageType: PageType;
     /** The type representing pagination links. */
@@ -152,5 +82,5 @@ export interface PaginationTypes<T> {
  * console.log(result.prev.query); // "?page=1"
  * ```
  */
-export declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult<T[]>;
+export declare const pagination: <T>(page: PageType, data?: T[]) => PaginationResult;
 export {};

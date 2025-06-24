@@ -35,7 +35,7 @@ const o = t.object({
     icon: t.string(),
     shortcut: t.string()
   }),
-  metadataBase: t.instanceOf(URL),
+  metadataBase: t.instanceof(URL),
   openGraph: t.object({
     ...c.shape[i].shape,
     type: t.literal(i)

@@ -82,7 +82,7 @@ const ReturnsSchema = <T extends Type_['type']>(type: T) =>
       shortcut: t.string(),
     }),
 
-    metadataBase: t.instanceOf(URL),
+    metadataBase: t.instanceof(URL),
 
     openGraph: t.object({
       ...OpenGraphSchema.shape[type].shape,

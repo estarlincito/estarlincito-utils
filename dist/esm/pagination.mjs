@@ -1,19 +1,16 @@
-import { z as t } from "zod";
-const i = t.object({
+import { t } from "tyne";
+const p = t.object({
   query: t.string(),
   stop: t.boolean()
-}), c = () => t.object({
+}), i = t.object({
   data: t.array(t.any()),
   end: t.number(),
   length: t.number(),
-  next: i,
-  prev: i,
+  next: p,
+  prev: p,
   start: t.number()
-}).transform((e) => ({
-  ...e,
-  data: e.data
-})), y = (e, r = []) => {
-  const { length: s } = r, p = c(), u = p.parse({
+}), l = (n, r = []) => {
+  const { length: a } = r, u = i.validate({
     data: [],
     end: 0,
     length: 0,
@@ -21,33 +18,33 @@ const i = t.object({
     prev: { query: "#", stop: !0 },
     start: 0
   });
-  if (!e || isNaN(parseInt(e)))
-    return p.parse({
+  if (!n || isNaN(parseInt(n)))
+    return i.validate({
       data: r.slice(0, 6),
       end: Math.min(6, r.length),
-      length: s,
+      length: a,
       next: { query: "?page=2", stop: r.length < 6 },
       prev: { query: "#", stop: !0 },
       start: 1
     });
-  const n = typeof e == "number" ? e : parseInt(e, 10);
-  if (n <= 0) return u;
-  const a = (n - 1) * 6, o = Math.min(a + 6, s);
-  return a >= o ? u : p.parse({
-    data: r.slice(a, o),
+  const e = typeof n == "number" ? n : parseInt(n, 10);
+  if (e <= 0) return u;
+  const s = (e - 1) * 6, o = Math.min(s + 6, a);
+  return s >= o ? u : i.validate({
+    data: r.slice(s, o),
     end: o,
-    length: s,
+    length: a,
     next: {
-      query: `?page=${n + 1}`,
-      stop: o === s
+      query: `?page=${e + 1}`,
+      stop: o === a
     },
     prev: {
-      query: n > 1 ? `?page=${n - 1}` : "#",
-      stop: n <= 1
+      query: e > 1 ? `?page=${e - 1}` : "#",
+      stop: e <= 1
     },
-    start: a + 1
+    start: s + 1
   });
 };
 export {
-  y as pagination
+  l as pagination
 };
