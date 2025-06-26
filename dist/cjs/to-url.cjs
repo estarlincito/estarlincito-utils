@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const r=require("./error-handling.cjs"),t=e=>{try{return new URL(e)}catch{return r.throwAppError(`Invalid URL: ${e}, example: 'https://example.com/'`)}};exports.toURL=t;

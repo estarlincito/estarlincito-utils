@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       tyne:
-        specifier: ^1.0.12
-        version: 1.0.12
+        specifier: ^1.0.13
+        version: 1.0.13
     devDependencies:
       '@estarlincito/eslint':
         specifier: ^1.9.0
@@ -1816,8 +1816,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  tyne@1.0.12:
-    resolution: {integrity: sha512-c7nyJ8e3dg0Cn7+OOO5wulJHdimGEum0QIJa0yJziYhvo9YCBfl3RuI3JSQYS4cWmIhJfUfZCwhLzndKK47LsQ==}
+  tyne@1.0.13:
+    resolution: {integrity: sha512-NteQUSA/4LBi8PbIW/PgvcMD/mSX9Sdm6o38EaHAZP96u5UTCXgQtgajjO0Jyz/JPUTcumhFZTEAjz4tPF+k4A==}
     hasBin: true
 
   type-check@0.4.0:
@@ -3933,7 +3933,7 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  tyne@1.0.12: {}
+  tyne@1.0.13: {}
 
   type-check@0.4.0:
     dependencies:

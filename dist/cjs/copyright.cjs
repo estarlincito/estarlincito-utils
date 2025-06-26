@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./error-handling.cjs"),o=r=>{const t=new Date().getFullYear();return r>t&&e.throwAppError(`buildYear (${r}) cannot be greater than the current year (${t}).`),r===t?`Copyright © ${r}`:`Copyright © ${r}–${t}`};exports.copyright=o;

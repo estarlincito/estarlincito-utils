@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const a=t=>{const e=new Date(t),o={day:"2-digit",month:"short",year:"numeric"};return e.toLocaleDateString("en-US",o)};exports.dateFormat=a;
