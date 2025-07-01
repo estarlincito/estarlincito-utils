@@ -20,6 +20,7 @@ const WebsiteSchema = t.object({
   description: t.string(),
   images: t.tuple(ImagesSchema).rest(ImagesSchema),
   locale: t.string(),
+  metadataBase: t.url().optional(),
   siteName: t.string(),
   title: t.string(),
   url: t.string(),
@@ -166,16 +167,20 @@ export abstract class GenerateMetadata {
       return updatedImage;
     });
 
+    const { metadataBase, ...rest } = openGraph;
+
     return ReturnsSchema(type).validate({
       description: openGraph.description,
       icons: {
         icon: '/assets/favicons/favicon.ico',
         shortcut: '/assets/favicons/shortcut-icon.png',
       },
-      metadataBase: new URL(openGraph.url),
+      metadataBase: metadataBase
+        ? new URL(metadataBase)
+        : new URL(new URL(openGraph.url).origin),
       openGraph: {
         ...OpenGraphSchema.shape[type].validate({
-          ...openGraph,
+          ...rest,
           images: newImages,
         }),
         type,
