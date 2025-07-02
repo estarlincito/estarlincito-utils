@@ -18,7 +18,7 @@ const ImagesSchema = t.object({
  */
 const WebsiteSchema = t.object({
   description: t.string(),
-  images: t.tuple(ImagesSchema).rest(ImagesSchema),
+  images: t.array(ImagesSchema),
   locale: t.string(),
   metadataBase: t.url().optional(),
   siteName: t.string(),
@@ -30,10 +30,10 @@ const WebsiteSchema = t.object({
  * Schema for book metadata, extending website metadata.
  */
 const BookSchema = t.object({
-  authors: t.tuple(t.string()).rest(t.string()),
+  authors: t.array(t.string()),
   isbn: t.string(),
   releaseDate: t.string(),
-  tags: t.tuple(t.string()).rest(t.string()),
+  tags: t.array(t.string()),
   ...WebsiteSchema.shape,
 });
 
@@ -42,11 +42,11 @@ const BookSchema = t.object({
  */
 const ArticleSchema = t.object({
   audio: t.url().optional(),
-  authors: t.tuple(t.string()).rest(t.string()),
+  authors: t.array(t.string()),
   modifiedTime: t.string(),
   publishedTime: t.string(),
   section: t.string(),
-  tags: t.tuple(t.string()).rest(t.string()),
+  tags: t.array(t.string()),
   ...WebsiteSchema.shape,
 });
 

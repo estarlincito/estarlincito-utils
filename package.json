@@ -1,6 +1,6 @@
 {
   "name": "@estarlincito/utils",
-  "version": "2.5.14",
+  "version": "2.5.15",
   "description": "A collection of utility functions designed to simplify and speed up development tasks in JavaScript and TypeScript projects.",
   "keywords": [
     "estarlincito-utils",
