@@ -18,6 +18,12 @@ const ImagesSchema = t.object({
  */
 const WebsiteSchema = t.object({
   description: t.string(),
+  icons: t
+    .object({
+      icon: t.string(),
+      shortcut: t.string(),
+    })
+    .optional(),
   images: t.array(ImagesSchema),
   locale: t.string(),
   metadataBase: t.url().optional(),
@@ -78,13 +84,8 @@ type Type_ = {
 const ReturnsSchema = <T extends Type_['type']>(type: T) =>
   t.object({
     description: t.string(),
-    icons: t.object({
-      icon: t.string(),
-      shortcut: t.string(),
-    }),
-
+    icons: WebsiteSchema.shape.icons,
     metadataBase: t.instanceof(URL),
-
     openGraph: t.object({
       ...OpenGraphSchema.shape[type].shape,
       type: t.literal(type),
@@ -167,13 +168,13 @@ export abstract class GenerateMetadata {
       return updatedImage;
     });
 
-    const { metadataBase, ...rest } = openGraph;
+    const { metadataBase, icons, ...rest } = openGraph;
 
     return ReturnsSchema(type).validate({
       description: openGraph.description,
-      icons: {
-        icon: '/assets/favicons/favicon.ico',
-        shortcut: '/assets/favicons/shortcut-icon.png',
+      icons: icons ?? {
+        icon: '/favicon.ico',
+        shortcut: '/shortcut-icon.png',
       },
       metadataBase: metadataBase
         ? new URL(metadataBase)
